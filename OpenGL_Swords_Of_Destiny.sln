@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.271
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGL_Swords_Of_Destiny", "OpenGL_Swords_Of_Destiny\OpenGL_Swords_Of_Destiny.vcxproj", "{F488E398-B824-4AB1-854A-12429E37AEEF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F488E398-B824-4AB1-854A-12429E37AEEF}.Debug|x64.ActiveCfg = Debug|x64
+		{F488E398-B824-4AB1-854A-12429E37AEEF}.Debug|x64.Build.0 = Debug|x64
+		{F488E398-B824-4AB1-854A-12429E37AEEF}.Debug|x86.ActiveCfg = Debug|Win32
+		{F488E398-B824-4AB1-854A-12429E37AEEF}.Debug|x86.Build.0 = Debug|Win32
+		{F488E398-B824-4AB1-854A-12429E37AEEF}.Release|x64.ActiveCfg = Release|x64
+		{F488E398-B824-4AB1-854A-12429E37AEEF}.Release|x64.Build.0 = Release|x64
+		{F488E398-B824-4AB1-854A-12429E37AEEF}.Release|x86.ActiveCfg = Release|Win32
+		{F488E398-B824-4AB1-854A-12429E37AEEF}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6698BD48-F6A7-46D2-8883-350157F80716}
+	EndGlobalSection
+EndGlobal

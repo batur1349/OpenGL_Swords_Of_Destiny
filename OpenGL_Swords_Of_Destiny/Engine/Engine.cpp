@@ -15,6 +15,8 @@ Engine::Engine()
 
 		// Initialize glew using experimental
 		glewExperimental = true;
+
+		// Initialize the glew
 		GLenum status = glewInit();
 
 		// Check if the GLEW has initialized
@@ -40,22 +42,28 @@ Engine::~Engine()
 {
 	// Delete the window 
 	delete _window;
+
 	// Cleanup the GLFW stuff
 	glfwTerminate();
 }
 
 void Engine::Run()
 {
-	std::cout << "Engine::Run() loop is now running!" << "\n";
+	// TEMPORARY DELETE LATER FOR TESTING
+	State state(_window);
 
 	while (_window->IsOpen())
 	{
 		// Update the deltaTime 
 		UpdateDeltatime();
 
+		// Update the state
+		state.Update(_deltaTime);
+
 		// Update the window
 		_window->Update();
 
+		// If escape key has pressed, close the window
 		if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_ESCAPE) == GLFW_PRESS)
 			_window->Close();
 	}
@@ -63,9 +71,13 @@ void Engine::Run()
 
 void Engine::UpdateDeltatime()
 {
-	// Calculate deltatime of current frame
+	// Get the current frame time
 	float currentFrame = glfwGetTime();
+
+	// Calculate the delta time
 	_deltaTime = currentFrame - _lastFrame;
+
+	// Set the last frame
 	_lastFrame = currentFrame;
 
 	// Update the window's ms title

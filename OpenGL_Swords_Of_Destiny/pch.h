@@ -13,6 +13,7 @@
 #include <map>
 #include <chrono>
 #include <thread>
+#include <stack>
 
 // GLEW Includes
 #define GLEW_STATIC
@@ -26,6 +27,9 @@
 #include <assimp/Importer.hpp>      // C++ importer interface
 #include <assimp/scene.h>           // Output data structure
 #include <assimp/postprocess.h>     // Post processing flags
+
+// Additional System Includes
+#include <Windows.h>
 
 // GLM Mathematics Includes
 #define GLM_FORCE_CTOR_INIT

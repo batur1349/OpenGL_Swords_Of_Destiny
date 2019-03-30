@@ -1,14 +1,36 @@
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
-
 #ifndef PCH_H
 #define PCH_H
 
-// TODO: add headers that you want to pre-compile here
+// System Includes
+#include <string>
+#include <iostream>
+#include <cmath>
+#include <vector>
+#include <time.h>
+#include <fstream>
+#include <istream>
+#include <sstream>
+#include <map>
+#include <chrono>
+#include <thread>
+
+// GLEW Includes
+#define GLEW_STATIC
+#include <GL/glew.h>
+
+// GLFW Includes
+#include <GLFW/glfw3.h>
+
+// Other Includes
+#include <SOIL2.h>
+#include <assimp/Importer.hpp>      // C++ importer interface
+#include <assimp/scene.h>           // Output data structure
+#include <assimp/postprocess.h>     // Post processing flags
+
+// GLM Mathematics Includes
+#define GLM_FORCE_CTOR_INIT
+#include <glm.hpp>
+#include <gtc/matrix_transform.hpp>
+#include <gtc/type_ptr.hpp>
 
 #endif //PCH_H

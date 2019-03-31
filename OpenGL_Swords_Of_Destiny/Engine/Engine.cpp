@@ -45,20 +45,31 @@ Engine::~Engine()
 
 	// Cleanup the GLFW stuff
 	glfwTerminate();
+
+	// Cleanup the states
+	while (!_states.empty())
+	{
+		// Delete the top state
+		delete _states.top();
+		// Pop the states
+		_states.pop();
+	}
 }
 
 void Engine::Run()
 {
-	// TEMPORARY DELETE LATER FOR TESTING
-	State state(_window);
+	// TESTING
+	_states.push(new MainmenuState(_window, &_states));
+	std::cout << "Pushing MainmenuState" << std::endl;
+	std::cout << "States Size :" << _states.size() << std::endl;
 
 	while (_window->IsOpen())
 	{
 		// Update the deltaTime 
 		UpdateDeltatime();
 
-		// Update the state
-		state.Update(_deltaTime);
+		// Update the states
+		UpdateStates();
 
 		// Update the window
 		_window->Update();
@@ -66,6 +77,25 @@ void Engine::Run()
 		// If escape key has pressed, close the window
 		if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_ESCAPE) == GLFW_PRESS)
 			_window->Close();
+	}
+}
+
+void Engine::UpdateStates()
+{
+	if (!_states.empty())
+	{
+		_states.top()->Update(_deltaTime);
+
+		if (_states.top()->GetQuit())
+		{
+			_states.top()->EndState();
+			delete _states.top();
+			_states.pop();
+		}
+	}
+	else // Application End
+	{
+		_window->Close();
 	}
 }
 

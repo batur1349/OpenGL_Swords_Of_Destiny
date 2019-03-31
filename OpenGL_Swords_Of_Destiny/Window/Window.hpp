@@ -23,7 +23,8 @@ public:
 	const unsigned int& GetFramelimit() const;
 	const glm::vec2& GetMousepositionScreen() const;
 	const glm::vec2& GetMousepositionWindow() const;
-	GLFWwindow* GetWindow();
+	const unsigned int& GetScreenWidth() const;
+	const unsigned int& GetScreenHeight() const;
 
 	// Setters
 	void SetMsTitle(const std::string& msTitle);

@@ -7,7 +7,7 @@ class State
 {
 public:
 	// Constructor and ~Destructor
-	State(Window* window);
+	State(Window* window, std::stack<State*>* statesPtr);
 	virtual ~State();
 
 	// Getters
@@ -15,6 +15,9 @@ public:
 	const bool GetKeytime();
 	const glm::vec2& GetMousePositionScreen() const;
 	const glm::vec2& GetMousePositionWindow() const;
+
+	// Setters
+	virtual void SetStates(std::stack<State*>* ptr);
 
 	// Functions
 	void EndState();
@@ -24,8 +27,9 @@ public:
 	virtual void Update(const float& dt);
 	virtual void UpdateMousePositions();
 	virtual void UpdateKeytime(const float& dt);
-	virtual void UpdateInput(const float& dt); // = 0; GOING TO MAKE THIS CLASS ABSTRACT
-private:
+	virtual void UpdateInput(const float& dt) = 0;
+	virtual void Render() = 0;
+protected:
 	// Variables
 	Window* _window;
 

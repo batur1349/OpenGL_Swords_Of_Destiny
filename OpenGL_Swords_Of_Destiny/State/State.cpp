@@ -2,7 +2,8 @@
 #include "State.hpp"
 
 
-State::State(Window * window)
+State::State(Window * window, std::stack<State*> * statesPtr)
+	: _states(statesPtr)
 {
 	_window = window;
 	_quit = false;
@@ -41,6 +42,11 @@ const glm::vec2 & State::GetMousePositionWindow() const
 	return _mousePositionWindow;
 }
 
+void State::SetStates(std::stack<State*>* ptr)
+{
+	_states = ptr;
+}
+
 void State::EndState()
 {
 	_quit = true;
@@ -77,9 +83,9 @@ void State::UpdateKeytime(const float & dt)
 
 void State::UpdateInput(const float & dt)
 {
-	// Testing purposes
-	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_UP) && GetKeytime())
-	{
-		std::cout << "UP KEY PRESSED" << std::endl;
-	}
+	//// Testing purposes
+	//if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_UP) && GetKeytime())
+	//{
+	//	std::cout << "UP KEY PRESSED" << std::endl;
+	//}
 }

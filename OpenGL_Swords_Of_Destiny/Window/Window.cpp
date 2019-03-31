@@ -150,9 +150,14 @@ const glm::vec2 & Window::GetMousepositionWindow() const
 	return _mousePositionWindow;
 }
 
-GLFWwindow * Window::GetWindow()
+const unsigned int & Window::GetScreenWidth() const
 {
-	return _window;
+	return _screenWidth;
+}
+
+const unsigned int & Window::GetScreenHeight() const
+{
+	return _screenHeight;
 }
 
 void Window::SetMsTitle(const std::string & msTitle)

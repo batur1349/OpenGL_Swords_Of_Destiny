@@ -3,7 +3,8 @@
 
 #include "../Window/Window.hpp"
 class Window;
-#include "../State/State.hpp"
+#include "../MainmenuState/MainmenuState.hpp"
+class MainmenuState;
 class State;
 
 // TODO1 - GUI
@@ -19,14 +20,16 @@ public:
 
 	// Functions
 	void Run();
+	void UpdateStates();
 private:
 	// Functions
 	void UpdateDeltatime();
 
 	// Variables
-	float		_deltaTime;
-	float		_lastFrame;
-	glm::vec2	_mousePositionScreen;
-	Window*		_window;
+	float				_deltaTime;
+	float				_lastFrame;
+	glm::vec2			_mousePositionScreen;
+	Window*				_window;
+	std::stack<State*>	_states;
 };
 #endif // !ENGINE_H

@@ -39,6 +39,7 @@ protected:
 
 	glm::vec2 _mousePositionWindow;
 	glm::vec2 _mousePositionScreen;
+	glm::vec2 _mousePositionOpenGL;
 };
 
 #endif // !STATE_HPP

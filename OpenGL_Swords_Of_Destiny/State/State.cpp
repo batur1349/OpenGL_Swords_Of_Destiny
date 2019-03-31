@@ -73,6 +73,7 @@ void State::UpdateMousePositions()
 {
 	_mousePositionScreen = _window->GetMousepositionScreen();
 	_mousePositionWindow = _window->GetMousepositionWindow();
+	_mousePositionOpenGL = _window->GetMousepositionOpenGL();
 }
 
 void State::UpdateKeytime(const float & dt)

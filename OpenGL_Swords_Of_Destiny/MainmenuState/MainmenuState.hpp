@@ -13,6 +13,15 @@ public:
 	void Update(const float& dt);
 	void Render();
 private:
+	// TEMPORAL 2D OBJECT BUILDER
+	void InitializeShape();
+	void DrawShapes();
+
+	unsigned int _shapeCount;
+	unsigned int _pointsCount;
+	std::vector<GLuint> _vertexBuffer;
+	std::vector<glm::vec3> _points;
+	std::vector<std::vector<glm::vec3>> _pointsVec;
 };
 
 #endif // !MAINMENUSTATE_HPP

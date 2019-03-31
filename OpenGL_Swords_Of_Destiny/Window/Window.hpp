@@ -23,6 +23,7 @@ public:
 	const unsigned int& GetFramelimit() const;
 	const glm::vec2& GetMousepositionScreen() const;
 	const glm::vec2& GetMousepositionWindow() const;
+	const glm::vec2& GetMousepositionOpenGL() const;
 	const unsigned int& GetScreenWidth() const;
 	const unsigned int& GetScreenHeight() const;
 
@@ -48,5 +49,6 @@ private:
 
 	glm::vec2			_mousePositionWindow;
 	glm::vec2			_mousePositionScreen;
+	glm::vec2			_mousePositionOpenGL;
 };
 #endif // !WINDOW_H

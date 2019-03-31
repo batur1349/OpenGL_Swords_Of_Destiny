@@ -21,8 +21,13 @@ public:
 	// Functions
 	void Run();
 	void UpdateStates();
+	void RenderStates();
 private:
 	// Functions
+	void InitializeBasicTriangle();
+	void InitializeBasicQuad();
+	void DrawBasicTriangle();
+	void DrawBasicQuad();
 	void UpdateDeltatime();
 
 	// Variables
@@ -31,5 +36,8 @@ private:
 	glm::vec2			_mousePositionScreen;
 	Window*				_window;
 	std::stack<State*>	_states;
+
+	// TEST
+	GLuint _vertexbuffer[2];
 };
 #endif // !ENGINE_H

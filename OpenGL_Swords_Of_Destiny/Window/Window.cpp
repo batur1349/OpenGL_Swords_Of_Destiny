@@ -150,6 +150,11 @@ const glm::vec2 & Window::GetMousepositionWindow() const
 	return _mousePositionWindow;
 }
 
+const glm::vec2 & Window::GetMousepositionOpenGL() const
+{
+	return _mousePositionOpenGL;
+}
+
 const unsigned int & Window::GetScreenWidth() const
 {
 	return _screenWidth;
@@ -192,23 +197,29 @@ void Window::UpdateMousepositions()
 	// Create temporal variables
 	double posx = 0, posy = 0;
 	int width = 0, height = 0;
+
 	// Get the window constraits
 	glfwGetWindowSize(_window, &width, &height);
+
 	// Set the cursor input mode
 	glfwSetInputMode(_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+
 	// Get the cursor position
 	glfwGetCursorPos(_window, &posx, &posy);
+
 	// Set the class variable
 	_mousePositionScreen = glm::vec2(posx, posy);
+
 	// Check the window coordinates
-	if (posx < 0)
-		posx = 0;
-	else if (posx > width)
-		posx = width;
-	if (posy < 0)
-		posy = 0;
-	else if (posy > height)
-		posy = height;
+	if (posx < 0) posx = 0;
+	else if (posx > width) posx = width;
+	if (posy < 0) posy = 0;
+	else if (posy > height) posy = height;
+
 	// Update the mouse positions
 	_mousePositionWindow = glm::vec2(posx, posy);
+
+	// Update the Opengl coordinated mouse position
+	_mousePositionOpenGL.x = ((2 * ((_mousePositionWindow.x - 0.0f) / (_screenWidth - 0.0f))) - 1);
+	_mousePositionOpenGL.y = ((2 * ((_mousePositionWindow.y - _screenHeight) / (0.0f - _screenHeight))) - 1);
 }

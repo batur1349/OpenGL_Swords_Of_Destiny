@@ -33,6 +33,12 @@
     <ClInclude Include="MainmenuState\MainmenuState.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Shader\Shader.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader\BasicShader.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -54,6 +60,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MainmenuState\MainmenuState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader\Shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader\BasicShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

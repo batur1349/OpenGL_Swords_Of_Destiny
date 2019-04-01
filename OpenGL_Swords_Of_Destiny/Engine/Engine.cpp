@@ -63,6 +63,8 @@ void Engine::Run()
 	std::cout << "Pushing MainmenuState" << std::endl;
 	std::cout << "States Size :" << _states.size() << std::endl;
 
+	BasicShader basicShader;
+
 	// Initialize the basic triangle
 	InitializeBasicTriangle();
 
@@ -75,20 +77,26 @@ void Engine::Run()
 		glClear(GL_COLOR_BUFFER_BIT);
 		glClearColor(0.2f, 0.3f, 0.4f, 0.5f);
 
-		// Draw the basic triangle
-		DrawBasicTriangle();
-
-		// Draw the basic quad
-		DrawBasicQuad();
-
 		// Update the deltaTime 
 		UpdateDeltatime();
 
 		// Update the states
 		UpdateStates();
 
+		// Draw the basic triangle
+		DrawBasicTriangle();
+
+		// Start the shader
+		basicShader.Start();
+
+		// Draw the basic quad
+		DrawBasicQuad();
+
 		// Render the states
 		RenderStates();
+
+		// Stop the shader
+		basicShader.Stop();
 
 		// Update the window
 		_window->Update();

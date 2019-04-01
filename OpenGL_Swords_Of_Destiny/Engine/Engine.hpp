@@ -6,6 +6,8 @@ class Window;
 #include "../MainmenuState/MainmenuState.hpp"
 class MainmenuState;
 class State;
+#include "../Shader/BasicShader.hpp"
+class BasicShader;
 
 // TODO1 - GUI
 enum EngineStatus { RUNNING, PAUSED };

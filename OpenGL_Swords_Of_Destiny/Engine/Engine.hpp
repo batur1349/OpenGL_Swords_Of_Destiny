@@ -8,6 +8,9 @@ class MainmenuState;
 class State;
 #include "../Shader/BasicShader.hpp"
 class BasicShader;
+#include "../Loader/Loader.hpp"
+class Loader;
+class BaseModel;
 
 // TODO1 - GUI
 enum EngineStatus { RUNNING, PAUSED };
@@ -26,10 +29,6 @@ public:
 	void RenderStates();
 private:
 	// Functions
-	void InitializeBasicTriangle();
-	void InitializeBasicQuad();
-	void DrawBasicTriangle();
-	void DrawBasicQuad();
 	void UpdateDeltatime();
 
 	// Variables
@@ -38,8 +37,5 @@ private:
 	glm::vec2			_mousePositionScreen;
 	Window*				_window;
 	std::stack<State*>	_states;
-
-	// TEST
-	GLuint _vertexbuffer[2];
 };
 #endif // !ENGINE_H

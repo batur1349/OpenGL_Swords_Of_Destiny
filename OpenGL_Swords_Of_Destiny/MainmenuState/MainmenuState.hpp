@@ -6,22 +6,15 @@
 class MainmenuState : public State
 {
 public:
+	// Constructor and ~Destructor
 	MainmenuState(Window* window, std::stack<State*>* statesPtr);
 	virtual ~MainmenuState();
 
+	// Functions
 	void UpdateInput(const float& dt);
 	void Update(const float& dt);
 	void Render();
 private:
-	// TEMPORAL 2D OBJECT BUILDER
-	void InitializeShape();
-	void DrawShapes();
-
-	unsigned int _shapeCount;
-	unsigned int _pointsCount;
-	std::vector<GLuint> _vertexBuffer;
-	std::vector<glm::vec3> _points;
-	std::vector<std::vector<glm::vec3>> _pointsVec;
+	// Variables
 };
-
 #endif // !MAINMENUSTATE_HPP

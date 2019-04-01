@@ -9,7 +9,7 @@ State::State(Window * window, std::stack<State*> * statesPtr)
 	_quit = false;
 	_paused = false;
 	_keytime = 0.0f;
-	_keytimeMax = 0.35f;
+	_keytimeMax = 0.2f;
 }
 
 State::~State()

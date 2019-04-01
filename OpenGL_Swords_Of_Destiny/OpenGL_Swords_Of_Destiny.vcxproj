@@ -154,6 +154,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="GameState\GameState.hpp" />
+    <ClInclude Include="Model\BaseModel.hpp" />
+    <ClInclude Include="Loader\Loader.hpp" />
     <ClInclude Include="MainmenuState\MainmenuState.hpp" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Engine\Engine.hpp" />
@@ -164,6 +166,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameState\GameState.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../pch.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="Loader\Loader.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../pch.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="Model\BaseModel.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="MainmenuState\MainmenuState.cpp">

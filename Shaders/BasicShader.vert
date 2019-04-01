@@ -1,7 +1,7 @@
 #version 330 core
 
 // INPUTS
-in vec3 in_vertexPositions;
+layout (location = 0) in vec3 in_vertexPositions;
 
 // OUTPUTS
 out vec3 colour;

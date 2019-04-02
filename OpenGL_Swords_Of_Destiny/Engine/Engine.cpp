@@ -80,6 +80,8 @@ void Engine::Run()
 
 	BaseModel model = loader.LoadToVAO(vertices, indices, vertices.size(), indices.size());
 
+	MasterRenderer masterRenderer;
+
 	while (_window->IsOpen())
 	{
 		// Clear the screen.
@@ -95,8 +97,11 @@ void Engine::Run()
 		// Start the shader
 		basicShader.Start();
 
-		// Render basemodel
-		model.Render();
+		// Prepare the master renderer
+		masterRenderer.Prepare();
+
+		// Render the basemodel
+		masterRenderer.Render(model);
 
 		// Render the states
 		RenderStates();

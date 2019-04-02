@@ -11,6 +11,9 @@ class BasicShader;
 #include "../Loader/Loader.hpp"
 class Loader;
 class BaseModel;
+#include "../Renderer/MasterRenderer.hpp"
+class MasterRenderer;
+//class BaseModel;
 
 // TODO1 - GUI
 enum EngineStatus { RUNNING, PAUSED };

@@ -159,6 +159,7 @@
     <ClInclude Include="MainmenuState\MainmenuState.hpp" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Engine\Engine.hpp" />
+    <ClInclude Include="Renderer\MasterRenderer.hpp" />
     <ClInclude Include="Shader\BasicShader.hpp" />
     <ClInclude Include="Shader\Shader.hpp" />
     <ClInclude Include="State\State.hpp" />
@@ -185,6 +186,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Engine\Engine.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../pch.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="Renderer\MasterRenderer.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="Shader\BasicShader.cpp">

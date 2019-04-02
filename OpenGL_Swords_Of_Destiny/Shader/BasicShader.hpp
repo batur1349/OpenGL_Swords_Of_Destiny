@@ -8,6 +8,7 @@ class BasicShader : public Shader
 public:
 	// Constructor
 	BasicShader();
+	BasicShader(const std::string& fileName);
 protected:
 	// Functions
 	virtual void BindAttributes();

@@ -63,7 +63,7 @@ void Engine::Run()
 	std::cout << "Pushing MainmenuState" << std::endl;
 	std::cout << "States Size :" << _states.size() << std::endl;
 
-	BasicShader basicShader;
+	BasicShader basicShader("../Shaders/TextureShader");
 	Loader loader;
 
 	std::vector<glm::vec3> vertices = {
@@ -73,21 +73,25 @@ void Engine::Run()
 		glm::vec3(0.0f,0.2f,0.0f)
 	};
 
+	std::vector<glm::vec2> texCoords = {
+		glm::vec2(0.0f, 0.0f),
+		glm::vec2(0.0f, 1.0f),
+		glm::vec2(1.0f, 1.0f),
+		glm::vec2(1.0f, 0.0f)
+	};
+
 	std::vector<int> indices = {
 		0, 1, 2,
 		2, 3, 0
 	};
 
-	BaseModel model = loader.LoadToVAO(vertices, indices, vertices.size(), indices.size());
-
+	BaseModel bModel = loader.LoadToVAO(vertices, texCoords, indices);
+	Texture texture = loader.LoadTexture2D("box");
+	Model tModel(bModel, texture);
 	MasterRenderer masterRenderer;
 
 	while (_window->IsOpen())
 	{
-		// Clear the screen.
-		glClear(GL_COLOR_BUFFER_BIT);
-		glClearColor(0.2f, 0.3f, 0.4f, 0.5f);
-
 		// Update the deltaTime 
 		UpdateDeltatime();
 
@@ -101,7 +105,7 @@ void Engine::Run()
 		masterRenderer.Prepare();
 
 		// Render the basemodel
-		masterRenderer.Render(model);
+		masterRenderer.Render(tModel);
 
 		// Render the states
 		RenderStates();

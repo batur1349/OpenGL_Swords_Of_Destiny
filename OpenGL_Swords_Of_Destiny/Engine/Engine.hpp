@@ -14,6 +14,8 @@ class BaseModel;
 #include "../Renderer/MasterRenderer.hpp"
 class MasterRenderer;
 //class BaseModel;
+#include "../Texture/Texture.hpp"
+class Texture;
 
 // TODO1 - GUI
 enum EngineStatus { RUNNING, PAUSED };

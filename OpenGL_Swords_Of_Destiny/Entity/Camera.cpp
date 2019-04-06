@@ -12,12 +12,28 @@ Camera::Camera()
 
 void Camera::Update()
 {
+	static float movementSpeed = 0.2f;
 	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_W) == GLFW_PRESS)
-		_cameraPosition.z -= 0.002f;
+		_cameraPosition.z -= movementSpeed;
 	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_S) == GLFW_PRESS)
-		_cameraPosition.z += 0.002f;
+		_cameraPosition.z += movementSpeed;
 	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_A) == GLFW_PRESS)
-		_cameraPosition.x -= 0.002f;
+		_cameraPosition.x -= movementSpeed;
 	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_D) == GLFW_PRESS)
-		_cameraPosition.x += 0.002f;
+		_cameraPosition.x += movementSpeed;
+
+	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_UP) == GLFW_PRESS)
+		_pitch--;
+	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_DOWN) == GLFW_PRESS)
+		_pitch++;
+
+	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_LEFT) == GLFW_PRESS)
+		_yaw--;
+	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_RIGHT) == GLFW_PRESS)
+		_yaw++;
+
+	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_Q) == GLFW_PRESS)
+		_roll--;
+	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_E) == GLFW_PRESS)
+		_roll++;
 }

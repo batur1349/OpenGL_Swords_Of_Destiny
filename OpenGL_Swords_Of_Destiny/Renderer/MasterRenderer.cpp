@@ -81,6 +81,9 @@ const void MasterRenderer::Render(Entity & entity, BasicShader & shader) const
 	// Enable the texture coordinates attribute
 	glEnableVertexAttribArray(1);
 
+	// Enable the normal attribute
+	glEnableVertexAttribArray(2);
+
 	// Create the entities transformation matrix
 	glm::mat4 transformationMatrix = Maths::CreateTransformationMatrix(entity.GetPosition(), entity.GetRotation(), entity.GetScale());
 
@@ -104,6 +107,9 @@ const void MasterRenderer::Render(Entity & entity, BasicShader & shader) const
 
 	// Disable the texture coordinates attribute
 	glDisableVertexAttribArray(1);
+
+	// Disable the normal attribute
+	glDisableVertexAttribArray(2);
 
 	// Unbind the VAO
 	glBindVertexArray(0);

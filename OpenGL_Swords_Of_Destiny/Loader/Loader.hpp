@@ -14,8 +14,7 @@ public:
 	~Loader();
 
 	// Functions
-	BaseModel LoadToVAO(std::vector<glm::vec3> vertices, std::vector<int> indices, int positionsCount, int indicesCount);
-	BaseModel LoadToVAO(std::vector<glm::vec3>& vertices, std::vector<glm::vec2>& textures, std::vector<int>& indices);
+	BaseModel LoadToVAO(std::vector<glm::vec3>& vertices, std::vector<glm::vec2>& textures, std::vector<glm::vec3>& normals, std::vector<int>& indices);
 	GLuint LoadTexture2D(const std::string& fileName);
 private:
 	// Variables

@@ -66,6 +66,9 @@
     <ClInclude Include="Loader\ObjFileLoader.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Entity\Light.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -122,9 +125,12 @@
     <ClCompile Include="Loader\ObjFileLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Entity\Light.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Shaders\TextureShader.frag" />
-    <None Include="..\Shaders\TextureShader.vert" />
+    <None Include="..\Shaders\Shader.vert" />
+    <None Include="..\Shaders\Shader.frag" />
   </ItemGroup>
 </Project>

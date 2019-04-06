@@ -63,12 +63,13 @@ void Engine::Run()
 	std::cout << "Pushing MainmenuState" << std::endl;
 	std::cout << "States Size :" << _states.size() << std::endl;
 
-	BasicShader basicShader("../Shaders/TextureShader");
+	BasicShader basicShader("../Shaders/Shader");
 	MasterRenderer masterRenderer(basicShader);
 	Loader loader;
 	Camera camera;
-	Model tModel(ObjFileLoader::LoadModel("box", "box", loader));
-	Entity entity(tModel, glm::vec3(0.0f, -10.0f, -50.0f), glm::vec3(0.0f), glm::vec3(1.0f));
+	Model tModel(ObjFileLoader::LoadModel("dragon", "dragon", loader));
+	Entity entity(tModel, glm::vec3(0.0f, -7.5f, -25.0f), glm::vec3(0.0f), glm::vec3(1.0f));
+	Light light(glm::vec3(0.0f, 0.0f, -20.0f), glm::vec3(1, 1, 1));
 
 	while (_window->IsOpen())
 	{
@@ -80,10 +81,13 @@ void Engine::Run()
 
 		// Update the camera
 		camera.Update();
-		entity.Rotate(glm::vec3(0.0f, 0.5f, 0.0f));
+		entity.Rotate(glm::vec3(0.0f, 1.0f, 0.0f));
 
 		// Start the shader
 		basicShader.Start();
+
+		// Load light
+		basicShader.LoadLightVariables(light);
 
 		// Load camera
 		basicShader.LoadViewMatrix(camera);

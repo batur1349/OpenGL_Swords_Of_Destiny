@@ -17,6 +17,7 @@ class MasterRenderer;
 #include "../Texture/Texture.hpp"
 class Texture;
 #include "../Loader/ObjFileLoader.hpp"
+#include "../Entity/Light.hpp"
 
 // TODO1 - GUI
 enum EngineStatus { RUNNING, PAUSED };

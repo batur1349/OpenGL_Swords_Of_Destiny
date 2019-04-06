@@ -55,6 +55,38 @@ void Shader::BindAttribute(int attribute, const std::string & variableName)
 	glBindAttribLocation(_programID, attribute, variableName.c_str());
 }
 
+GLuint Shader::GetUniformLocation(const std::string & uniformName)
+{
+	return glGetUniformLocation(_programID, uniformName.c_str());
+}
+
+void Shader::LoadFloat(GLuint location, const float & value)
+{
+	glUniform1f(location, value);
+}
+
+void Shader::LoadVector3F(GLuint location, const glm::vec3 & vector)
+{
+	glUniform3f(location, vector.x, vector.y, vector.z);
+}
+
+void Shader::LoadBoolean(GLuint location, const bool & value)
+{
+	float toLoad = 0;
+	if (value)
+		toLoad = 1;
+
+	glUniform1f(location, toLoad);
+}
+
+void Shader::LoadMatrix4f(GLuint location, const glm::mat4 & matrix, const bool & transpose)
+{
+	if (transpose)
+		glUniformMatrix4fv(location, 1, GL_TRUE, glm::value_ptr(matrix));
+	else
+		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
+}
+
 GLuint Shader::LoadShader(std::string fileName, GLenum type)
 {
 	// 1. Retrieve the vertex/fragment source code from filePath

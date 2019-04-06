@@ -64,31 +64,11 @@ void Engine::Run()
 	std::cout << "States Size :" << _states.size() << std::endl;
 
 	BasicShader basicShader("../Shaders/TextureShader");
+	MasterRenderer masterRenderer(basicShader);
 	Loader loader;
-
-	std::vector<glm::vec3> vertices = {
-		glm::vec3(0.2f,0.2f,0.0f),
-		glm::vec3(0.2f,-0.2f,0.0f),
-		glm::vec3(0.0f,-0.2f,0.0f),
-		glm::vec3(0.0f,0.2f,0.0f)
-	};
-
-	std::vector<glm::vec2> texCoords = {
-		glm::vec2(0.0f, 0.0f),
-		glm::vec2(0.0f, 1.0f),
-		glm::vec2(1.0f, 1.0f),
-		glm::vec2(1.0f, 0.0f)
-	};
-
-	std::vector<int> indices = {
-		0, 1, 2,
-		2, 3, 0
-	};
-
-	BaseModel bModel = loader.LoadToVAO(vertices, texCoords, indices);
-	Texture texture = loader.LoadTexture2D("box");
-	Model tModel(bModel, texture);
-	MasterRenderer masterRenderer;
+	Camera camera;
+	Model tModel(ObjFileLoader::LoadModel("box", "box", loader));
+	Entity entity(tModel, glm::vec3(0.0f, -10.0f, -50.0f), glm::vec3(0.0f), glm::vec3(1.0f));
 
 	while (_window->IsOpen())
 	{
@@ -98,14 +78,21 @@ void Engine::Run()
 		// Update the states
 		UpdateStates();
 
+		// Update the camera
+		camera.Update();
+		entity.Rotate(glm::vec3(0.0f, 0.5f, 0.0f));
+
 		// Start the shader
 		basicShader.Start();
+
+		// Load camera
+		basicShader.LoadViewMatrix(camera);
 
 		// Prepare the master renderer
 		masterRenderer.Prepare();
 
 		// Render the basemodel
-		masterRenderer.Render(tModel);
+		masterRenderer.Render(entity, basicShader);
 
 		// Render the states
 		RenderStates();

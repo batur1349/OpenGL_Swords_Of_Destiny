@@ -9,11 +9,17 @@ public:
 	virtual ~Shader();
 
 	// Functions
-	const inline void Start() const { glUseProgram(_programID); }
-	const inline void Stop() const { glUseProgram(0); }
+	inline void Start() { glUseProgram(_programID); }
+	inline void Stop() { glUseProgram(0); }
 protected:
 	// Functions
 	void BindAttribute(int attribute, const std::string& variableName);
+	GLuint GetUniformLocation(const std::string& uniformName);
+	// GPU Data loaders
+	void LoadFloat(GLuint location, const float& value);
+	void LoadVector3F(GLuint location, const glm::vec3& vector);
+	void LoadBoolean(GLuint location, const bool& value);
+	void LoadMatrix4f(GLuint location, const glm::mat4& matrix, const bool& transpose = false);
 private:
 	static GLuint LoadShader(std::string fileName, GLenum type);
 

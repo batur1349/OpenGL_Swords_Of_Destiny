@@ -157,6 +157,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Engine\Engine.hpp" />
     <ClInclude Include="Renderer\MasterRenderer.hpp" />
+    <ClInclude Include="Texture\Texture.hpp" />
     <ClInclude Include="Window\Window.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -176,6 +177,10 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="Renderer\MasterRenderer.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../pch.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="Texture\Texture.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../pch.h</PrecompiledHeaderFile>
     </ClCompile>

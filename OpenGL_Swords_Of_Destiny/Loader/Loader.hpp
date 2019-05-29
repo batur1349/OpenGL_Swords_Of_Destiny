@@ -2,6 +2,7 @@
 #define LOADER_HPP
 
 #include "../Entity/Object.hpp"
+#include "../Texture/Texture.hpp"
 
 class Loader
 {
@@ -12,10 +13,12 @@ public:
 	// Functions
 	Object LoadToVAO(std::vector<glm::vec3> vertices, std::vector<glm::vec2> textures, std::vector<glm::vec3> normals, std::vector<int> indices);
 	Object LoadAssimpObjFile(const std::string& fileName);
+	GLuint LoadTexture2D(const std::string& fileName);
 private:
 	// Variables
 	std::vector<GLuint> m_vaos;
 	std::vector<GLuint> m_vbos;
+	std::vector<GLuint> m_textures;
 
 	// Functions
 	GLuint CreateVaoID();

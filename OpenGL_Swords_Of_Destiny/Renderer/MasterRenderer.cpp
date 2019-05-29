@@ -35,11 +35,11 @@ void MasterRenderer::Render(Object& object, ThirdPersonCamera& camera)
 	glBindVertexArray(object.GetVaoID());
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
-	glEnableVertexAttribArray(2);
+	//glEnableVertexAttribArray(2);
 	glDrawElements(GL_TRIANGLES, object.GetIndiceCount(), GL_UNSIGNED_INT, 0);
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
-	glDisableVertexAttribArray(2);
+	//glDisableVertexAttribArray(2);
 	glBindVertexArray(0);
 
 	m_shader.Stop();

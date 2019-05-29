@@ -7,14 +7,19 @@ Loader::Loader()
 	// Initialize the containers
 	m_vaos.clear();
 	m_vbos.clear();
+	m_textures.clear();
 }
 
 Loader::~Loader()
 {
 	for (int i = 0; i < m_vaos.size(); i++)
 		glDeleteVertexArrays(1, &m_vaos.at(i));
+
 	for (int i = 0; i < m_vbos.size(); i++)
 		glDeleteBuffers(1, &m_vbos.at(i));
+
+	for (int i = 0; i < m_textures.size(); i++)
+		glDeleteTextures(1, &m_textures.at(i));
 }
 
 Object Loader::LoadToVAO(std::vector<glm::vec3> vertices, std::vector<glm::vec2> textures, std::vector<glm::vec3> normals, std::vector<int> indices)
@@ -42,7 +47,7 @@ Object Loader::LoadToVAO(std::vector<glm::vec3> vertices, std::vector<glm::vec2>
 	return Object(vaoID, indicesSize);
 }
 
-Object Loader::LoadAssimpObjFile(const std::string & fileName)
+Object Loader::LoadAssimpObjFile(const std::string& fileName)
 {
 	std::cout << "Loading OBJ file " << fileName << ".obj ..." << "\n";
 	// Start timer
@@ -109,7 +114,48 @@ Object Loader::LoadAssimpObjFile(const std::string & fileName)
 	std::printf("Load time: %dms\n", clock() - startTime);
 
 	// Return the baseModel
-	return this->LoadToVAO(vertices, uvs, normals, indices);
+	return LoadToVAO(vertices, uvs, normals, indices);
+}
+
+GLuint Loader::LoadTexture2D(const std::string& fileName)
+{
+	GLuint texture;
+	int width, height;
+	glGenTextures(1, &texture);
+
+	// Load image data
+	unsigned char* image;
+	image = SOIL_load_image(("../Textures/" + fileName + ".png").c_str(), &width, &height, 0, SOIL_LOAD_RGBA);
+
+	// Bind the texture data
+	glBindTexture(GL_TEXTURE_2D, texture);
+
+	// Texture the loaded 2D image data
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+
+	// Add the image to the textures container
+	m_textures.push_back(texture);
+
+	// Clean-up the image data
+	SOIL_free_image_data(image);
+
+	// Generate the mipmap texture
+	glGenerateMipmap(GL_TEXTURE_2D);
+
+	// Texture parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	// If value is became lower than quality will be high
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_LOD_BIAS, -0.4f);
+
+	// Unbind the texture
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	// Return the texture id
+	return texture;
 }
 
 GLuint Loader::CreateVaoID()

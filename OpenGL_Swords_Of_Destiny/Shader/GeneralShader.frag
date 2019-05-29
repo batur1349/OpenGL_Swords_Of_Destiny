@@ -2,12 +2,15 @@
 
 // INPUTS
 in vec3 surfaceNormal;
+in vec2 pass_textureCoords;
 
 // OUTPUTS
 out vec4 outColor;
 
+// UNIFORM
+uniform sampler2D textureSampler;
 
 void main()
 {
-    outColor = vec4(surfaceNormal, 1.0f);
+    outColor = texture(textureSampler, pass_textureCoords);
 }

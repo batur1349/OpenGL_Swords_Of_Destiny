@@ -56,8 +56,9 @@ void Engine::Run()
 {
 	ThirdPersonCamera camera;
 	Loader loader;
-	Object simple = loader.LoadAssimpObjFile("box");
+	Object simple = loader.LoadAssimpObjFile("lowPolyTree");
 	MasterRenderer renderer(_window->GetAspectRatio(), loader);
+	Texture test = loader.LoadTexture2D("lowPolyTree");
 
 	while (_window->IsOpen())
 	{

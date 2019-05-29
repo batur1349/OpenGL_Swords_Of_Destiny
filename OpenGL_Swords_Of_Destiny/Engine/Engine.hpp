@@ -2,6 +2,7 @@
 #define ENGINE_H
 
 #include "../Window/Window.hpp"
+#include "../Renderer/MasterRenderer.hpp"
 #include "../Entity/ThirdPersonCamera.hpp"
 
 class Engine

@@ -55,6 +55,9 @@ Engine::~Engine()
 void Engine::Run()
 {
 	ThirdPersonCamera camera;
+	Loader loader;
+	Object simple = loader.LoadAssimpObjFile("box");
+	MasterRenderer renderer(_window->GetAspectRatio(), loader);
 
 	while (_window->IsOpen())
 	{
@@ -63,7 +66,10 @@ void Engine::Run()
 
 		// Update the camera
 		camera.Update(_deltaTime);
-		std::cout << camera.GetPosition().x << std::endl;
+
+		// Render
+		renderer.Prepare();
+		renderer.Render(simple, camera);
 
 		// Update the window
 		_window->Update();

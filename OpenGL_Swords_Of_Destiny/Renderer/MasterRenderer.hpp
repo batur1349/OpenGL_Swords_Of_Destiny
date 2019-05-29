@@ -3,6 +3,7 @@
 
 #include "../Loader/Loader.hpp"
 #include "../Shader/GeneralShader.hpp"
+#include "../Entity/TexturedObject.hpp"
 
 class MasterRenderer
 {
@@ -13,7 +14,7 @@ public:
 
 	// Functions
 	void Prepare();
-	void Render(Object& object, ThirdPersonCamera& camera);
+	void Render(TexturedObject& obj, ThirdPersonCamera& camera);
 
 	// Getters
 	inline glm::mat4& GetProjectionMatrix() { return m_projectionMatrix; }

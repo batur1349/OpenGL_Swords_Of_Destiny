@@ -59,6 +59,7 @@ void Engine::Run()
 	Object simple = loader.LoadAssimpObjFile("lowPolyTree");
 	MasterRenderer renderer(_window->GetAspectRatio(), loader);
 	Texture test = loader.LoadTexture2D("lowPolyTree");
+	TexturedObject myFirstObject = TexturedObject(simple, test);
 
 	while (_window->IsOpen())
 	{
@@ -70,7 +71,7 @@ void Engine::Run()
 
 		// Render
 		renderer.Prepare();
-		renderer.Render(simple, camera);
+		renderer.Render(myFirstObject, camera);
 
 		// Update the window
 		_window->Update();

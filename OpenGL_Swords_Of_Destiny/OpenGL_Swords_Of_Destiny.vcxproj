@@ -153,56 +153,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Entity\Camera.hpp" />
-    <ClInclude Include="Entity\Entity.hpp" />
-    <ClInclude Include="Entity\Light.hpp" />
-    <ClInclude Include="GameState\GameState.hpp" />
-    <ClInclude Include="Loader\ObjFileLoader.hpp" />
-    <ClInclude Include="Model\BaseModel.hpp" />
-    <ClInclude Include="Loader\Loader.hpp" />
-    <ClInclude Include="MainmenuState\MainmenuState.hpp" />
-    <ClInclude Include="Model\Model.hpp" />
+    <ClInclude Include="Entity\ThirdPersonCamera.hpp" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Engine\Engine.hpp" />
-    <ClInclude Include="Renderer\MasterRenderer.hpp" />
-    <ClInclude Include="Shader\BasicShader.hpp" />
-    <ClInclude Include="Shader\Shader.hpp" />
-    <ClInclude Include="State\State.hpp" />
-    <ClInclude Include="Texture\Texture.hpp" />
-    <ClInclude Include="Toolbox\Maths.hpp" />
     <ClInclude Include="Window\Window.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Entity\Camera.cpp">
+    <ClCompile Include="Entity\ThirdPersonCamera.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../pch.h</PrecompiledHeaderFile>
-    </ClCompile>
-    <ClCompile Include="Entity\Entity.cpp">
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../pch.h</PrecompiledHeaderFile>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../pch.h</PrecompiledHeaderFile>
-    </ClCompile>
-    <ClCompile Include="Entity\Light.cpp">
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../pch.h</PrecompiledHeaderFile>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../pch.h</PrecompiledHeaderFile>
-    </ClCompile>
-    <ClCompile Include="GameState\GameState.cpp">
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../pch.h</PrecompiledHeaderFile>
-    </ClCompile>
-    <ClCompile Include="Loader\Loader.cpp">
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../pch.h</PrecompiledHeaderFile>
-    </ClCompile>
-    <ClCompile Include="Loader\ObjFileLoader.cpp">
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../pch.h</PrecompiledHeaderFile>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../pch.h</PrecompiledHeaderFile>
-    </ClCompile>
-    <ClCompile Include="Model\BaseModel.cpp">
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../pch.h</PrecompiledHeaderFile>
-    </ClCompile>
-    <ClCompile Include="MainmenuState\MainmenuState.cpp">
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../pch.h</PrecompiledHeaderFile>
-    </ClCompile>
-    <ClCompile Include="Model\Model.cpp">
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="OpenGL_Swords_Of_Destiny.cpp" />
     <ClCompile Include="pch.cpp">
@@ -214,32 +173,13 @@
     <ClCompile Include="Engine\Engine.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../pch.h</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="Renderer\MasterRenderer.cpp">
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../pch.h</PrecompiledHeaderFile>
-    </ClCompile>
-    <ClCompile Include="Shader\BasicShader.cpp">
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../pch.h</PrecompiledHeaderFile>
-    </ClCompile>
-    <ClCompile Include="Shader\Shader.cpp">
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../pch.h</PrecompiledHeaderFile>
-    </ClCompile>
-    <ClCompile Include="State\State.cpp">
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../pch.h</PrecompiledHeaderFile>
-    </ClCompile>
-    <ClCompile Include="Texture\Texture.cpp">
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../pch.h</PrecompiledHeaderFile>
-    </ClCompile>
-    <ClCompile Include="Toolbox\Maths.cpp">
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../pch.h</PrecompiledHeaderFile>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../pch.h</PrecompiledHeaderFile>
-    </ClCompile>
     <ClCompile Include="Window\Window.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../pch.h</PrecompiledHeaderFile>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Shaders\Shader.frag" />
-    <None Include="..\Shaders\Shader.vert" />
+    <None Include="Entity\Object.cpp" />
+    <None Include="Entity\Object.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

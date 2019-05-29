@@ -4,6 +4,11 @@
 
 Engine::Engine()
 {
+	// Initialize the variables
+	_deltaTime = 0.0f;
+	_lastFrame = 0.0f;
+	_window = nullptr;
+
 	// Initialized GLFW
 	if (glfwInit())
 	{
@@ -45,64 +50,20 @@ Engine::~Engine()
 
 	// Cleanup the GLFW stuff
 	glfwTerminate();
-
-	// Cleanup the states
-	while (!_states.empty())
-	{
-		// Delete the top state
-		delete _states.top();
-		// Pop the states
-		_states.pop();
-	}
 }
 
 void Engine::Run()
 {
-	// TESTING
-	_states.push(new MainmenuState(_window, &_states));
-	std::cout << "Pushing MainmenuState" << std::endl;
-	std::cout << "States Size :" << _states.size() << std::endl;
-
-	BasicShader basicShader("../Shaders/Shader");
-	MasterRenderer masterRenderer(basicShader);
-	Loader loader;
-	Camera camera;
-	Model tModel(ObjFileLoader::LoadModel("dragon", "dragon", loader));
-	Entity entity(tModel, glm::vec3(0.0f, -7.5f, -25.0f), glm::vec3(0.0f), glm::vec3(1.0f));
-	Light light(glm::vec3(0.0f, 0.0f, -20.0f), glm::vec3(1, 1, 1));
+	ThirdPersonCamera camera;
 
 	while (_window->IsOpen())
 	{
 		// Update the deltaTime 
 		UpdateDeltatime();
 
-		// Update the states
-		UpdateStates();
-
 		// Update the camera
-		camera.Update();
-		entity.Rotate(glm::vec3(0.0f, 1.0f, 0.0f));
-
-		// Start the shader
-		basicShader.Start();
-
-		// Load light
-		basicShader.LoadLightVariables(light);
-
-		// Load camera
-		basicShader.LoadViewMatrix(camera);
-
-		// Prepare the master renderer
-		masterRenderer.Prepare();
-
-		// Render the basemodel
-		masterRenderer.Render(entity, basicShader);
-
-		// Render the states
-		RenderStates();
-
-		// Stop the shader
-		basicShader.Stop();
+		camera.Update(_deltaTime);
+		std::cout << camera.GetPosition().x << std::endl;
 
 		// Update the window
 		_window->Update();
@@ -110,33 +71,6 @@ void Engine::Run()
 		// If escape key has pressed, close the window
 		if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_ESCAPE) == GLFW_PRESS)
 			_window->Close();
-	}
-}
-
-void Engine::UpdateStates()
-{
-	if (!_states.empty())
-	{
-		_states.top()->Update(_deltaTime);
-
-		if (_states.top()->GetQuit())
-		{
-			_states.top()->EndState();
-			delete _states.top();
-			_states.pop();
-		}
-	}
-	else // Application End
-	{
-		_window->Close();
-	}
-}
-
-void Engine::RenderStates()
-{
-	if (!_states.empty())
-	{
-		_states.top()->Render();
 	}
 }
 

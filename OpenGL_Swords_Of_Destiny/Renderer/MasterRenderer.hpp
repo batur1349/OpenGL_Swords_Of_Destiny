@@ -16,6 +16,7 @@ public:
 	// Functions
 	void Prepare();
 	void Render(Entity& entity, ThirdPersonCamera& camera);
+	void Render(std::vector<Entity>& entities, ThirdPersonCamera& camera);
 
 	// Getters
 	inline glm::mat4& GetProjectionMatrix() { return m_projectionMatrix; }

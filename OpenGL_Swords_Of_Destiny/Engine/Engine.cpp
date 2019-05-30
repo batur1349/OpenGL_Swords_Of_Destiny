@@ -62,6 +62,17 @@ void Engine::Run()
 	TexturedObject myFirstObject = TexturedObject(simple, test);
 	Entity myFirstEntity = Entity(myFirstObject, glm::vec3(0), glm::vec3(0), glm::vec3(0.1));
 
+	int x, y, z;
+	std::vector<Entity> entities;
+	for (int i = 0; i < 100; i++)
+	{
+		x = rand() % 100;
+		y = 0;
+		z = rand() % 100;
+
+		entities.emplace_back(myFirstObject, glm::vec3(x, y, z), glm::vec3(0), glm::vec3(0.2));
+	}
+
 	while (_window->IsOpen())
 	{
 		// Update the deltaTime 
@@ -72,7 +83,7 @@ void Engine::Run()
 
 		// Render
 		renderer.Prepare();
-		renderer.Render(myFirstEntity, camera);
+		renderer.Render(entities, camera);
 
 		// Update the window
 		_window->Update();

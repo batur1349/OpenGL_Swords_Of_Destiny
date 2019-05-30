@@ -60,6 +60,7 @@ void Engine::Run()
 	MasterRenderer renderer(_window->GetAspectRatio(), loader);
 	Texture test = loader.LoadTexture2D("lowPolyTree");
 	TexturedObject myFirstObject = TexturedObject(simple, test);
+	Entity myFirstEntity = Entity(myFirstObject, glm::vec3(0), glm::vec3(0), glm::vec3(0.1));
 
 	while (_window->IsOpen())
 	{
@@ -71,7 +72,7 @@ void Engine::Run()
 
 		// Render
 		renderer.Prepare();
-		renderer.Render(myFirstObject, camera);
+		renderer.Render(myFirstEntity, camera);
 
 		// Update the window
 		_window->Update();

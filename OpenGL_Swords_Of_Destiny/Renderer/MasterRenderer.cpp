@@ -21,7 +21,7 @@ void MasterRenderer::Prepare()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void MasterRenderer::Render(TexturedObject& obj, ThirdPersonCamera& camera)
+void MasterRenderer::Render(Entity& entity, ThirdPersonCamera& camera)
 {
 	// Start the shader
 	m_shader.Start();
@@ -29,12 +29,11 @@ void MasterRenderer::Render(TexturedObject& obj, ThirdPersonCamera& camera)
 	// Load the shader matrices
 	m_shader.LoadViewMatrix(camera);
 	m_shader.LoadProjectionMatrix(m_projectionMatrix);
-	glm::mat4 transformation;
-	transformation = glm::scale(transformation, glm::vec3(0.5f));
-	m_shader.LoadTransformationMatrix(transformation);
+	m_shader.LoadTransformationMatrix(Maths::CreateTransformationMatrix(entity.GetPosition(), entity.GetRotation(), entity.GetScale()));
 
 	// Bind the object vao
-	glBindVertexArray(obj.GetModelObject().GetVaoID());
+	glBindVertexArray(entity.GetTexturedModel().GetModelObject().GetVaoID());
+
 	// Enable the attributes
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
@@ -42,16 +41,19 @@ void MasterRenderer::Render(TexturedObject& obj, ThirdPersonCamera& camera)
 
 	// Bind the texture
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, obj.GetModelTexture().GetTextureID());
+	glBindTexture(GL_TEXTURE_2D, entity.GetTexturedModel().GetModelTexture().GetTextureID());
 
 	// Draw the object
-	glDrawElements(GL_TRIANGLES, obj.GetModelObject().GetIndiceCount(), GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, entity.GetTexturedModel().GetModelObject().GetIndiceCount(), GL_UNSIGNED_INT, 0);
 
 	// Disable the attributes
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(2);
+
+	// Unbind the object vao
 	glBindVertexArray(0);
 
+	// Stop using the shader
 	m_shader.Stop();
 }

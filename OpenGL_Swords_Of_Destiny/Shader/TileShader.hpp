@@ -14,6 +14,7 @@ public:
 	void LoadTransformationMatrix(const glm::mat4& matrix);
 	void LoadProjectionMatrix(const glm::mat4& matrix);
 	void LoadViewMatrix(ThirdPersonCamera& camera);
+	void LoadSelected(const bool& selected);
 protected:
 	// Functions
 	void BindAttributes();
@@ -21,6 +22,7 @@ protected:
 private:
 	// Variables
 	GLuint m_transformationMatrix_Location, m_projectionMatrix_Location, m_viewMatrix_Location;
+	GLuint m_selected_Location;
 };
 
 #endif // !TILESHADER_HPP

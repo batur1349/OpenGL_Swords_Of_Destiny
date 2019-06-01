@@ -8,9 +8,15 @@ in vec2 out_textureCoordinates;
 out vec4 out_Color;
 
 uniform sampler2D textureSampler;
+uniform float selected;
+
+vec4 selectedColor = vec4(1.0f, 0.0f, 0.0f, 0.5f);
 
 // FUNCTIONS
 void main()
 {
-	out_Color = texture(textureSampler, out_textureCoordinates);
+	if(selected > 0.5f)
+		out_Color = texture(textureSampler, out_textureCoordinates) * selectedColor;
+	else
+		out_Color = texture(textureSampler, out_textureCoordinates);
 }

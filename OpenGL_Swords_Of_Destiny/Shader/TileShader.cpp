@@ -24,6 +24,14 @@ void TileShader::LoadViewMatrix(ThirdPersonCamera& camera)
 	LoadMatrix4F(m_viewMatrix_Location, camera.GetViewMatrix());
 }
 
+void TileShader::LoadSelected(const bool& selected)
+{
+	if (selected)
+		LoadFloat(m_selected_Location, 1);
+	else
+		LoadFloat(m_selected_Location, 0);
+}
+
 void TileShader::BindAttributes()
 {
 	BindAttribute(0, "in_vertexPositions");
@@ -36,4 +44,5 @@ void TileShader::GetAllUniformLocations()
 	m_transformationMatrix_Location = GetUniformLocation("transformationMatrix");
 	m_projectionMatrix_Location = GetUniformLocation("projectionMatrix");
 	m_viewMatrix_Location = GetUniformLocation("viewMatrix");
+	m_selected_Location = GetUniformLocation("selected");
 }

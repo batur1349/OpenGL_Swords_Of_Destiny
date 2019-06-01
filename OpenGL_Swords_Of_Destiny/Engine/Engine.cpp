@@ -1,7 +1,6 @@
 #include "../pch.h"
 #include "Engine.hpp"
 
-
 Engine::Engine()
 {
 	// Initialize the variables
@@ -63,9 +62,25 @@ void Engine::Run()
 	TexturedObject myFirstObject = TexturedObject(simple, test);
 	Entity myFirstEntity = Entity(myFirstObject, glm::vec3(0), glm::vec3(0), glm::vec3(0.1));
 
-	Tile tile(0, 0, 100, 200, loader, "grass2");
-	std::vector<Tile> terrains;
-	terrains.push_back(tile);
+	std::vector<glm::vec3> tileVert = { glm::vec3(-1, 0, -1), glm::vec3(-1, 0, 1), glm::vec3(1, 0, 1), glm::vec3(1, 0, -1) };
+	std::vector<glm::vec2> tileUvs = { glm::vec2(0, 0), glm::vec2(0, 1), glm::vec2(1, 0), glm::vec2(1, 1) };
+	std::vector<glm::vec3> tileNormals = { glm::vec3(0, 1, 0), glm::vec3(0, 1, 0), glm::vec3(0, 1, 0), glm::vec3(0, 1, 0) };
+	std::vector<int> tileIndices = { 0, 1, 2, 2, 3, 0 };
+	Object tileObj = loader.LoadToVAO(tileVert, tileUvs, tileNormals, tileIndices);
+	Texture tileTex = loader.LoadTexture2D("grass2");
+	TexturedObject tileTexObj = TexturedObject(tileObj, tileTex);
+
+	std::vector<Tile> tiles;
+	//Tile myFirstTile("grass2", glm::vec3(0, 0, 0), loader);
+	//tiles.push_back(myFirstTile);
+	float six = 2, adet = 40;
+	for (float i = 0; i < adet; i++)
+	{
+		for (float j = 0; j < adet; j++)
+		{
+			tiles.push_back(Tile(tileTexObj, glm::vec3(i * six, 0, j * six)));
+		}
+	}
 
 	float x, y, z;
 	std::vector<Entity> entities;
@@ -77,6 +92,7 @@ void Engine::Run()
 
 		entities.emplace_back(myFirstObject, glm::vec3(x, y, z), glm::vec3(0), glm::vec3(0.2));
 	}
+	entities.clear();
 
 	while (_window->IsOpen())
 	{
@@ -88,7 +104,8 @@ void Engine::Run()
 
 		// Render
 		renderer.Prepare();
-		renderer.Render(entities, terrains, camera);
+		//renderer.Render(entities, terrains, camera);
+		renderer.Render(entities, tiles, camera);
 
 		// Update the window
 		_window->Update();

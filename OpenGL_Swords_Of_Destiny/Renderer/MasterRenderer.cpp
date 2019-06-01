@@ -4,7 +4,7 @@
 
 MasterRenderer::MasterRenderer(float aspect, Loader& loader)
 	: m_projectionMatrix(glm::perspective(m_FOV, aspect, m_NEAR_PLANE, m_FAR_PLANE)),
-	m_tileRenderer(m_tileShader, m_projectionMatrix), m_entityRenderer(m_shader, m_projectionMatrix)
+	m_entityRenderer(m_shader, m_projectionMatrix), m_tileRenderer(m_tileShader, m_projectionMatrix)
 {
 	// Enable the depty test
 	glEnable(GL_DEPTH_TEST);
@@ -27,12 +27,12 @@ void MasterRenderer::Prepare()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void MasterRenderer::Render(std::vector<Entity>& entities, std::vector<Tile>& terrains, ThirdPersonCamera& camera)
+void MasterRenderer::Render(std::vector<Entity>& entities, std::vector<Tile>& tiles, ThirdPersonCamera& camera)
 {
-	for (auto& terrain : terrains)
-		ConstructTerrainBatch(terrain);
 	for (auto& entity : entities)
 		ConstructEntityBatch(entity);
+	for (auto& tile : tiles)
+		ConstructTileBatch(tile);
 
 	// Prepare the screen
 	Prepare();
@@ -56,10 +56,10 @@ void MasterRenderer::Render(std::vector<Entity>& entities, std::vector<Tile>& te
 	m_tileShader.LoadViewMatrix(camera);
 
 	// Render all of the terrains
-	m_tileRenderer.Render(m_terrains);
+	m_tileRenderer.RenderTiles(m_tiles);
 
 	// Stop terrain shader and clear terrains
-	m_tileShader.Stop(); m_terrains.clear();
+	m_tileShader.Stop(); m_tiles.clear();
 }
 
 void MasterRenderer::ConstructEntityBatch(Entity& entity)
@@ -75,7 +75,15 @@ void MasterRenderer::ConstructEntityBatch(Entity& entity)
 	m_entities.find(texturedObject)->second.push_back(entity);
 }
 
-void MasterRenderer::ConstructTerrainBatch(Tile& tile)
+void MasterRenderer::ConstructTileBatch(Tile& tile)
 {
-	m_terrains.push_back(tile);
+	// Get the textured model
+	TexturedObject texturedObject = tile.GetTexturedObject();
+
+	// If the texturedmodel is in the map this will do nothing
+	// If it is not in the map it will insert it
+	m_tiles.insert(std::make_pair(texturedObject, std::vector<Tile>()));
+
+	// Add the entity to the entities list
+	m_tiles.find(texturedObject)->second.push_back(tile);
 }

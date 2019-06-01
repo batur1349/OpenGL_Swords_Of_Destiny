@@ -56,13 +56,18 @@ void Engine::Run()
 {
 	ThirdPersonCamera camera;
 	Loader loader;
-	Object simple = loader.LoadAssimpObjFile("lowPolyTree");
 	MasterRenderer renderer(_window->GetAspectRatio(), loader);
+
+	Object simple = loader.LoadAssimpObjFile("lowPolyTree");
 	Texture test = loader.LoadTexture2D("lowPolyTree");
 	TexturedObject myFirstObject = TexturedObject(simple, test);
 	Entity myFirstEntity = Entity(myFirstObject, glm::vec3(0), glm::vec3(0), glm::vec3(0.1));
 
-	int x, y, z;
+	Tile tile(0, 0, 100, 200, loader, "grass2");
+	std::vector<Tile> terrains;
+	terrains.push_back(tile);
+
+	float x, y, z;
 	std::vector<Entity> entities;
 	for (int i = 0; i < 100; i++)
 	{
@@ -83,7 +88,7 @@ void Engine::Run()
 
 		// Render
 		renderer.Prepare();
-		renderer.Render(entities, camera);
+		renderer.Render(entities, terrains, camera);
 
 		// Update the window
 		_window->Update();

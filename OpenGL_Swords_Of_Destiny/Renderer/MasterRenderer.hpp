@@ -6,6 +6,9 @@
 #include "../Entity/Entity.hpp"
 #include "../Maths/Maths.hpp"
 
+#include "TileRenderer.hpp"
+#include "EntityRenderer.hpp"
+
 class MasterRenderer
 {
 public:
@@ -15,8 +18,9 @@ public:
 
 	// Functions
 	void Prepare();
-	void Render(Entity& entity, ThirdPersonCamera& camera);
-	void Render(std::vector<Entity>& entities, ThirdPersonCamera& camera);
+	void Render(std::vector<Entity>& entities, std::vector<Tile>& terrains, ThirdPersonCamera& camera);
+	void ConstructEntityBatch(Entity& entity);
+	void ConstructTerrainBatch(Tile& tile);
 
 	// Getters
 	inline glm::mat4& GetProjectionMatrix() { return m_projectionMatrix; }
@@ -29,6 +33,15 @@ private:
 	glm::mat4 m_projectionMatrix;
 
 	GeneralShader m_shader;
+
+	TileShader m_tileShader;
+	TileRenderer m_tileRenderer;
+
+	EntityRenderer m_entityRenderer;
+
+	// Containers
+	std::vector<Tile> m_terrains;
+	std::map<TexturedObject, std::vector<Entity>, TextureObjectCompare> m_entities;
 };
 
 #endif // !MASTERRENDERER_HPP

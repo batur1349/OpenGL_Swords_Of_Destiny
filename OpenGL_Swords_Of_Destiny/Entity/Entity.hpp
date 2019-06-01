@@ -16,7 +16,7 @@ public:
 	void Rotate(const float& rx, const float& ry, const float& rz);
 
 	// Getters
-	inline TexturedObject& GetTexturedModel() { return m_texturedModel; }
+	inline TexturedObject& GetTexturedObject() { return m_texturedObject; }
 	inline glm::vec3& GetPosition() { return m_position; }
 	inline glm::vec3& GetRotation() { return m_rotation; }
 	inline glm::vec3& GetScale() { return m_scale; }
@@ -27,7 +27,7 @@ public:
 	inline void SetScale(const glm::vec3& scale) { m_scale = scale; }
 private:
 	// Variables
-	TexturedObject m_texturedModel;
+	TexturedObject m_texturedObject;
 	glm::vec3 m_position;
 	glm::vec3 m_rotation;
 	glm::vec3 m_scale;

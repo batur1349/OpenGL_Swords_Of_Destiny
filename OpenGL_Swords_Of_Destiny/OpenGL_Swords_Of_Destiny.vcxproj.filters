@@ -54,6 +54,18 @@
     <ClInclude Include="Maths\Maths.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TileMap\Tile\Tile.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\TileRenderer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader\TileShader.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\EntityRenderer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -98,9 +110,23 @@
     <ClCompile Include="Maths\Maths.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TileMap\Tile\Tile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader\TileShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\TileRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\EntityRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\GeneralShader.frag" />
     <None Include="Shader\GeneralShader.vert" />
+    <None Include="Shader\TileShader.frag" />
+    <None Include="Shader\TileShader.vert" />
   </ItemGroup>
 </Project>

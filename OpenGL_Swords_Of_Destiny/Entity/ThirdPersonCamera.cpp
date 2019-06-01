@@ -90,7 +90,7 @@ void ThirdPersonCamera::Update(const float& dt)
 	glfwGetCursorPos(glfwGetCurrentContext(), &m_lastMouseX, &m_lastMouseY);
 }
 
-const glm::mat4 & ThirdPersonCamera::GetViewMatrix()
+const glm::mat4& ThirdPersonCamera::GetViewMatrix()
 {
 	// Reset the viewMatrix
 	m_viewMatrix = glm::mat4(1.0f);
@@ -130,10 +130,10 @@ void ThirdPersonCamera::CalculatePitch()
 
 		m_pitch += pitchChange;
 
-		if (m_pitch < 5)
-			m_pitch = 5;
-		else if (m_pitch > 90)
-			m_pitch = 90;
+		if (m_pitch < MIN_PITCH)
+			m_pitch = MIN_PITCH;
+		else if (m_pitch > MAX_PITCH)
+			m_pitch = MAX_PITCH;
 	}
 }
 
@@ -224,7 +224,7 @@ void ThirdPersonCamera::UpdateInput()
 	}
 }
 
-void ThirdPersonCamera::Scroll_Callback(GLFWwindow * window, double x, double y)
+void ThirdPersonCamera::Scroll_Callback(GLFWwindow* window, double x, double y)
 {
 	m_scrollY = y * 2;
 }

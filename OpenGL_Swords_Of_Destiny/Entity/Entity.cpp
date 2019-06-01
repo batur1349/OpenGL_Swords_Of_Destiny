@@ -3,7 +3,7 @@
 
 
 Entity::Entity(TexturedObject texModel, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale)
-	: m_texturedModel(texModel), m_position(position), m_rotation(rotation), m_scale(scale)
+	: m_texturedObject(texModel), m_position(position), m_rotation(rotation), m_scale(scale)
 {
 
 }

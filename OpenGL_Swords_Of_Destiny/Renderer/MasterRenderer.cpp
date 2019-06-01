@@ -3,7 +3,8 @@
 
 
 MasterRenderer::MasterRenderer(float aspect, Loader& loader)
-	: m_projectionMatrix(glm::perspective(m_FOV, aspect, m_NEAR_PLANE, m_FAR_PLANE))
+	: m_projectionMatrix(glm::perspective(m_FOV, aspect, m_NEAR_PLANE, m_FAR_PLANE)),
+	m_tileRenderer(m_tileShader, m_projectionMatrix), m_entityRenderer(m_shader, m_projectionMatrix)
 {
 	// Enable the depty test
 	glEnable(GL_DEPTH_TEST);
@@ -26,43 +27,55 @@ void MasterRenderer::Prepare()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void MasterRenderer::Render(std::vector<Entity>& entities, ThirdPersonCamera& camera)
+void MasterRenderer::Render(std::vector<Entity>& entities, std::vector<Tile>& terrains, ThirdPersonCamera& camera)
 {
-	// Start the shader
+	for (auto& terrain : terrains)
+		ConstructTerrainBatch(terrain);
+	for (auto& entity : entities)
+		ConstructEntityBatch(entity);
+
+	// Prepare the screen
+	Prepare();
+
+	// Activate the shader
 	m_shader.Start();
 
-	// Load the shader matrices
+	// Load shader parameters
 	m_shader.LoadViewMatrix(camera);
-	m_shader.LoadProjectionMatrix(m_projectionMatrix);
 
-	// Bind the object vao
-	glBindVertexArray(entities.at(0).GetTexturedModel().GetModelObject().GetVaoID());
+	// Render all of the entities
+	m_entityRenderer.RenderEntities(m_entities);
 
-	// Enable the attributes
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
-	glEnableVertexAttribArray(2);
+	// Deactivate shader and clear entities
+	m_shader.Stop(); m_entities.clear();
 
-	// Bind the texture
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, entities.at(0).GetTexturedModel().GetModelTexture().GetTextureID());
+	// Start the terrain shader
+	m_tileShader.Start();
 
-	// Draw the object
-	for (int i = 0; i < entities.size(); i++)
-	{
-		m_shader.LoadTransformationMatrix(Maths::CreateTransformationMatrix(entities.at(i).GetPosition(),
-			entities.at(i).GetRotation(), entities.at(i).GetScale()));
-		glDrawElements(GL_TRIANGLES, entities.at(i).GetTexturedModel().GetModelObject().GetIndiceCount(), GL_UNSIGNED_INT, 0);
-	}
+	// Load terrain shader parameters
+	m_tileShader.LoadViewMatrix(camera);
 
-	// Disable the attributes
-	glDisableVertexAttribArray(0);
-	glDisableVertexAttribArray(1);
-	glDisableVertexAttribArray(2);
+	// Render all of the terrains
+	m_tileRenderer.Render(m_terrains);
 
-	// Unbind the object vao
-	glBindVertexArray(0);
+	// Stop terrain shader and clear terrains
+	m_tileShader.Stop(); m_terrains.clear();
+}
 
-	// Stop using the shader
-	m_shader.Stop();
+void MasterRenderer::ConstructEntityBatch(Entity& entity)
+{
+	// Get the textured model
+	TexturedObject texturedObject = entity.GetTexturedObject();
+
+	// If the texturedmodel is in the map this will do nothing
+	// If it is not in the map it will insert it
+	m_entities.insert(std::make_pair(texturedObject, std::vector<Entity>()));
+
+	// Add the entity to the entities list
+	m_entities.find(texturedObject)->second.push_back(entity);
+}
+
+void MasterRenderer::ConstructTerrainBatch(Tile& tile)
+{
+	m_terrains.push_back(tile);
 }

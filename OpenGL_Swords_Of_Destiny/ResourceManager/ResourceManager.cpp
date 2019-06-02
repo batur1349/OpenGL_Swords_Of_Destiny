@@ -25,10 +25,10 @@ ResourceManager::~ResourceManager()
 
 const std::vector<Tile>& ResourceManager::GenerateTilemap()
 {
-	float offset = 2, adet = 40;
-	for (float i = 0; i < adet; i++)
+	float offset = 2, count = 40;
+	for (float i = 0; i < count; i++)
 	{
-		for (float j = 0; j < adet; j++)
+		for (float j = 0; j < count; j++)
 		{
 			m_tiles.push_back(Tile(*m_tileTexturedObject, glm::vec3(i * offset, 0, j * offset)));
 		}

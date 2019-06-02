@@ -2,7 +2,7 @@
 #include "Tile.hpp"
 
 
-Tile::Tile(TexturedObject& texObj, const glm::vec3& position)
+Tile::Tile(const TexturedObject& texObj, const glm::vec3& position)
 	: m_texturedObject(texObj)
 {
 	m_position = position;

@@ -6,7 +6,7 @@ class ThirdPersonCamera
 public:
 	// Constructor
 	ThirdPersonCamera();
-	ThirdPersonCamera(glm::vec3* position, glm::vec3* rotation);
+	ThirdPersonCamera(glm::vec3 position, glm::vec3 rotation);
 	// Destructor
 	virtual ~ThirdPersonCamera();
 
@@ -30,7 +30,7 @@ private:
 	glm::mat4 m_viewMatrix;
 	static int m_scrollY;
 	double m_lastMouseX, m_lastMouseY;
-	static constexpr float FB_SPEED = 20.0f, RL_SPEED = 20.0f, MAX_ZOOM_OUT = 40.0f, MAX_ZOOM_IN = 10.0f,
+	static constexpr float FB_SPEED = 20.0f, RL_SPEED = 20.0f, MAX_ZOOM_OUT = 20.0f, MAX_ZOOM_IN = 5.0f,
 		MIN_PITCH = 10.0f, MAX_PITCH = 80.0f;
 
 	// Functions

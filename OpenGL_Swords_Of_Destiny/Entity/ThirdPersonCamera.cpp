@@ -16,21 +16,21 @@ ThirdPersonCamera::ThirdPersonCamera()
 	m_scrollY = 0;
 
 	m_distanceFromViewpoint = 20.0f;
-	m_angleAroundTheViewpoint = 180.0f;
+	m_angleAroundTheViewpoint = 90.0f;
 
 	m_currentFBSpeed = 0; m_currentRLSpeed = 0;
 
 	glfwSetScrollCallback(glfwGetCurrentContext(), Scroll_Callback);
 }
 
-ThirdPersonCamera::ThirdPersonCamera(glm::vec3* position, glm::vec3* rotation)
+ThirdPersonCamera::ThirdPersonCamera(glm::vec3 position, glm::vec3 rotation)
 	: m_worldUP(0.0f, 1.0f, 0.0f)
 {
 	m_pollygons = false;
 
 	//m_player = player;
-	m_viewpointPosition = position;
-	m_viewpointRotation = rotation;
+	m_viewpointPosition = new glm::vec3(position);
+	m_viewpointRotation = new glm::vec3(rotation);
 
 	m_pitch = 20.0f;
 	m_yaw = 0.0f;
@@ -38,7 +38,7 @@ ThirdPersonCamera::ThirdPersonCamera(glm::vec3* position, glm::vec3* rotation)
 	m_scrollY = 0;
 
 	m_distanceFromViewpoint = 20.0f;
-	m_angleAroundTheViewpoint = 180.0f;
+	m_angleAroundTheViewpoint = 90.0f;
 
 	m_currentFBSpeed = 0; m_currentRLSpeed = 0;
 
@@ -206,7 +206,7 @@ void ThirdPersonCamera::UpdateInput()
 
 	if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_R))
 	{
-		m_angleAroundTheViewpoint = 180.0f;
+		m_angleAroundTheViewpoint = 90.0f;
 		m_pitch = 20.0f;
 	}
 	else if (glfwGetKey(glfwGetCurrentContext(), GLFW_KEY_F6))

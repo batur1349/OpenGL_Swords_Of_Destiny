@@ -53,45 +53,13 @@ Engine::~Engine()
 
 void Engine::Run()
 {
-	ThirdPersonCamera camera;
 	Loader loader;
+	ResourceManager resourceManager;
 	MasterRenderer renderer(_window->GetAspectRatio(), loader);
+	ThirdPersonCamera camera(glm::vec3(40, 0, 40), glm::vec3(0));
 
-	Object simple = loader.LoadAssimpObjFile("lowPolyTree");
-	Texture test = loader.LoadTexture2D("lowPolyTree");
-	TexturedObject myFirstObject = TexturedObject(simple, test);
-	Entity myFirstEntity = Entity(myFirstObject, glm::vec3(0), glm::vec3(0), glm::vec3(0.1));
-
-	std::vector<glm::vec3> tileVert = { glm::vec3(-1, 0, -1), glm::vec3(-1, 0, 1), glm::vec3(1, 0, 1), glm::vec3(1, 0, -1) };
-	std::vector<glm::vec2> tileUvs = { glm::vec2(0, 0), glm::vec2(0, 1), glm::vec2(1, 0), glm::vec2(1, 1) };
-	std::vector<glm::vec3> tileNormals = { glm::vec3(0, 1, 0), glm::vec3(0, 1, 0), glm::vec3(0, 1, 0), glm::vec3(0, 1, 0) };
-	std::vector<int> tileIndices = { 0, 1, 2, 2, 3, 0 };
-	Object tileObj = loader.LoadToVAO(tileVert, tileUvs, tileNormals, tileIndices);
-	Texture tileTex = loader.LoadTexture2D("grass2");
-	TexturedObject tileTexObj = TexturedObject(tileObj, tileTex);
-
-	std::vector<Tile> tiles;
-	float six = 2, adet = 40;
-	for (float i = 0; i < adet; i++)
-	{
-		for (float j = 0; j < adet; j++)
-		{
-			tiles.push_back(Tile(tileTexObj, glm::vec3(i * six, 0, j * six)));
-		}
-	}
-	tiles.at(60).SetSelected(true);
-
-	float x, y, z;
-	std::vector<Entity> entities;
-	for (int i = 0; i < 100; i++)
-	{
-		x = rand() % 100;
-		y = 0;
-		z = rand() % 100;
-
-		entities.emplace_back(myFirstObject, glm::vec3(x, y, z), glm::vec3(0), glm::vec3(0.2));
-	}
-	entities.clear();
+	std::vector<Tile> tiles = resourceManager.GenerateTilemap();
+	std::vector<Entity> entities = resourceManager.GenerateEntities();
 
 	while (_window->IsOpen())
 	{
@@ -103,7 +71,6 @@ void Engine::Run()
 
 		// Render
 		renderer.Prepare();
-		//renderer.Render(entities, terrains, camera);
 		renderer.Render(entities, tiles, camera);
 
 		// Update the window

@@ -7,7 +7,7 @@
 class Tile
 {
 public:
-	Tile(TexturedObject& texObj, const glm::vec3& position);
+	Tile(const TexturedObject& texObj, const glm::vec3& position);
 	Tile(const std::string& texName, const glm::vec3& position, Loader& loader);
 	virtual ~Tile();
 

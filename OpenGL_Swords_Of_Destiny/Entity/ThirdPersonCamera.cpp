@@ -104,6 +104,10 @@ const glm::mat4& ThirdPersonCamera::GetViewMatrix()
 	// Translate the Camera Position
 	m_viewMatrix = glm::translate(m_viewMatrix, -(GetPosition()));
 
+	m_cameraUp = m_viewMatrix * glm::vec4(0, 1, 0, 0);
+	m_cameraRight = m_viewMatrix * glm::vec4(1, 0, 0, 0);
+	m_cameraFront = m_viewMatrix * glm::vec4(0, 0, -1, 0);
+
 	return m_viewMatrix;
 }
 

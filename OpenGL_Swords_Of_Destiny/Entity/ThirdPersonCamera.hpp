@@ -26,7 +26,8 @@ private:
 	// Variables
 	bool m_pollygons;
 	float m_angleAroundTheViewpoint, m_distanceFromViewpoint, m_pitch, m_yaw, m_roll, m_currentFBSpeed, m_currentRLSpeed;
-	glm::vec3 m_position, m_worldUP, * m_viewpointPosition, * m_viewpointRotation;
+	glm::vec3 m_position, m_worldUP, * m_viewpointPosition, * m_viewpointRotation,
+		m_cameraUp, m_cameraRight, m_cameraFront;
 	glm::mat4 m_viewMatrix;
 	static int m_scrollY;
 	double m_lastMouseX, m_lastMouseY;

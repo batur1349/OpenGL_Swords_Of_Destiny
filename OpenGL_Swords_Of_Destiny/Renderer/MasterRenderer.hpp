@@ -28,9 +28,9 @@ public:
 	inline glm::mat4& GetProjectionMatrix() { return m_projectionMatrix; }
 private:
 	// Variables
-	const float m_FOV = 70;
+	const float m_FOV = 60;
 	const float m_NEAR_PLANE = 0.1f;
-	const float m_FAR_PLANE = 1000;
+	const float m_FAR_PLANE = 1000.0f;
 	const float RED = 0.5444f, GREEN = 0.62f, BLUE = 0.69f;
 	glm::mat4 m_projectionMatrix;
 

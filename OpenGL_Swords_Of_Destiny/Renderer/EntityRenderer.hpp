@@ -6,6 +6,8 @@
 #include "../Shader/GeneralShader.hpp"
 #include "../Entity/Entity.hpp"
 
+#include "Frustum.hpp"
+
 struct TextureObjectCompare
 {
 public:

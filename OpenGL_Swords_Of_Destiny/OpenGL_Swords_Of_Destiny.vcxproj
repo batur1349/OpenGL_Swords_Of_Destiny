@@ -162,6 +162,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Engine\Engine.hpp" />
     <ClInclude Include="Renderer\EntityRenderer.hpp" />
+    <ClInclude Include="Renderer\Frustum.hpp" />
     <ClInclude Include="Renderer\MasterRenderer.hpp" />
     <ClInclude Include="Renderer\TileRenderer.hpp" />
     <ClInclude Include="ResourceManager\ResourceManager.hpp" />

@@ -3,7 +3,7 @@
 
 
 MasterRenderer::MasterRenderer(float aspect, Loader& loader)
-	: m_projectionMatrix(glm::perspective(m_FOV, aspect, m_NEAR_PLANE, m_FAR_PLANE)),
+	: m_projectionMatrix(glm::perspective(glm::radians(m_FOV), aspect, m_NEAR_PLANE, m_FAR_PLANE)),
 	m_entityRenderer(m_shader, m_projectionMatrix), m_tileRenderer(m_tileShader, m_projectionMatrix)
 {
 	// Enable the depty test
@@ -48,6 +48,17 @@ void MasterRenderer::Render(std::vector<Entity>& entities, std::vector<Tile>& ti
 
 	// Deactivate shader and clear entities
 	m_shader.Stop(); m_entities.clear();
+
+	Frustum fr;
+	fr.CalculateFrustumPlanes(m_projectionMatrix, camera.GetViewMatrix());
+	if (fr.SphereInFrustum(glm::vec3(40, 0, 40), 5))
+	{
+		std::cout << "Inside!" << std::endl;
+	}
+	else
+	{
+		std::cout << "Outside!" << std::endl;
+	}
 
 	// Start the terrain shader
 	m_tileShader.Start();

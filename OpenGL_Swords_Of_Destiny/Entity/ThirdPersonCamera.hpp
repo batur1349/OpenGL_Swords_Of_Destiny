@@ -19,6 +19,9 @@ public:
 	inline const float& GetPitch() { return m_pitch; }
 	inline const float& GetYaw() { return m_yaw; }
 	inline const float& GetRoll() { return m_roll; }
+	inline const glm::vec3& GetCameraUp() { return m_cameraUp; }
+	inline const glm::vec3& GetCameraFront() { return m_cameraFront; }
+	inline const glm::vec3& GetCameraRight() { return m_cameraRight; }
 	inline const glm::vec3& GetWorldUP() { return m_worldUP; }
 
 	static void Scroll_Callback(GLFWwindow* window, double x, double y);

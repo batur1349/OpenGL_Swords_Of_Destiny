@@ -1,5 +1,7 @@
 #include "../pch.h"
 #include "Engine.hpp"
+#include "../Gui/GuiTexture.hpp"
+#include "../Gui/GuiRenderer.hpp"
 
 Engine::Engine()
 {
@@ -60,6 +62,7 @@ void Engine::Run()
 
 	std::vector<Tile> tiles = resourceManager.GenerateTilemap();
 	std::vector<Entity> entities = resourceManager.GenerateEntities();
+	std::vector<GuiTexture> guis = resourceManager.GenerateGuiTextures();
 
 	while (_window->IsOpen())
 	{
@@ -71,7 +74,8 @@ void Engine::Run()
 
 		// Render
 		renderer.Prepare();
-		renderer.Render(entities, tiles, camera);
+		//renderer.Render(entities, tiles, camera);
+		renderer.Render(entities, tiles, guis, camera);
 
 		// Update the window
 		_window->Update();

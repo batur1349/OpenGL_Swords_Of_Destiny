@@ -59,3 +59,12 @@ const std::vector<Entity>& ResourceManager::GenerateEntities()
 
 	return m_entities;
 }
+
+const std::vector<GuiTexture>& ResourceManager::GenerateGuiTextures()
+{
+	GuiTexture gui(m_loader.LoadTexture2D("health"), glm::vec2(-0.75, 0.90), glm::vec2(0.25, 0.25));
+
+	m_guiTextures.push_back(gui);
+
+	return m_guiTextures;
+}

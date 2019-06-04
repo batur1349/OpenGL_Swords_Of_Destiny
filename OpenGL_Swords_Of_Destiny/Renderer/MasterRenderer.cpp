@@ -5,6 +5,7 @@
 MasterRenderer::MasterRenderer(float aspect, Loader& loader)
 	: m_projectionMatrix(glm::perspective(glm::radians(m_FOV), aspect, m_NEAR_PLANE, m_FAR_PLANE)),
 	m_entityRenderer(m_shader, m_projectionMatrix), m_tileRenderer(m_tileShader, m_projectionMatrix)
+	, m_guiRenderer(loader)
 {
 	// Enable the depty test
 	glEnable(GL_DEPTH_TEST);
@@ -63,6 +64,47 @@ void MasterRenderer::Render(std::vector<Entity>& entities, std::vector<Tile>& ti
 
 	// Stop terrain shader and clear terrains
 	m_tileShader.Stop(); m_tiles.clear();
+}
+
+void MasterRenderer::Render(std::vector<Entity>& entities, std::vector<Tile>& tiles, std::vector<GuiTexture>& guis, ThirdPersonCamera& camera)
+{
+	for (auto& entity : entities)
+		ConstructEntityBatch(entity);
+	for (auto& tile : tiles)
+		ConstructTileBatch(tile);
+
+	// Prepare the screen
+	Prepare();
+
+	// Calculate the frustum
+	m_frustum.CalculateFrustumPlanes(m_projectionMatrix, camera.GetViewMatrix());
+
+	// Activate the shader
+	m_shader.Start();
+
+	// Load shader parameters
+	m_shader.LoadViewMatrix(camera);
+
+	// Render all of the entities
+	m_entityRenderer.RenderEntities(m_entities, m_frustum);
+
+	// Deactivate shader and clear entities
+	m_shader.Stop(); m_entities.clear();
+
+	// Start the terrain shader
+	m_tileShader.Start();
+
+	// Load terrain shader parameters
+	m_tileShader.LoadViewMatrix(camera);
+
+	// Render all of the terrains
+	m_tileRenderer.RenderTiles(m_tiles, m_frustum);
+
+	// Stop terrain shader and clear terrains
+	m_tileShader.Stop(); m_tiles.clear();
+
+	// Render the Gui Textures
+	m_guiRenderer.Render(guis);
 }
 
 void MasterRenderer::ConstructEntityBatch(Entity& entity)

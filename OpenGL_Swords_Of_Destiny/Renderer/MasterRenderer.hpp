@@ -10,6 +10,7 @@
 #include "../Shader/TileShader.hpp"
 #include "../Tile/Tile.hpp"
 #include "TileRenderer.hpp"
+#include "../Gui/GuiRenderer.hpp"
 
 class MasterRenderer
 {
@@ -21,6 +22,7 @@ public:
 	// Functions
 	void Prepare();
 	void Render(std::vector<Entity>& entities, std::vector<Tile>& tiles, ThirdPersonCamera& camera);
+	void Render(std::vector<Entity>& entities, std::vector<Tile>& tiles, std::vector<GuiTexture>& guis, ThirdPersonCamera& camera);
 	void ConstructEntityBatch(Entity& entity);
 	void ConstructTileBatch(Tile& tile);
 
@@ -42,7 +44,10 @@ private:
 
 	Frustum m_frustum;
 
+	GuiRenderer m_guiRenderer;
+
 	// Containers
+	std::vector<GuiTexture> m_guiTextures;
 	std::map<TexturedObject, std::vector<Tile>, TileTextureObjectCompare> m_tiles;
 	std::map<TexturedObject, std::vector<Entity>, TextureObjectCompare> m_entities;
 };

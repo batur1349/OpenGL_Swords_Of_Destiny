@@ -6,6 +6,7 @@
 class Maths
 {
 public:
+	static glm::mat4 CreateGuiTransformationMatrix(const glm::vec2& translation, const glm::vec2& scale);
 	static glm::mat4 CreateTransformationMatrix(const glm::vec3& translation, const glm::vec3& rotation, const glm::vec3& scale);
 	static glm::mat4 CreateViewMatrix(ThirdPersonCamera& camera);
 	static glm::mat4 InvertMatrix(const glm::mat4& matrix);

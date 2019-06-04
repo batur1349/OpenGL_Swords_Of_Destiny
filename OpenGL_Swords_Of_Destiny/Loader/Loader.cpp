@@ -22,6 +22,18 @@ Loader::~Loader()
 		glDeleteTextures(1, &m_textures.at(i));
 }
 
+Object Loader::LoadToVAO(std::vector<glm::vec2>& vertices)
+{
+	// Create the vertex array object's id
+	GLuint vaoID = CreateVaoID();
+	// Load positions data to the attribute list 0
+	LoadDataToAttributeList(0, 2, vertices.data(), sizeof(glm::vec2) * vertices.size());
+	// Unbind the vertex array object
+	UnbindVAO();
+	// Return the raw model
+	return Object(vaoID, vertices.size());
+}
+
 Object Loader::LoadToVAO(std::vector<glm::vec3> vertices, std::vector<glm::vec2> textures, std::vector<glm::vec3> normals, std::vector<int> indices)
 {
 	// Create the vertex array object's id

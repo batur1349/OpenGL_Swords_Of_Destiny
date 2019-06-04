@@ -5,6 +5,7 @@
 #include "../Loader/Loader.hpp"
 #include "../Entity/Entity.hpp"
 #include "../Tile/Tile.hpp"
+#include "../Gui/GuiTexture.hpp"
 
 class ResourceManager
 {
@@ -17,10 +18,12 @@ public:
 
 	const std::vector<Tile>& GenerateTilemap();
 	const std::vector<Entity>& GenerateEntities();
+	const std::vector<GuiTexture>& GenerateGuiTextures();
 private:
 	Loader m_loader;
 	std::vector<Tile> m_tiles;
 	std::vector<Entity> m_entities;
+	std::vector<GuiTexture> m_guiTextures;
 
 	TexturedObject* m_lowPolyTreeTexturedObject;
 	TexturedObject* m_tileTexturedObject;

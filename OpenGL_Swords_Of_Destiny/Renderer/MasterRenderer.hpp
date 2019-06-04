@@ -1,14 +1,9 @@
 #ifndef MASTERRENDERER_HPP
 #define MASTERRENDERER_HPP
 
-#include "../Loader/Loader.hpp"
-#include "../Shader/GeneralShader.hpp"
 #include "../Entity/Entity.hpp"
-#include "../Maths/Maths.hpp"
-
 #include "EntityRenderer.hpp"
 #include "../Shader/TileShader.hpp"
-#include "../Tile/Tile.hpp"
 #include "TileRenderer.hpp"
 #include "../Gui/GuiRenderer.hpp"
 

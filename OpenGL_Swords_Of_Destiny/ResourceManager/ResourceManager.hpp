@@ -1,8 +1,6 @@
 #ifndef RESOURCEMANAGER_HPP
 #define RESOURCEMANAGER_HPP
 
-#include "../Entity/TexturedObject.hpp"
-#include "../Loader/Loader.hpp"
 #include "../Entity/Entity.hpp"
 #include "../Tile/Tile.hpp"
 #include "../Gui/GuiTexture.hpp"

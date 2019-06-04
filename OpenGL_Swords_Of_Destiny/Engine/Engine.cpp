@@ -1,7 +1,5 @@
 #include "../pch.h"
 #include "Engine.hpp"
-#include "../Gui/GuiTexture.hpp"
-#include "../Gui/GuiRenderer.hpp"
 
 Engine::Engine()
 {

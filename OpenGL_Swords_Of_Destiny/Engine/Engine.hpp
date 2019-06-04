@@ -3,8 +3,6 @@
 
 #include "../Window/Window.hpp"
 #include "../Renderer/MasterRenderer.hpp"
-#include "../Entity/ThirdPersonCamera.hpp"
-#include "../Entity/Entity.hpp"
 #include "../ResourceManager/ResourceManager.hpp"
 
 class Engine

@@ -12,10 +12,12 @@ public:
 
 	void CalculateFrustumPlanes(glm::mat4 pojection, glm::mat4 view)
 	{
-		const glm::mat4& v = view;
-		const glm::mat4& p = pojection;
+		static const glm::mat4& v = view; //const glm::mat4& p = pojection;
+		static int wWidth, wHeight;
+		glfwGetWindowSize(glfwGetCurrentContext(), &wWidth, &wHeight);
+		static glm::mat4 p = glm::perspective(glm::radians(90.0f), (float)wWidth / (float)wHeight, 0.1f, 100.f);
 
-		glm::mat4 clipMatrix;
+		static glm::mat4 clipMatrix;
 
 		clipMatrix[0][0] = v[0][0] * p[0][0] + v[0][1] * p[1][0] + v[0][2] * p[2][0] + v[0][3] * p[3][0];
 		clipMatrix[1][0] = v[0][0] * p[0][1] + v[0][1] * p[1][1] + v[0][2] * p[2][1] + v[0][3] * p[3][1];

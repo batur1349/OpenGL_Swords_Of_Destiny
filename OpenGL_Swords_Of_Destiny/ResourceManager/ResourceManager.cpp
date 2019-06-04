@@ -25,7 +25,14 @@ ResourceManager::~ResourceManager()
 
 const std::vector<Tile>& ResourceManager::GenerateTilemap()
 {
-	float offset = 2, count = 5;
+	float offset = 2, count = 100;
+
+#ifdef _DEBUG
+	count = 20;
+#else
+	count = 80;
+#endif // _DEBUG
+
 	for (float i = 0; i < count; i++)
 	{
 		for (float j = 0; j < count; j++)
@@ -49,8 +56,6 @@ const std::vector<Entity>& ResourceManager::GenerateEntities()
 
 		m_entities.emplace_back(*m_lowPolyTreeTexturedObject, glm::vec3(x, y, z), glm::vec3(0), glm::vec3(0.1));
 	}
-	m_entities.clear();
-	m_entities.emplace_back(*m_lowPolyTreeTexturedObject, glm::vec3(40, 0, 40), glm::vec3(0), glm::vec3(0.1));
 
 	return m_entities;
 }

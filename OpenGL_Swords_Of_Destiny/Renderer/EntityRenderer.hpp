@@ -25,7 +25,7 @@ public:
 	EntityRenderer(GeneralShader& shader, const glm::mat4& projectionMatrix);
 
 	// Functions
-	void RenderEntities(std::map<TexturedObject, std::vector<Entity>, TextureObjectCompare>& entities);
+	void RenderEntities(std::map<TexturedObject, std::vector<Entity>, TextureObjectCompare>& entities, Frustum& frustum);
 	void EnableCulling();
 	void DisableCulling();
 private:

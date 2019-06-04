@@ -5,6 +5,7 @@
 #include "../Shader/TileShader.hpp"
 #include "../Tile/Tile.hpp"
 #include "../Maths/Maths.hpp"
+#include "../Renderer/Frustum.hpp"
 
 struct TileTextureObjectCompare
 {
@@ -22,7 +23,7 @@ public:
 	TileRenderer(TileShader& shader, const glm::mat4& projectionMatrix);
 
 	// Functions
-	void RenderTiles(std::map<TexturedObject, std::vector<Tile>, TileTextureObjectCompare>& tiles);
+	void RenderTiles(std::map<TexturedObject, std::vector<Tile>, TileTextureObjectCompare>& tiles, Frustum& frustum);
 	void EnableCulling();
 	void DisableCulling();
 private:

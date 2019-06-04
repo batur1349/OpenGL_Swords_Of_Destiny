@@ -11,7 +11,7 @@ EntityRenderer::EntityRenderer(GeneralShader& shader, const glm::mat4& projectio
 	m_shader.Stop();
 }
 
-void EntityRenderer::RenderEntities(std::map<TexturedObject, std::vector<Entity>, TextureObjectCompare>& entities)
+void EntityRenderer::RenderEntities(std::map<TexturedObject, std::vector<Entity>, TextureObjectCompare>& entities, Frustum& frustum)
 {
 	// Loop through the mapObjects
 	for (auto& mapObject : entities)
@@ -21,7 +21,10 @@ void EntityRenderer::RenderEntities(std::map<TexturedObject, std::vector<Entity>
 		BindTexturedObject(mapObject.first);
 		// Render all of the entities in the container
 		for (auto& entity : mapObject.second)
-			RenderEntity(entity);
+		{
+			if (frustum.PointInFrustum(entity.GetPosition()))
+				RenderEntity(entity);
+		}
 		// Unbind the texturedModel
 		UnbindTexturedModel();
 	}

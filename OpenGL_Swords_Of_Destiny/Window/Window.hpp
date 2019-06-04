@@ -1,7 +1,7 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-constexpr auto FRAME_CONTAINER_SIZE = 60;
+constexpr auto FRAME_CONTAINER_SIZE = 120;
 using _Clock = std::chrono::steady_clock;
 
 class Window

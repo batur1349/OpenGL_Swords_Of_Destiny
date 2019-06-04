@@ -37,6 +37,9 @@ void MasterRenderer::Render(std::vector<Entity>& entities, std::vector<Tile>& ti
 	// Prepare the screen
 	Prepare();
 
+	// Calculate the frustum
+	m_frustum.CalculateFrustumPlanes(m_projectionMatrix, camera.GetViewMatrix());
+
 	// Activate the shader
 	m_shader.Start();
 
@@ -44,21 +47,10 @@ void MasterRenderer::Render(std::vector<Entity>& entities, std::vector<Tile>& ti
 	m_shader.LoadViewMatrix(camera);
 
 	// Render all of the entities
-	m_entityRenderer.RenderEntities(m_entities);
+	m_entityRenderer.RenderEntities(m_entities, m_frustum);
 
 	// Deactivate shader and clear entities
 	m_shader.Stop(); m_entities.clear();
-
-	Frustum fr;
-	fr.CalculateFrustumPlanes(m_projectionMatrix, camera.GetViewMatrix());
-	if (fr.SphereInFrustum(glm::vec3(40, 0, 40), 5))
-	{
-		std::cout << "Inside!" << std::endl;
-	}
-	else
-	{
-		std::cout << "Outside!" << std::endl;
-	}
 
 	// Start the terrain shader
 	m_tileShader.Start();
@@ -67,7 +59,7 @@ void MasterRenderer::Render(std::vector<Entity>& entities, std::vector<Tile>& ti
 	m_tileShader.LoadViewMatrix(camera);
 
 	// Render all of the terrains
-	m_tileRenderer.RenderTiles(m_tiles);
+	m_tileRenderer.RenderTiles(m_tiles, m_frustum);
 
 	// Stop terrain shader and clear terrains
 	m_tileShader.Stop(); m_tiles.clear();

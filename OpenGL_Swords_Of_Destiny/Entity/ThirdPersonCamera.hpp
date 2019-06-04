@@ -34,10 +34,13 @@ private:
 	glm::mat4 m_viewMatrix;
 	static int m_scrollY;
 	double m_lastMouseX, m_lastMouseY;
-	static constexpr float FB_SPEED = 20.0f, RL_SPEED = 20.0f, MAX_ZOOM_OUT = 20.0f, MAX_ZOOM_IN = 5.0f,
+	static constexpr float FB_SPEED = 20.0f, RL_SPEED = 20.0f, MAX_ZOOM_OUT = 40.0f, MAX_ZOOM_IN = 5.0f,
 		MIN_PITCH = 10.0f, MAX_PITCH = 80.0f;
 
+	float m_cameraBoundXMin, m_cameraBoundXMax, m_cameraBoundZMin, m_cameraBoundZMax;
+
 	// Functions
+	void SetCameraBounds();
 	void UpdateInput();
 	void CalculateZoom();
 	void CalculatePitch();

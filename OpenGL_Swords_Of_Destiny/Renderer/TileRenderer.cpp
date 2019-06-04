@@ -11,7 +11,7 @@ TileRenderer::TileRenderer(TileShader& shader, const glm::mat4& projectionMatrix
 	m_shader.Stop();
 }
 
-void TileRenderer::RenderTiles(std::map<TexturedObject, std::vector<Tile>, TileTextureObjectCompare>& tiles)
+void TileRenderer::RenderTiles(std::map<TexturedObject, std::vector<Tile>, TileTextureObjectCompare>& tiles, Frustum& frustum)
 {
 	// Loop through the mapObjects
 	for (auto& mapObject : tiles)
@@ -21,7 +21,10 @@ void TileRenderer::RenderTiles(std::map<TexturedObject, std::vector<Tile>, TileT
 		BindTexturedObject(mapObject.first);
 		// Render all of the entities in the container
 		for (auto& tile : mapObject.second)
-			RenderTile(tile);
+		{
+			if (frustum.SphereInFrustum(tile.GetPosition(), 40.0f))
+				RenderTile(tile);
+		}
 		// Unbind the texturedModel
 		UnbindTexturedModel();
 	}

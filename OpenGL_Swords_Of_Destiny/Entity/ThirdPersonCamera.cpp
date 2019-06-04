@@ -20,6 +20,8 @@ ThirdPersonCamera::ThirdPersonCamera()
 
 	m_currentFBSpeed = 0; m_currentRLSpeed = 0;
 
+	SetCameraBounds();
+
 	glfwSetScrollCallback(glfwGetCurrentContext(), Scroll_Callback);
 }
 
@@ -41,6 +43,8 @@ ThirdPersonCamera::ThirdPersonCamera(glm::vec3 position, glm::vec3 rotation)
 	m_angleAroundTheViewpoint = 90.0f;
 
 	m_currentFBSpeed = 0; m_currentRLSpeed = 0;
+
+	SetCameraBounds();
 
 	glfwSetScrollCallback(glfwGetCurrentContext(), Scroll_Callback);
 }
@@ -178,6 +182,25 @@ void ThirdPersonCamera::CalculateCameraPosition(float horizontalDist, float vert
 	m_position.x = m_viewpointPosition->x - offsetX;
 	m_position.y = m_viewpointPosition->y + verticalDist;
 	m_position.z = m_viewpointPosition->z - offsetZ;
+
+	// Check camera bounds
+	if (m_viewpointPosition->x < m_cameraBoundXMin)
+		m_viewpointPosition->x = m_cameraBoundXMin;
+	else if (m_viewpointPosition->x > m_cameraBoundXMax)
+		m_viewpointPosition->x = m_cameraBoundXMax;
+
+	if (m_viewpointPosition->z < m_cameraBoundZMin)
+		m_viewpointPosition->z = m_cameraBoundZMin;
+	else if (m_viewpointPosition->z > m_cameraBoundZMax)
+		m_viewpointPosition->z = m_cameraBoundZMax;
+}
+
+void ThirdPersonCamera::SetCameraBounds()
+{
+	m_cameraBoundXMin = -20.0f;
+	m_cameraBoundXMax = 180.0f;
+	m_cameraBoundZMin = -20.0f;
+	m_cameraBoundZMax = 180.0f;
 }
 
 void ThirdPersonCamera::UpdateInput()

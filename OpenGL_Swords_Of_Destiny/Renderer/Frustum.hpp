@@ -15,7 +15,7 @@ public:
 		static const glm::mat4& v = view; //const glm::mat4& p = pojection;
 		static int wWidth, wHeight;
 		glfwGetWindowSize(glfwGetCurrentContext(), &wWidth, &wHeight);
-		static glm::mat4 p = glm::perspective(glm::radians(90.0f), (float)wWidth / (float)wHeight, 0.1f, 1000.f);
+		static glm::mat4 p = glm::perspective(glm::radians(90.0f), (float)wWidth / (float)wHeight, 1.0f, 500.0f);
 
 		static glm::mat4 clipMatrix;
 

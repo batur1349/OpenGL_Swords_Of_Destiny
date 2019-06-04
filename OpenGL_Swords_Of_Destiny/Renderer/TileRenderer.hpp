@@ -1,11 +1,10 @@
 #ifndef TILERENDERER_HPP
 #define TILERENDERER_HPP
 
-#include "../Entity/TexturedObject.hpp"
-#include "../Shader/TileShader.hpp"
 #include "../Tile/Tile.hpp"
 #include "../Maths/Maths.hpp"
 #include "../Renderer/Frustum.hpp"
+#include "../Shader/TileShader.hpp"
 
 struct TileTextureObjectCompare
 {

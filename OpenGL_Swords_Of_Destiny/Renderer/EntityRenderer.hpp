@@ -2,7 +2,6 @@
 #define ENTITYRENDERER_HPP
 
 #include "../Maths/Maths.hpp"
-#include "../Entity/TexturedObject.hpp"
 #include "../Shader/GeneralShader.hpp"
 #include "../Entity/Entity.hpp"
 

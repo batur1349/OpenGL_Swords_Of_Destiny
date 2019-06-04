@@ -1,14 +1,9 @@
 #ifndef MASTERRENDERER_HPP
 #define MASTERRENDERER_HPP
 
-#include "../Loader/Loader.hpp"
-#include "../Shader/GeneralShader.hpp"
 #include "../Entity/Entity.hpp"
-#include "../Maths/Maths.hpp"
-
 #include "EntityRenderer.hpp"
 #include "../Shader/TileShader.hpp"
-#include "../Tile/Tile.hpp"
 #include "TileRenderer.hpp"
 #include "../Gui/GuiRenderer.hpp"
 
@@ -31,7 +26,7 @@ public:
 private:
 	// Variables
 	const float m_FOV = 60;
-	const float m_NEAR_PLANE = 0.1f;
+	const float m_NEAR_PLANE = 1.0f;
 	const float m_FAR_PLANE = 500.0f;
 	const float RED = 0.5444f, GREEN = 0.62f, BLUE = 0.69f;
 	glm::mat4 m_projectionMatrix;

@@ -12,6 +12,7 @@ public:
 	~ResourceManager();
 
 	const TexturedObject& GetLowPolyTreeTexturedObject() { return *m_lowPolyTreeTexturedObject; }
+	const TexturedObject& GetStallTextuedObject() { return *m_stallTexturedObject; }
 	const TexturedObject& GetTileTexturedObject() { return *m_tileTexturedObject; }
 
 	const std::vector<Tile>& GenerateTilemap();
@@ -23,8 +24,7 @@ private:
 	std::vector<Entity> m_entities;
 	std::vector<GuiTexture> m_guiTextures;
 
-	TexturedObject* m_lowPolyTreeTexturedObject;
-	TexturedObject* m_tileTexturedObject;
+	TexturedObject* m_lowPolyTreeTexturedObject, * m_tileTexturedObject, * m_stallTexturedObject;
 };
 
 #endif // !RESOURCEMANAGER_HPP

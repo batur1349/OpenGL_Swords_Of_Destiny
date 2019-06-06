@@ -22,7 +22,7 @@ void TileRenderer::RenderTiles(std::map<TexturedObject, std::vector<Tile>, TileT
 		// Render all of the entities in the container
 		for (auto& tile : mapObject.second)
 		{
-			if (frustum.SphereInFrustum(tile.GetPosition(), 40.0f))
+			if (frustum.SphereInFrustum(tile.GetPosition(), 0.0f))
 				RenderTile(tile);
 		}
 		// Unbind the texturedModel

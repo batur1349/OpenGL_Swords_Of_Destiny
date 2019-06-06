@@ -28,7 +28,7 @@ void MasterRenderer::Prepare()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void MasterRenderer::Render(std::vector<Entity>& entities, std::vector<Tile>& tiles, ThirdPersonCamera& camera)
+void MasterRenderer::Render(std::vector<Entity>& entities, std::vector<Tile>& tiles, std::vector<GuiTexture>& guis, Light& light, ThirdPersonCamera& camera)
 {
 	for (auto& entity : entities)
 		ConstructEntityBatch(entity);
@@ -39,7 +39,11 @@ void MasterRenderer::Render(std::vector<Entity>& entities, std::vector<Tile>& ti
 	Prepare();
 
 	// Calculate the frustum
-	m_frustum.CalculateFrustumPlanes(m_projectionMatrix, camera.GetViewMatrix());
+	if (m_oldViewMatrix != camera.GetViewMatrix())
+	{
+		m_oldViewMatrix = camera.GetViewMatrix();
+		m_frustum.CalculateFrustumPlanes(camera.GetViewMatrix());
+	}
 
 	// Activate the shader
 	m_shader.Start();
@@ -47,43 +51,8 @@ void MasterRenderer::Render(std::vector<Entity>& entities, std::vector<Tile>& ti
 	// Load shader parameters
 	m_shader.LoadViewMatrix(camera);
 
-	// Render all of the entities
-	m_entityRenderer.RenderEntities(m_entities, m_frustum);
-
-	// Deactivate shader and clear entities
-	m_shader.Stop(); m_entities.clear();
-
-	// Start the terrain shader
-	m_tileShader.Start();
-
-	// Load terrain shader parameters
-	m_tileShader.LoadViewMatrix(camera);
-
-	// Render all of the terrains
-	m_tileRenderer.RenderTiles(m_tiles, m_frustum);
-
-	// Stop terrain shader and clear terrains
-	m_tileShader.Stop(); m_tiles.clear();
-}
-
-void MasterRenderer::Render(std::vector<Entity>& entities, std::vector<Tile>& tiles, std::vector<GuiTexture>& guis, ThirdPersonCamera& camera)
-{
-	for (auto& entity : entities)
-		ConstructEntityBatch(entity);
-	for (auto& tile : tiles)
-		ConstructTileBatch(tile);
-
-	// Prepare the screen
-	Prepare();
-
-	// Calculate the frustum
-	m_frustum.CalculateFrustumPlanes(m_projectionMatrix, camera.GetViewMatrix());
-
-	// Activate the shader
-	m_shader.Start();
-
-	// Load shader parameters
-	m_shader.LoadViewMatrix(camera);
+	// Load light parameters
+	m_shader.LoadLight(light);
 
 	// Render all of the entities
 	m_entityRenderer.RenderEntities(m_entities, m_frustum);

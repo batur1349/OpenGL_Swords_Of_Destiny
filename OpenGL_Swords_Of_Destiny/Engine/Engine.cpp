@@ -62,6 +62,8 @@ void Engine::Run()
 	std::vector<Entity> entities = resourceManager.GenerateEntities();
 	std::vector<GuiTexture> guis = resourceManager.GenerateGuiTextures();
 
+	Light sun(glm::vec3(0.0f), glm::vec3(1.0f));
+
 	while (_window->IsOpen())
 	{
 		// Update the deltaTime 
@@ -72,8 +74,7 @@ void Engine::Run()
 
 		// Render
 		renderer.Prepare();
-		//renderer.Render(entities, tiles, camera);
-		renderer.Render(entities, tiles, guis, camera);
+		renderer.Render(entities, tiles, guis, sun, camera);
 
 		// Update the window
 		_window->Update();

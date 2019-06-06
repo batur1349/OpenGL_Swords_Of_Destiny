@@ -16,8 +16,7 @@ public:
 
 	// Functions
 	void Prepare();
-	void Render(std::vector<Entity>& entities, std::vector<Tile>& tiles, ThirdPersonCamera& camera);
-	void Render(std::vector<Entity>& entities, std::vector<Tile>& tiles, std::vector<GuiTexture>& guis, ThirdPersonCamera& camera);
+	void Render(std::vector<Entity>& entities, std::vector<Tile>& tiles, std::vector<GuiTexture>& guis, Light& light, ThirdPersonCamera& camera);
 	void ConstructEntityBatch(Entity& entity);
 	void ConstructTileBatch(Tile& tile);
 
@@ -42,6 +41,7 @@ private:
 	GuiRenderer m_guiRenderer;
 
 	// Containers
+	glm::mat4 m_oldViewMatrix;
 	std::vector<GuiTexture> m_guiTextures;
 	std::map<TexturedObject, std::vector<Tile>, TileTextureObjectCompare> m_tiles;
 	std::map<TexturedObject, std::vector<Entity>, TextureObjectCompare> m_entities;

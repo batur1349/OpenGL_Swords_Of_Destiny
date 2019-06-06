@@ -24,6 +24,12 @@ void GeneralShader::LoadViewMatrix(ThirdPersonCamera& camera)
 	LoadMatrix4F(m_viewMatrix_Location, camera.GetViewMatrix());
 }
 
+void GeneralShader::LoadLight(Light& light)
+{
+	LoadVector3F(m_lightPosition_Location, light.GetPosition());
+	LoadVector3F(m_lightColor_Location, light.GetColor());
+}
+
 void GeneralShader::BindAttributes()
 {
 	BindAttribute(0, "in_vertexPositions");
@@ -36,4 +42,6 @@ void GeneralShader::GetAllUniformLocations()
 	m_transformationMatrix_Location = GetUniformLocation("transformationMatrix");
 	m_projectionMatrix_Location = GetUniformLocation("projectionMatrix");
 	m_viewMatrix_Location = GetUniformLocation("viewMatrix");
+	m_lightPosition_Location = GetUniformLocation("lightPosition");
+	m_lightColor_Location = GetUniformLocation("lightColor");
 }

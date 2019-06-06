@@ -4,6 +4,7 @@
 #include "../Window/Window.hpp"
 #include "../Renderer/MasterRenderer.hpp"
 #include "../ResourceManager/ResourceManager.hpp"
+#include "../Entity/Light.hpp"
 
 class Engine
 {

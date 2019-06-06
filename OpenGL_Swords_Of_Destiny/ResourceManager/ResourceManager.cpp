@@ -4,9 +4,14 @@
 
 ResourceManager::ResourceManager()
 {
+	// LOWPOLYTREE
 	Object lowPolyTreeObject = m_loader.LoadAssimpObjFile("lowPolyTree");
 	Texture lowPolyTreeTexture = m_loader.LoadTexture2D("lowPolyTree");
 	m_lowPolyTreeTexturedObject = new TexturedObject(lowPolyTreeObject, lowPolyTreeTexture);
+	// STALL
+	Object stallObject = m_loader.LoadAssimpObjFile("stall");
+	Texture stallTexture = m_loader.LoadTexture2D("stall");
+	m_stallTexturedObject = new TexturedObject(stallObject, stallTexture);
 
 	std::vector<glm::vec3> tileVert = { glm::vec3(-1, 0, -1), glm::vec3(-1, 0, 1), glm::vec3(1, 0, 1), glm::vec3(1, 0, -1) };
 	std::vector<glm::vec2> tileUvs = { glm::vec2(0, 0), glm::vec2(0, 1), glm::vec2(1, 0), glm::vec2(1, 1) };
@@ -20,6 +25,7 @@ ResourceManager::ResourceManager()
 ResourceManager::~ResourceManager()
 {
 	delete m_lowPolyTreeTexturedObject;
+	delete m_stallTexturedObject;
 	delete m_tileTexturedObject;
 }
 
@@ -47,14 +53,23 @@ const std::vector<Tile>& ResourceManager::GenerateTilemap()
 
 const std::vector<Entity>& ResourceManager::GenerateEntities()
 {
-	int x, y, z;
+	int x, y, z, type;
+	float scx, scy, scz;
 	for (int i = 0; i < 60; i++)
 	{
+		type = rand() % 2;
 		x = rand() % 80;
 		y = 0;
 		z = rand() % 80;
 
-		m_entities.emplace_back(*m_lowPolyTreeTexturedObject, glm::vec3(x, y, z), glm::vec3(0), glm::vec3(0.1));
+		scx = 15.0f / (float)100;
+		scy = (float)(rand() % 19 + 10) / (float)100;
+		scz = scx;
+
+		if (type == 0)
+			m_entities.emplace_back(*m_lowPolyTreeTexturedObject, glm::vec3(x, y, z), glm::vec3(0), glm::vec3(scx, scy, scz));
+		else if (type == 1)
+			m_entities.emplace_back(*m_stallTexturedObject, glm::vec3(x, y, z), glm::vec3(0), glm::vec3(0.25));
 	}
 
 	return m_entities;

@@ -17,12 +17,12 @@ Tile::~Tile()
 
 std::vector<glm::vec3> Tile::GenerateVertices()
 {
-	return std::vector<glm::vec3> { glm::vec3(-1, 0, -1), glm::vec3(-1, 0, 1), glm::vec3(1, 0, 1), glm::vec3(1, 0, -1) };
+	return std::vector<glm::vec3> { glm::vec3(0, 0, 1), glm::vec3(1, 0, 1), glm::vec3(1, 0, 0), glm::vec3(0, 0, 0) };
 }
 
 std::vector<glm::vec2> Tile::GenerateUvs()
 {
-	return std::vector<glm::vec2> { glm::vec2(0, 0), glm::vec2(0, 1), glm::vec2(1, 0), glm::vec2(1, 1) };
+	return std::vector<glm::vec2> { glm::vec2(1, 0), glm::vec2(0, 0), glm::vec2(0, 1), glm::vec2(1, 1) };
 }
 
 std::vector<glm::vec3> Tile::GenerateNormals()

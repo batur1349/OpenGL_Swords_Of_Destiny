@@ -8,17 +8,18 @@ TileRenderer::TileRenderer(TileShader& shader, const glm::mat4& projectionMatrix
 	// Create the projection matrix using GLM and load it into the shader
 	m_shader.Start();
 	m_shader.LoadProjectionMatrix(projectionMatrix);
+	m_shader.ConnectTextureUnits();
 	m_shader.Stop();
 }
 
-void TileRenderer::RenderTiles(std::map<TexturedObject, std::vector<Tile>, TileTextureObjectCompare>& tiles, Frustum& frustum)
+void TileRenderer::RenderTiles(std::map<TexturedObject, std::vector<Tile>, TileTextureObjectCompare>& tiles, Frustum& frustum, Texture selectedTexture)
 {
 	// Loop through the mapObjects
 	for (auto& mapObject : tiles)
 	{
 		// key.first = TexturedModel, key.second = std::vector<Entity>
 		// Bind the texturedModel's texture
-		BindTexturedObject(mapObject.first);
+		BindTexturedObject(mapObject.first, selectedTexture);
 		// Render all of the entities in the container
 		for (auto& tile : mapObject.second)
 		{
@@ -42,7 +43,7 @@ void TileRenderer::DisableCulling()
 	glDisable(GL_CULL_FACE);
 }
 
-void TileRenderer::BindTexturedObject(TexturedObject texturedObject)
+void TileRenderer::BindTexturedObject(TexturedObject texturedObject, Texture selectedTexture)
 {
 	// Bind the models vertex array object id so we can render it
 	glBindVertexArray(texturedObject.GetModelObject().GetVaoID());
@@ -57,6 +58,12 @@ void TileRenderer::BindTexturedObject(TexturedObject texturedObject)
 
 	// Bind the texturedModel's texture
 	glBindTexture(GL_TEXTURE_2D, texturedObject.GetModelTexture().GetTextureID());
+
+	// Activate the another OpenGL texture unit
+	glActiveTexture(GL_TEXTURE1);
+
+	// Bind the selected texture
+	glBindTexture(GL_TEXTURE_2D, selectedTexture.GetTextureID());
 }
 
 void TileRenderer::UnbindTexturedModel()

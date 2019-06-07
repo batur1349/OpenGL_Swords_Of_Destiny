@@ -27,6 +27,7 @@ private:
 	glm::vec3 _currentTerrainPoint;
 	float _clickTimeMax = 0.1f, _clickTime = 0.0f;
 	bool _clicked = false;
+	unsigned int m_selectedTerrainIndex = 0;
 
 	// Functions
 	glm::vec3 CalculateMouseRay();

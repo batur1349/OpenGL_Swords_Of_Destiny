@@ -105,18 +105,8 @@ glm::vec3 MousePicker::BinarySearch(int count, float start, float finish, glm::v
 	if (count >= RECURSION_COUNT)
 	{
 		glm::vec3 endPoint = GetPointOnRay(ray, half);
-		//Terrain* terrain = GetTerrain(endPoint.x, endPoint.z);
-		//Terrain terrain = GetTerrain(endPoint.x, endPoint.z);
 
 		return endPoint;
-		//if (terrain != NULL)
-		//{
-		//	return endPoint;
-		//}
-		//else
-		//{
-		//	return glm::vec3(0, 0, 0);
-		//}
 	}
 
 	if (IntersectionInRange(start, half, ray))
@@ -154,10 +144,16 @@ void MousePicker::SetTerrain(float worldX, float worldZ)
 		{
 			if (glfwGetMouseButton(glfwGetCurrentContext(), GLFW_MOUSE_BUTTON_LEFT))
 			{
-				if (_terrainPointer->at(i).GetSelected() == true)
-					_terrainPointer->at(i).SetSelected(false);
-				else
+				if (!_terrainPointer->at(i).GetSelected())
+				{
+					_terrainPointer->at(m_selectedTerrainIndex).SetSelected(false);
 					_terrainPointer->at(i).SetSelected(true);
+					m_selectedTerrainIndex = i;
+				}
+				else
+				{
+					_terrainPointer->at(i).SetSelected(false);
+				}
 
 				_clicked = true;
 			}

@@ -56,11 +56,13 @@ void Engine::Run()
 	Loader loader;
 	ResourceManager resourceManager;
 	MasterRenderer renderer(_window->GetAspectRatio(), loader);
-	ThirdPersonCamera camera(glm::vec3(40, 0, 40), glm::vec3(0));
+	ThirdPersonCamera camera(glm::vec3(0, 0, 0), glm::vec3(0));
 
 	std::vector<Tile> tiles = resourceManager.GenerateTilemap();
 	std::vector<Entity> entities = resourceManager.GenerateEntities();
 	std::vector<GuiTexture> guis = resourceManager.GenerateGuiTextures();
+
+	Texture selectedTexture = loader.LoadTexture2D("tileS");
 
 	MousePicker mousePicker(&camera, &tiles);
 
@@ -84,7 +86,7 @@ void Engine::Run()
 
 		// Render
 		renderer.Prepare();
-		renderer.Render(entities, tiles, guis, sun, camera);
+		renderer.Render(entities, tiles, guis, sun, camera, selectedTexture);
 
 		// Update the window
 		_window->Update();

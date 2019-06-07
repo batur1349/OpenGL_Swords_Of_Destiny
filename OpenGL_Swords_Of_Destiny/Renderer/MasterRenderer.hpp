@@ -16,7 +16,7 @@ public:
 
 	// Functions
 	void Prepare();
-	void Render(std::vector<Entity>& entities, std::vector<Tile>& tiles, std::vector<GuiTexture>& guis, Light& light, ThirdPersonCamera& camera);
+	void Render(std::vector<Entity>& entities, std::vector<Tile>& tiles, std::vector<GuiTexture>& guis, Light& light, ThirdPersonCamera& camera, Texture selectedTexture);
 	void ConstructEntityBatch(Entity& entity);
 	void ConstructTileBatch(Tile& tile);
 

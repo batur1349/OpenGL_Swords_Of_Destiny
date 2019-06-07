@@ -32,6 +32,12 @@ void TileShader::LoadSelected(const bool& selected)
 		LoadFloat(m_selected_Location, 0);
 }
 
+void TileShader::ConnectTextureUnits()
+{
+	LoadInt(m_texture_Location, 0);
+	LoadInt(m_selectedTile_Location, 1);
+}
+
 void TileShader::BindAttributes()
 {
 	BindAttribute(0, "in_vertexPositions");
@@ -45,4 +51,6 @@ void TileShader::GetAllUniformLocations()
 	m_projectionMatrix_Location = GetUniformLocation("projectionMatrix");
 	m_viewMatrix_Location = GetUniformLocation("viewMatrix");
 	m_selected_Location = GetUniformLocation("selected");
+	m_texture_Location = GetUniformLocation("textureSampler");
+	m_selectedTile_Location = GetUniformLocation("selectedSampler");
 }

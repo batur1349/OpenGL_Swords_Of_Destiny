@@ -14,7 +14,7 @@ ResourceManager::ResourceManager()
 	m_stallTexturedObject = new TexturedObject(stallObject, stallTexture);
 
 	std::vector<glm::vec3> tileVert = { glm::vec3(-1, 0, -1), glm::vec3(-1, 0, 1), glm::vec3(1, 0, 1), glm::vec3(1, 0, -1) };
-	std::vector<glm::vec2> tileUvs = { glm::vec2(0, 0), glm::vec2(0, 1), glm::vec2(1, 0), glm::vec2(1, 1) };
+	std::vector<glm::vec2> tileUvs = { glm::vec2(1, 0), glm::vec2(0, 0), glm::vec2(0, 1), glm::vec2(1, 1) };
 	std::vector<glm::vec3> tileNormals = { glm::vec3(0, 1, 0), glm::vec3(0, 1, 0), glm::vec3(0, 1, 0), glm::vec3(0, 1, 0) };
 	std::vector<int> tileIndices = { 0, 1, 2, 2, 3, 0 };
 	Object tileObject = m_loader.LoadToVAO(tileVert, tileUvs, tileNormals, tileIndices);
@@ -34,9 +34,9 @@ const std::vector<Tile>& ResourceManager::GenerateTilemap()
 	float offset = 2, count = 100;
 
 #ifdef _DEBUG
-	count = 20;
+	count = 10;
 #else
-	count = 80;
+	count = 40;
 #endif // _DEBUG
 
 	for (float i = 0; i < count; i++)
@@ -55,9 +55,16 @@ const std::vector<Tile>& ResourceManager::GenerateTilemap()
 
 const std::vector<Entity>& ResourceManager::GenerateEntities()
 {
-	int x, y, z, type;
+	int x, y, z, type, adet;
 	float scx, scy, scz;
-	for (int i = 0; i < 60; i++)
+
+#ifdef _DEBUG
+	adet = 20;
+#else
+	adet = 80;
+#endif // _DEBUG
+
+	for (int i = 0; i < adet; i++)
 	{
 		type = rand() % 2;
 		x = rand() % 80;

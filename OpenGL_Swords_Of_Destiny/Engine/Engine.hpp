@@ -5,6 +5,7 @@
 #include "../Renderer/MasterRenderer.hpp"
 #include "../ResourceManager/ResourceManager.hpp"
 #include "../Entity/Light.hpp"
+#include "../Mouse/MousePicker.hpp"
 
 class Engine
 {

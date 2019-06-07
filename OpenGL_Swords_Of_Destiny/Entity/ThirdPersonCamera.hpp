@@ -35,7 +35,7 @@ private:
 	static int m_scrollY;
 	double m_lastMouseX, m_lastMouseY;
 	static constexpr float FB_SPEED = 20.0f, RL_SPEED = 20.0f, MAX_ZOOM_OUT = 40.0f, MAX_ZOOM_IN = 40.0f,
-		MIN_PITCH = 10.0f, MAX_PITCH = 80.0f;
+		MIN_PITCH = 20.0f, MAX_PITCH = 70.0f;
 
 	float m_cameraBoundXMin, m_cameraBoundXMax, m_cameraBoundZMin, m_cameraBoundZMax;
 

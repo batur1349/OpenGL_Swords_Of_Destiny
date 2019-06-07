@@ -62,6 +62,8 @@ void Engine::Run()
 	std::vector<Entity> entities = resourceManager.GenerateEntities();
 	std::vector<GuiTexture> guis = resourceManager.GenerateGuiTextures();
 
+	MousePicker mousePicker(&camera, &tiles);
+
 	Light sun(glm::vec3(0.0f), glm::vec3(1.0f));
 
 	while (_window->IsOpen())
@@ -71,6 +73,14 @@ void Engine::Run()
 
 		// Update the camera
 		camera.Update(_deltaTime);
+
+		// Update the mouse
+		mousePicker.Update(_deltaTime);
+
+		//std::cout << mousePicker.GetCurrentRay().x << ", " << mousePicker.GetCurrentRay().y << ", " << mousePicker.GetCurrentRay().z << "\n";
+		//std::cout << mousePicker.GetCurrentTerrainPoint().x << ", "
+		//	<< mousePicker.GetCurrentTerrainPoint().y << ", "
+		//	<< mousePicker.GetCurrentTerrainPoint().z << "\n";
 
 		// Render
 		renderer.Prepare();

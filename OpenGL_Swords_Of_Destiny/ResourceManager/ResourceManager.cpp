@@ -43,10 +43,12 @@ const std::vector<Tile>& ResourceManager::GenerateTilemap()
 	{
 		for (float j = 0; j < count; j++)
 		{
-			m_tiles.push_back(Tile(*m_tileTexturedObject, glm::vec3(i * offset, 0, j * offset)));
+			m_tiles.push_back(Tile(*m_tileTexturedObject,								// Textured object
+				glm::vec3((i * offset) + 1.0f, 0, (j * offset) + 1.0f),					// Start Position
+				glm::vec3(((i + 1) * offset) + 1.0f, 0, ((j + 1) * offset) + 1.0f))		// End Position
+			);
 		}
 	}
-	m_tiles.at(0).SetSelected(true);
 
 	return m_tiles;
 }

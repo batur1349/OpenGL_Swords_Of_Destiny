@@ -163,6 +163,7 @@
     <ClInclude Include="Gui\GuiShader.hpp" />
     <ClInclude Include="Gui\GuiTexture.hpp" />
     <ClInclude Include="Maths\Maths.hpp" />
+    <ClInclude Include="Mouse\MousePicker.hpp" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Engine\Engine.hpp" />
     <ClInclude Include="Renderer\EntityRenderer.hpp" />
@@ -205,6 +206,10 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="Maths\Maths.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../pch.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="Mouse\MousePicker.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../pch.h</PrecompiledHeaderFile>
     </ClCompile>

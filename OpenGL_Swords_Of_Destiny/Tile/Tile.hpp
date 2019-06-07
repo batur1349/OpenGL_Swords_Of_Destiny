@@ -7,21 +7,24 @@
 class Tile
 {
 public:
-	Tile(const TexturedObject& texObj, const glm::vec3& position);
-	Tile(const std::string& texName, const glm::vec3& position, Loader& loader);
+	Tile(const TexturedObject& texObj, const glm::vec3& position, const glm::vec3& endPosition);
 	virtual ~Tile();
 
 	// Getters
 	inline TexturedObject& GetTexturedObject() { return m_texturedObject; }
 	inline glm::vec3& GetPosition() { return m_position; }
 	inline bool& GetSelected() { return m_selected; }
+	inline float& GetStartX() { return m_position.x; }
+	inline float& GetStartZ() { return m_position.z; }
+	inline float& GetEndX() { return m_endPosition.x; }
+	inline float& GetEndZ() { return m_endPosition.z; }
 
 	// Setters
 	void SetSelected(const bool& sel) { m_selected = sel; }
 private:
 	// Variables
 	TexturedObject m_texturedObject;
-	glm::vec3 m_position;
+	glm::vec3 m_position, m_endPosition;
 	bool m_selected;
 
 	// Functions

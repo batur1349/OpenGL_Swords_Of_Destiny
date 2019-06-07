@@ -2,18 +2,11 @@
 #include "Tile.hpp"
 
 
-Tile::Tile(const TexturedObject& texObj, const glm::vec3& position)
+Tile::Tile(const TexturedObject& texObj, const glm::vec3& position, const glm::vec3& endPosition)
 	: m_texturedObject(texObj)
 {
 	m_position = position;
-	m_selected = false;
-}
-
-Tile::Tile(const std::string& texName, const glm::vec3& position, Loader& loader)
-	: m_texturedObject(Object(loader.LoadToVAO(GenerateVertices(), GenerateUvs(), GenerateNormals(), GenerateIndices()))
-		, Texture(loader.LoadTexture2D(texName)))
-{
-	m_position = position;
+	m_endPosition = endPosition;
 	m_selected = false;
 }
 

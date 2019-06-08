@@ -18,11 +18,13 @@ public:
 	const std::vector<Tile>& GenerateTilemap();
 	const std::vector<Entity>& GenerateEntities();
 	const std::vector<GuiTexture>& GenerateGuiTextures();
+	const std::map<std::string, Texture>& GenerateTileTextures();
 private:
 	Loader m_loader;
 	std::vector<Tile> m_tiles;
 	std::vector<Entity> m_entities;
 	std::vector<GuiTexture> m_guiTextures;
+	std::map<std::string, Texture> m_tileTextures;
 
 	TexturedObject* m_lowPolyTreeTexturedObject, * m_tileTexturedObject, * m_stallTexturedObject;
 };

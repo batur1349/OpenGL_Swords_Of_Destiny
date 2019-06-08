@@ -23,8 +23,6 @@ public:
 	{
 		const glm::mat4& v = view; //const glm::mat4& p = pojection;
 
-		m_clipMatrix;
-
 		m_clipMatrix[0][0] = v[0][0] * m_projectionMatrix[0][0] + v[0][1] * m_projectionMatrix[1][0] + v[0][2] * m_projectionMatrix[2][0] + v[0][3] * m_projectionMatrix[3][0];
 		m_clipMatrix[1][0] = v[0][0] * m_projectionMatrix[0][1] + v[0][1] * m_projectionMatrix[1][1] + v[0][2] * m_projectionMatrix[2][1] + v[0][3] * m_projectionMatrix[3][1];
 		m_clipMatrix[2][0] = v[0][0] * m_projectionMatrix[0][2] + v[0][1] * m_projectionMatrix[1][2] + v[0][2] * m_projectionMatrix[2][2] + v[0][3] * m_projectionMatrix[3][2];

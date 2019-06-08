@@ -36,6 +36,7 @@ void TileShader::ConnectTextureUnits()
 {
 	LoadInt(m_texture_Location, 0);
 	LoadInt(m_selectedTile_Location, 1);
+	LoadInt(m_bloodTile_Location, 2);
 }
 
 void TileShader::BindAttributes()
@@ -53,4 +54,5 @@ void TileShader::GetAllUniformLocations()
 	m_selected_Location = GetUniformLocation("selected");
 	m_texture_Location = GetUniformLocation("textureSampler");
 	m_selectedTile_Location = GetUniformLocation("selectedSampler");
+	m_bloodTile_Location = GetUniformLocation("bloodSampler");
 }

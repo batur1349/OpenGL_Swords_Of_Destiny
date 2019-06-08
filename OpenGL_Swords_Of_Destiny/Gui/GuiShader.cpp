@@ -3,7 +3,7 @@
 
 
 GuiShader::GuiShader()
-	: ShaderProgram("../Shaders/guiShader")
+	: ShaderProgram("Gui/guiShader")
 {
 	BindAttributes();
 	GetAllUniformLocation();

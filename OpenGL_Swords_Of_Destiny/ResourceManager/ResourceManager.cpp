@@ -31,12 +31,12 @@ ResourceManager::~ResourceManager()
 
 const std::vector<Tile>& ResourceManager::GenerateTilemap()
 {
-	float offset = 2, count = 100;
+	float offset = 2, count = 0;
 
 #ifdef _DEBUG
 	count = 10;
 #else
-	count = 40;
+	count = 80;
 #endif // _DEBUG
 
 	for (float i = 0; i < count; i++)
@@ -91,4 +91,15 @@ const std::vector<GuiTexture>& ResourceManager::GenerateGuiTextures()
 	m_guiTextures.push_back(gui);
 
 	return m_guiTextures;
+}
+
+const std::map<std::string, Texture>& ResourceManager::GenerateTileTextures()
+{
+	Texture selectedTexture = m_loader.LoadTexture2D("tile_selected");
+	m_tileTextures.insert(std::pair<std::string, Texture>("tile_selected", selectedTexture));
+
+	Texture bloodTexture = m_loader.LoadTexture2D("tile_blood");
+	m_tileTextures.insert(std::pair<std::string, Texture>("tile_blood", bloodTexture));
+
+	return m_tileTextures;
 }

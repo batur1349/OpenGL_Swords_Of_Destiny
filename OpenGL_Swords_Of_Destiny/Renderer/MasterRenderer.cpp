@@ -28,7 +28,8 @@ void MasterRenderer::Prepare()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void MasterRenderer::Render(std::vector<Entity>& entities, std::vector<Tile>& tiles, std::vector<GuiTexture>& guis, Light& light, ThirdPersonCamera& camera, Texture selectedTexture)
+void MasterRenderer::Render(std::vector<Entity>& entities, std::vector<Tile>& tiles, std::vector<GuiTexture>& guis, Light& light,
+	ThirdPersonCamera& camera, std::map<std::string, Texture>& tileTextures)
 {
 	for (auto& entity : entities)
 		ConstructEntityBatch(entity);
@@ -67,7 +68,7 @@ void MasterRenderer::Render(std::vector<Entity>& entities, std::vector<Tile>& ti
 	m_tileShader.LoadViewMatrix(camera);
 
 	// Render all of the terrains
-	m_tileRenderer.RenderTiles(m_tiles, m_frustum, selectedTexture);
+	m_tileRenderer.RenderTiles(m_tiles, m_frustum, tileTextures);
 
 	// Stop terrain shader and clear terrains
 	m_tileShader.Stop(); m_tiles.clear();

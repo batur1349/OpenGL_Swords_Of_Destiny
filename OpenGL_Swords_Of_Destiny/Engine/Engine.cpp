@@ -61,10 +61,9 @@ void Engine::Run()
 	std::vector<Tile> tiles = resourceManager.GenerateTilemap();
 	std::vector<Entity> entities = resourceManager.GenerateEntities();
 	std::vector<GuiTexture> guis = resourceManager.GenerateGuiTextures();
+	std::map<std::string, Texture> tileTextures = resourceManager.GenerateTileTextures();
 
-	Texture selectedTexture = loader.LoadTexture2D("tileS");
-
-	MousePicker mousePicker(&camera, &tiles);
+	MousePicker mousePicker(&camera, &tiles, &entities);
 
 	Light sun(glm::vec3(0.0f), glm::vec3(1.0f));
 
@@ -79,14 +78,10 @@ void Engine::Run()
 		// Update the mouse
 		mousePicker.Update(_deltaTime);
 
-		//std::cout << mousePicker.GetCurrentRay().x << ", " << mousePicker.GetCurrentRay().y << ", " << mousePicker.GetCurrentRay().z << "\n";
-		//std::cout << mousePicker.GetCurrentTerrainPoint().x << ", "
-		//	<< mousePicker.GetCurrentTerrainPoint().y << ", "
-		//	<< mousePicker.GetCurrentTerrainPoint().z << "\n";
-
 		// Render
 		renderer.Prepare();
-		renderer.Render(entities, tiles, guis, sun, camera, selectedTexture);
+		renderer.Render(entities, tiles, guis, sun, camera, tileTextures);
+
 
 		// Update the window
 		_window->Update();

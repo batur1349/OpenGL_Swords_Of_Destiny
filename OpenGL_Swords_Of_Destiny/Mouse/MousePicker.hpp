@@ -1,33 +1,33 @@
 #ifndef MOUSEPICKER_HPP
 #define MOUSEPICKER_HPP
 
-#include "../Entity/ThirdPersonCamera.hpp"
 #include "../Tile/Tile.hpp"
 #include "../Maths/Maths.hpp"
+#include "../Entity/Entity.hpp"
 
 class MousePicker
 {
 public:
-	MousePicker(ThirdPersonCamera* camera, std::vector<Tile>* terrain);
+	MousePicker(ThirdPersonCamera* camera, std::vector<Tile>* terrain, std::vector<Entity>* entities);
 
 	// Getters
 	inline glm::vec3& GetCurrentRay() { return _currentRay; }
 	inline glm::vec3& GetCurrentTerrainPoint() { return _currentTerrainPoint; }
+	inline int GetCurrentEntityPoint();
 
 	// Functions
 	void Update(const float& dt);
 private:
 	// Variables
-	glm::vec3 _currentRay;
+	glm::vec3 _currentRay, _currentTerrainPoint;
 	glm::mat4 _projectionMatrix, _currentViewMatrix;
 	ThirdPersonCamera* _cameraPointer;
-	const int RECURSION_COUNT = 100; //200
+	const int RECURSION_COUNT = 75; //200
 	const float RAY_RANGE = 100; // 600
 	std::vector<Tile>* _terrainPointer;
-	glm::vec3 _currentTerrainPoint;
-	float _clickTimeMax = 0.1f, _clickTime = 0.0f;
+	std::vector<Entity>* _entitiesPointer;
+	float _clickTimeMax = 0.2f, _clickTime = 0.0f, m_selectedTerrainIndex = 0.0f;
 	bool _clicked = false;
-	unsigned int m_selectedTerrainIndex = 0;
 
 	// Functions
 	glm::vec3 CalculateMouseRay();

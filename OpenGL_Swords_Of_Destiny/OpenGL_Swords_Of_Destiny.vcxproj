@@ -173,6 +173,7 @@
     <ClInclude Include="ResourceManager\ResourceManager.hpp" />
     <ClInclude Include="Texture\Texture.hpp" />
     <ClInclude Include="Shader\TileShader.hpp" />
+    <ClInclude Include="Texture\TileTexturePack.hpp" />
     <ClInclude Include="Tile\Tile.hpp" />
     <ClInclude Include="Window\Window.hpp" />
   </ItemGroup>
@@ -248,6 +249,10 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../../pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../../pch.h</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="Texture\TileTexturePack.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../pch.h</PrecompiledHeaderFile>
+    </ClCompile>
     <ClCompile Include="Tile\Tile.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../pch.h</PrecompiledHeaderFile>
@@ -272,6 +277,8 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../pch.h</PrecompiledHeaderFile>
     </ClCompile>
+    <None Include="Gui\guiShader.frag" />
+    <None Include="Gui\guiShader.vert" />
     <None Include="Shader\GeneralShader.frag" />
     <ClInclude Include="Shader\GeneralShader.hpp" />
     <None Include="Shader\GeneralShader.vert" />

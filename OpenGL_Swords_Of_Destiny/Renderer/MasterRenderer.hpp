@@ -16,7 +16,8 @@ public:
 
 	// Functions
 	void Prepare();
-	void Render(std::vector<Entity>& entities, std::vector<Tile>& tiles, std::vector<GuiTexture>& guis, Light& light, ThirdPersonCamera& camera, Texture selectedTexture);
+	void Render(std::vector<Entity>& entities, std::vector<Tile>& tiles, std::vector<GuiTexture>& guis, Light& light,
+		ThirdPersonCamera& camera, std::map<std::string, Texture>& tileTextures);
 	void ConstructEntityBatch(Entity& entity);
 	void ConstructTileBatch(Tile& tile);
 
@@ -25,7 +26,7 @@ public:
 private:
 	// Variables
 	const float m_FOV = 60;
-	const float m_NEAR_PLANE = 1.0f;
+	const float m_NEAR_PLANE = 0.1f;
 	const float m_FAR_PLANE = 500.0f;
 	const float RED = 0.5444f, GREEN = 0.62f, BLUE = 0.69f;
 	glm::mat4 m_projectionMatrix;

@@ -5,6 +5,7 @@ class Texture
 {
 public:
 	// Contructor 
+	Texture() { m_textureID = 9999999; }
 	Texture(GLuint id);
 	// Getters
 	GLuint& GetTextureID();

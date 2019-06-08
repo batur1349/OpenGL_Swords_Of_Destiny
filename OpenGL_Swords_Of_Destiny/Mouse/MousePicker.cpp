@@ -2,8 +2,8 @@
 #include "MousePicker.hpp"
 
 
-MousePicker::MousePicker(ThirdPersonCamera* camera, std::vector<Tile>* terrain)
-	: _cameraPointer(camera), _terrainPointer(terrain)
+MousePicker::MousePicker(ThirdPersonCamera* camera, std::vector<Tile>* terrain, std::vector<Entity>* entities)
+	: _cameraPointer(camera), _terrainPointer(terrain), _entitiesPointer(entities)
 {
 	// Create the projection matrix
 	int wWidth, wHeight;
@@ -12,6 +12,24 @@ MousePicker::MousePicker(ThirdPersonCamera* camera, std::vector<Tile>* terrain)
 	_projectionMatrix = glm::perspective(glm::radians(60.0f), aspect, 0.1f, 500.0f);
 
 	_currentViewMatrix = _cameraPointer->GetViewMatrix();
+}
+
+inline int MousePicker::GetCurrentEntityPoint()
+{
+	/*glm::vec3 sphereCenter(_currentTerrainPoint.x, _currentRay.y, _currentTerrainPoint.z);
+	static float radius = 1.0f;
+
+	for (int i = 0; i < _entitiesPointer->size(); i++)
+	{
+		if (sphereCenter.x - radius < _entitiesPointer->at(i).GetPosition().x && sphereCenter.x + radius > _entitiesPointer->at(i).GetPosition().x
+			&& sphereCenter.z - radius < _entitiesPointer->at(i).GetPosition().z && sphereCenter.z + radius > _entitiesPointer->at(i).GetPosition().z)
+		{
+			std::cout << "Near To Entity :" << i + 1 << std::endl;
+			break;
+		}
+	}*/
+
+	return 0;
 }
 
 void MousePicker::Update(const float& dt)
@@ -30,6 +48,7 @@ void MousePicker::Update(const float& dt)
 		if (!_clicked)
 		{
 			SetTerrain(_currentTerrainPoint.x, _currentTerrainPoint.z);
+			GetCurrentEntityPoint();
 		}
 	}
 	else
@@ -124,7 +143,6 @@ bool MousePicker::IntersectionInRange(float start, float finish, glm::vec3 ray)
 	glm::vec3 startPoint = GetPointOnRay(ray, start);
 	glm::vec3 endPoint = GetPointOnRay(ray, finish);
 
-	//if (!IsUnderGround(startPoint) && IsUnderGround(endPoint))
 	if (startPoint.y > 0 && endPoint.y < 0)
 	{
 		return true;

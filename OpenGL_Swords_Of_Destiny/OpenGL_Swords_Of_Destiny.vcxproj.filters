@@ -87,6 +87,9 @@
     <ClInclude Include="Mouse\MousePicker.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Texture\TileTexturePack.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -161,11 +164,16 @@
     <ClCompile Include="Mouse\MousePicker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Texture\TileTexturePack.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\GeneralShader.frag" />
     <None Include="Shader\GeneralShader.vert" />
     <None Include="Shader\TileShader.frag" />
     <None Include="Shader\TileShader.vert" />
+    <None Include="Gui\guiShader.frag" />
+    <None Include="Gui\guiShader.vert" />
   </ItemGroup>
 </Project>

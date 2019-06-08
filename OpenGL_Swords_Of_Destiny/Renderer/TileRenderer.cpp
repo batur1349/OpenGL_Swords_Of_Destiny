@@ -12,18 +12,20 @@ TileRenderer::TileRenderer(TileShader& shader, const glm::mat4& projectionMatrix
 	m_shader.Stop();
 }
 
-void TileRenderer::RenderTiles(std::map<TexturedObject, std::vector<Tile>, TileTextureObjectCompare>& tiles, Frustum& frustum, Texture selectedTexture)
+void TileRenderer::RenderTiles(std::map<TexturedObject, std::vector<Tile>, TileTextureObjectCompare>& tiles,
+	Frustum& frustum, std::map<std::string, Texture>& tileTextures)
 {
 	// Loop through the mapObjects
 	for (auto& mapObject : tiles)
 	{
 		// key.first = TexturedModel, key.second = std::vector<Entity>
 		// Bind the texturedModel's texture
-		BindTexturedObject(mapObject.first, selectedTexture);
+		BindTexturedObject(mapObject.first, tileTextures);
+
 		// Render all of the entities in the container
 		for (auto& tile : mapObject.second)
 		{
-			if (frustum.SphereInFrustum(tile.GetPosition(), 0.0f))
+			if (frustum.SphereInFrustum(tile.GetPosition(), 5.0f))
 				RenderTile(tile);
 		}
 		// Unbind the texturedModel
@@ -43,7 +45,7 @@ void TileRenderer::DisableCulling()
 	glDisable(GL_CULL_FACE);
 }
 
-void TileRenderer::BindTexturedObject(TexturedObject texturedObject, Texture selectedTexture)
+void TileRenderer::BindTexturedObject(TexturedObject texturedObject, std::map<std::string, Texture>& tileTextures)
 {
 	// Bind the models vertex array object id so we can render it
 	glBindVertexArray(texturedObject.GetModelObject().GetVaoID());
@@ -59,11 +61,17 @@ void TileRenderer::BindTexturedObject(TexturedObject texturedObject, Texture sel
 	// Bind the texturedModel's texture
 	glBindTexture(GL_TEXTURE_2D, texturedObject.GetModelTexture().GetTextureID());
 
-	// Activate the another OpenGL texture unit
+	// Activate the another OpenGL texture unit for tile_selected
 	glActiveTexture(GL_TEXTURE1);
 
 	// Bind the selected texture
-	glBindTexture(GL_TEXTURE_2D, selectedTexture.GetTextureID());
+	glBindTexture(GL_TEXTURE_2D, tileTextures["tile_selected"].GetTextureID());
+
+	// Activate the another OpenGL texture unit for tile_blood
+	glActiveTexture(GL_TEXTURE2);
+
+	// Bind the selected texture
+	glBindTexture(GL_TEXTURE_2D, tileTextures["tile_blood"].GetTextureID());
 }
 
 void TileRenderer::UnbindTexturedModel()

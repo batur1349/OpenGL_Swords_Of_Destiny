@@ -5,7 +5,7 @@ class Object
 {
 public:
 	// Constructor
-	Object(GLuint& vaoID, int indiceCount);
+	Object(GLuint& vaoID, int indiceCount, std::vector<glm::vec3> vertices);
 
 	// Getters
 	inline GLuint& GetVaoID() { return m_vaoID; }
@@ -13,6 +13,7 @@ public:
 private:
 	GLuint m_vaoID;
 	int m_IndiceCount;
+	std::vector<glm::vec3> m_vertices;
 };
 
 #endif // !OBJECT_HPP

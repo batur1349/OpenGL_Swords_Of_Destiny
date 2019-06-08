@@ -22,12 +22,13 @@ public:
 	TileRenderer(TileShader& shader, const glm::mat4& projectionMatrix);
 
 	// Functions
-	void RenderTiles(std::map<TexturedObject, std::vector<Tile>, TileTextureObjectCompare>& tiles, Frustum& frustum, Texture selectedTexture);
+	void RenderTiles(std::map<TexturedObject, std::vector<Tile>, TileTextureObjectCompare>& tiles,
+		Frustum& frustum, std::map<std::string, Texture>& tileTextures);
 	void EnableCulling();
 	void DisableCulling();
 private:
 	// Functions
-	void BindTexturedObject(TexturedObject texturedObject, Texture selectedTexture);
+	void BindTexturedObject(TexturedObject texturedObject, std::map<std::string, Texture>& tileTextures);
 	void UnbindTexturedModel();
 	void RenderTile(Tile& Tile);
 

@@ -19,12 +19,18 @@ public:
 	const std::vector<Entity>& GenerateEntities();
 	const std::vector<GuiTexture>& GenerateGuiTextures();
 	const std::map<std::string, Texture>& GenerateTileTextures();
+	const std::map<GLuint, std::vector<glm::vec3>>& GetObjectVertices() { return m_objectVertices; }
+	const std::map<GLuint, std::pair<glm::vec3, glm::vec3>>& GetObjectBounds() { return m_objectBounds; }
 private:
 	Loader m_loader;
 	std::vector<Tile> m_tiles;
 	std::vector<Entity> m_entities;
 	std::vector<GuiTexture> m_guiTextures;
 	std::map<std::string, Texture> m_tileTextures;
+	void GetObjectVertices(const std::string& fileName, const GLuint& id);
+	std::map<GLuint, std::vector<glm::vec3>> m_objectVertices;
+	void CalculateObjectBounds();
+	std::map<GLuint, std::pair<glm::vec3, glm::vec3>> m_objectBounds;
 
 	TexturedObject* m_lowPolyTreeTexturedObject, * m_tileTexturedObject, * m_stallTexturedObject;
 };

@@ -8,12 +8,13 @@
 class MousePicker
 {
 public:
-	MousePicker(ThirdPersonCamera* camera, std::vector<Tile>* terrain, std::vector<Entity>* entities);
+	MousePicker(ThirdPersonCamera* camera, std::vector<Tile>* terrain, std::vector<Entity>* entities,
+		std::map<GLuint, std::pair<glm::vec3, glm::vec3>>* mapPtr);
 
 	// Getters
 	inline glm::vec3& GetCurrentRay() { return _currentRay; }
 	inline glm::vec3& GetCurrentTerrainPoint() { return _currentTerrainPoint; }
-	
+
 	// Functions
 	void Update(const float& dt);
 private:
@@ -38,6 +39,7 @@ private:
 	glm::vec3 BinarySearch(int count, float start, float finish, glm::vec3 ray);
 	bool IntersectionInRange(float start, float finish, glm::vec3 ray);
 	void SetTerrain(float worldX, float worldZ);
+	std::map<GLuint, std::pair<glm::vec3, glm::vec3>>* _boundingBoxPtr;
 };
 
 #endif // !MOUSEPICKER_HPP

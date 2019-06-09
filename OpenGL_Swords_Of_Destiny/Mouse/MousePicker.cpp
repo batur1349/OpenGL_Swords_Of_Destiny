@@ -2,8 +2,9 @@
 #include "MousePicker.hpp"
 
 
-MousePicker::MousePicker(ThirdPersonCamera* camera, std::vector<Tile>* terrain, std::vector<Entity>* entities)
-	: _cameraPointer(camera), _terrainPointer(terrain), _entitiesPointer(entities)
+MousePicker::MousePicker(ThirdPersonCamera* camera, std::vector<Tile>* terrain, std::vector<Entity>* entities,
+	std::map<GLuint, std::pair<glm::vec3, glm::vec3>>* mapPtr)
+	: _cameraPointer(camera), _terrainPointer(terrain), _entitiesPointer(entities), _boundingBoxPtr(mapPtr)
 {
 	// Create the projection matrix
 	int wWidth, wHeight;
@@ -22,6 +23,57 @@ void MousePicker::Update(const float& dt)
 	}
 
 	_currentRay = CalculateMouseRay();
+
+	/*TEST*/
+
+	float tmin, tmax, tymin, tymax, tzmin, tzmax;
+	glm::vec3 invdir = 1.0f / _currentRay;
+
+	int sign[3];
+	sign[0] = (invdir.x < 0);
+	sign[1] = (invdir.y < 0);
+	sign[2] = (invdir.z < 0);
+
+	glm::vec3 bounds[2];
+	bounds[0] = _boundingBoxPtr->at(1).first * _entitiesPointer->at(0).GetScale() + _entitiesPointer->at(0).GetPosition();
+	bounds[1] = _boundingBoxPtr->at(1).second * _entitiesPointer->at(0).GetScale() + _entitiesPointer->at(0).GetPosition();
+
+	system("CLS");
+
+	tmin = (bounds[sign[0]].x - _cameraPointer->GetPosition().x) * invdir.x;
+	tmax = (bounds[1 - sign[0]].x - _cameraPointer->GetPosition().x) * invdir.x;
+	tymin = (bounds[sign[1]].y - _cameraPointer->GetPosition().y) * invdir.y;
+	tymax = (bounds[1 - sign[1]].y - _cameraPointer->GetPosition().y) * invdir.y;
+
+	if ((tmin > tymax) || (tymin > tmax))
+		return;
+
+	if (tymin > tmin)
+		tmin = tymin;
+	if (tymax < tmax)
+		tmax = tymax;
+
+	tzmin = (bounds[sign[2]].z - _cameraPointer->GetPosition().z) * invdir.z;
+	tzmax = (bounds[1 - sign[2]].z - _cameraPointer->GetPosition().z) * invdir.z;
+
+	if ((tmin > tzmax) || (tzmin > tmax))
+		return;
+
+	if (tzmin > tmin)
+		tmin = tzmin;
+	if (tzmax < tmax)
+		tmax = tzmax;
+
+	//t = tmin;
+
+	//if (t < 0)
+	//{
+	//	t = tmax;
+	//	if (t < 0) return false;
+	//}
+
+	std::printf("Hit \n");
+	/*TEST*/
 
 	if (IntersectionInRange(0, RAY_RANGE, _currentRay))
 	{

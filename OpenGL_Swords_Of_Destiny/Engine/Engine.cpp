@@ -62,8 +62,10 @@ void Engine::Run()
 	std::vector<Entity> entities = resourceManager.GenerateEntities();
 	std::vector<GuiTexture> guis = resourceManager.GenerateGuiTextures();
 	std::map<std::string, Texture> tileTextures = resourceManager.GenerateTileTextures();
+	std::map<GLuint, std::vector<glm::vec3>> objectVertices = resourceManager.GetObjectVertices();
+	std::map<GLuint, std::pair<glm::vec3, glm::vec3>> objectBounds = resourceManager.GetObjectBounds();
 
-	MousePicker mousePicker(&camera, &tiles, &entities);
+	MousePicker mousePicker(&camera, &tiles, &entities, &objectBounds);
 
 	Light sun(glm::vec3(0.0f), glm::vec3(1.0f));
 

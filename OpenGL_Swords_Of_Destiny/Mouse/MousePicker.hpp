@@ -13,8 +13,7 @@ public:
 	// Getters
 	inline glm::vec3& GetCurrentRay() { return _currentRay; }
 	inline glm::vec3& GetCurrentTerrainPoint() { return _currentTerrainPoint; }
-	inline int GetCurrentEntityPoint();
-
+	
 	// Functions
 	void Update(const float& dt);
 private:

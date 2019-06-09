@@ -14,24 +14,6 @@ MousePicker::MousePicker(ThirdPersonCamera* camera, std::vector<Tile>* terrain, 
 	_currentViewMatrix = _cameraPointer->GetViewMatrix();
 }
 
-inline int MousePicker::GetCurrentEntityPoint()
-{
-	/*glm::vec3 sphereCenter(_currentTerrainPoint.x, _currentRay.y, _currentTerrainPoint.z);
-	static float radius = 1.0f;
-
-	for (int i = 0; i < _entitiesPointer->size(); i++)
-	{
-		if (sphereCenter.x - radius < _entitiesPointer->at(i).GetPosition().x && sphereCenter.x + radius > _entitiesPointer->at(i).GetPosition().x
-			&& sphereCenter.z - radius < _entitiesPointer->at(i).GetPosition().z && sphereCenter.z + radius > _entitiesPointer->at(i).GetPosition().z)
-		{
-			std::cout << "Near To Entity :" << i + 1 << std::endl;
-			break;
-		}
-	}*/
-
-	return 0;
-}
-
 void MousePicker::Update(const float& dt)
 {
 	if (_cameraPointer->GetViewMatrix() != _currentViewMatrix)
@@ -48,7 +30,6 @@ void MousePicker::Update(const float& dt)
 		if (!_clicked)
 		{
 			SetTerrain(_currentTerrainPoint.x, _currentTerrainPoint.z);
-			GetCurrentEntityPoint();
 		}
 	}
 	else

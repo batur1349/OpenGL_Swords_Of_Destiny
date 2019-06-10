@@ -81,7 +81,6 @@ void Engine::Run()
 		mousePicker.Update(_deltaTime);
 
 		// Render
-		renderer.Prepare();
 		renderer.Render(entities, tiles, guis, sun, camera, tileTextures);
 
 		// Update the window

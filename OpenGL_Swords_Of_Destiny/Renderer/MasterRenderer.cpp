@@ -31,6 +31,8 @@ void MasterRenderer::Prepare()
 void MasterRenderer::Render(std::vector<Entity>& entities, std::vector<Tile>& tiles, std::vector<GuiTexture>& guis, Light& light,
 	ThirdPersonCamera& camera, std::map<std::string, Texture>& tileTextures)
 {
+	Prepare();
+
 	for (auto& entity : entities)
 		ConstructEntityBatch(entity);
 	for (auto& tile : tiles)

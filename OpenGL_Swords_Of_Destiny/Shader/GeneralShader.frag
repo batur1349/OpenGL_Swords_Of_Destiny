@@ -11,9 +11,11 @@ out vec4 outColor;
 // UNIFORM
 uniform sampler2D textureSampler;
 uniform vec3 lightColor;
+uniform float selected;
 
 // CONSTS
 const float m_ambientStrength = 0.1f;
+vec4 selectedColor = vec4(0.875f, 0.875f, 0.875f, 1.0f);
 
 void main()
 {
@@ -26,5 +28,12 @@ void main()
 	float brightness = max(dot(unitNormal, unitLightVector), 0.0f);
 	vec3 diffuse = brightness * lightColor;
 
-    outColor = vec4((ambient + diffuse)* (texture(textureSampler, pass_textureCoords)), 1.0f);
+	if(selected > 0.5f)
+	{
+		outColor = vec4(selectedColor * (texture(textureSampler, pass_textureCoords)));
+	}
+	else
+	{
+		outColor = vec4((ambient + diffuse)* (texture(textureSampler, pass_textureCoords)), 1.0f);
+	}
 }

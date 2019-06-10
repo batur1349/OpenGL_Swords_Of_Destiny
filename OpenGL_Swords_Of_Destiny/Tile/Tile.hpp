@@ -7,7 +7,7 @@
 class Tile
 {
 public:
-	Tile(const TexturedObject& texObj, const glm::vec3& position, const glm::vec3& endPosition);
+	Tile(const TexturedObject& texObj, const glm::vec3& position, const glm::vec3& endPosition, std::pair<glm::vec3, glm::vec3> minmax);
 	virtual ~Tile();
 
 	// Getters
@@ -18,6 +18,7 @@ public:
 	inline float& GetStartZ() { return m_position.z; }
 	inline float& GetEndX() { return m_endPosition.x; }
 	inline float& GetEndZ() { return m_endPosition.z; }
+	inline glm::vec3& GetBounds(const int& index) { return bounds[index]; }
 
 	// Setters
 	void SetSelected(const bool& sel) { m_selected = sel; }
@@ -26,6 +27,7 @@ private:
 	TexturedObject m_texturedObject;
 	glm::vec3 m_position, m_endPosition;
 	bool m_selected;
+	glm::vec3 bounds[2];
 
 	// Functions
 	std::vector<glm::vec3> GenerateVertices();

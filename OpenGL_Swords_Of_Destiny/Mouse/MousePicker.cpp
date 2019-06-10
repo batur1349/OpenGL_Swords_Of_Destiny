@@ -24,8 +24,8 @@ void MousePicker::Update(const float& dt)
 
 	_currentRay = CalculateMouseRay();
 
-	/*TEST*/
-
+	/*TEST COLLISIONS*/
+	/* ENTITIES */
 	float tmin, tmax, tymin, tymax, tzmin, tzmax;
 	glm::vec3 invdir = 1.0f / _currentRay;
 	static int sign[3];
@@ -33,9 +33,7 @@ void MousePicker::Update(const float& dt)
 	sign[1] = (invdir.y < 0);
 	sign[2] = (invdir.z < 0);
 
-	std::printf("Ray : %f %f %f \n", _currentRay.x, _currentRay.y, _currentRay.z);
-
-	int selected;
+	int selectedEntity = 999999;
 	float globalxmin = 999999, globalzmin = 999999;
 	for (int i = 0; i < _entitiesPointer->size(); i++)
 	{
@@ -75,15 +73,77 @@ void MousePicker::Update(const float& dt)
 					globalxmin = xmin;
 					globalzmin = zmin;
 
-					selected = i;
+					selectedEntity = i;
 				}
 				//break;
 			}
 		}
 	}
-	//std::printf("Hit Entity :%d\n", selected);
+	//std::printf("Hit Entity :%d\n", selectedEntity);
+	if (selectedEntity != 999999)
+	{
+		if (m_oldSelectedEntity != 999999)
+			_entitiesPointer->at(m_oldSelectedEntity).SetSelected(false);
+		m_oldSelectedEntity = selectedEntity;
+		_entitiesPointer->at(selectedEntity).SetSelected(true);
+	}
+	else
+	{
+		if (m_oldSelectedEntity != 999999)
+			_entitiesPointer->at(m_oldSelectedEntity).SetSelected(false);
+	}
+	/* ENTITIES */
+	/* TILES */
+	int selectedTile = 999999;
+	//float globalxmin = 999999, globalzmin = 999999;
+	for (int i = 0; i < _terrainPointer->size(); i++)
+	{
+		tmin = (_terrainPointer->at(i).GetBounds(sign[0]).x -
+			_cameraPointer->GetPosition().x) * invdir.x;
+		tmax = (_terrainPointer->at(i).GetBounds(1 - sign[0]).x -
+			_cameraPointer->GetPosition().x) * invdir.x;
+		tymin = (_terrainPointer->at(i).GetBounds(sign[1]).y -
+			_cameraPointer->GetPosition().y) * invdir.y;
+		tymax = (_terrainPointer->at(i).GetBounds(1 - sign[1]).y -
+			_cameraPointer->GetPosition().y) * invdir.y;
 
-	/*TEST*/
+		if (!((tmin > tymax) || (tymin > tmax))) //return; // No Collision
+		{
+			if (tymin > tmin)
+				tmin = tymin;
+			if (tymax < tmax)
+				tmax = tymax;
+
+			tzmin = (_terrainPointer->at(i).GetBounds(sign[2]).z -
+				_cameraPointer->GetPosition().z) * invdir.z;
+			tzmax = (_terrainPointer->at(i).GetBounds(1 - sign[2]).z -
+				_cameraPointer->GetPosition().z) * invdir.z;
+
+			if (!((tmin > tzmax) || (tzmin > tmax))) //return; // No Collision
+			{
+				if (tzmin > tmin)
+					tmin = tzmin;
+				if (tzmax < tmax)
+					tmax = tzmax;
+
+				selectedTile = i;
+			}
+		}
+	}
+	if (selectedTile != 999999)
+	{
+		if (m_oldSelectedTile != 999999)
+			_terrainPointer->at(m_oldSelectedTile).SetSelected(false);
+		m_oldSelectedTile = selectedTile;
+		_terrainPointer->at(selectedTile).SetSelected(true);
+	}
+	else
+	{
+		if (m_oldSelectedTile != 999999)
+			_terrainPointer->at(m_oldSelectedTile).SetSelected(false);
+	}
+	/* TILES */
+	/*TEST COLLISIONS*/
 
 	/*if (IntersectionInRange(0, RAY_RANGE, _currentRay))
 	{

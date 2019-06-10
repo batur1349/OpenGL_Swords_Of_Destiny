@@ -26,6 +26,10 @@ void GeneralShader::LoadViewMatrix(ThirdPersonCamera& camera)
 
 void GeneralShader::LoadSelected(const bool& value)
 {
+	if (value)
+		LoadFloat(m_selected_Location, 1.0f);
+	else
+		LoadFloat(m_selected_Location, 0.0f);
 }
 
 void GeneralShader::LoadLight(Light& light)
@@ -48,4 +52,5 @@ void GeneralShader::GetAllUniformLocations()
 	m_viewMatrix_Location = GetUniformLocation("viewMatrix");
 	m_lightPosition_Location = GetUniformLocation("lightPosition");
 	m_lightColor_Location = GetUniformLocation("lightColor");
+	m_selected_Location = GetUniformLocation("selected");
 }

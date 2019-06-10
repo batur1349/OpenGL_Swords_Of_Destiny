@@ -24,6 +24,6 @@ protected:
 private:
 	// Variables
 	GLuint m_transformationMatrix_Location, m_projectionMatrix_Location, m_viewMatrix_Location
-		, m_lightPosition_Location, m_lightColor_Location;
+		, m_lightPosition_Location, m_lightColor_Location, m_selected_Location;
 };
 #endif // !GENERALSHADER_HPP

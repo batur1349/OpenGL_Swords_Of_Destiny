@@ -27,6 +27,7 @@ private:
 	std::vector<Tile>* _terrainPointer;
 	std::vector<Entity>* _entitiesPointer;
 	float _clickTimeMax = 0.2f, _clickTime = 0.0f, m_selectedTerrainIndex = 0.0f;
+	int m_oldSelectedEntity = 999999, m_oldSelectedTile = 999999;
 	bool _clicked = false;
 
 	// Functions

@@ -2,12 +2,15 @@
 #include "Tile.hpp"
 
 
-Tile::Tile(const TexturedObject& texObj, const glm::vec3& position, const glm::vec3& endPosition)
+Tile::Tile(const TexturedObject& texObj, const glm::vec3& position, const glm::vec3& endPosition, std::pair<glm::vec3, glm::vec3> minmax)
 	: m_texturedObject(texObj)
 {
 	m_position = position;
 	m_endPosition = endPosition;
 	m_selected = false;
+
+	bounds[0] = minmax.first + GetPosition();
+	bounds[1] = minmax.second + GetPosition();
 }
 
 Tile::~Tile()

@@ -77,6 +77,9 @@ void EntityRenderer::RenderEntity(Entity& entity)
 	// Load the transformation matrix into the shader
 	m_shader.LoadTransformationMatrix(Maths::CreateTransformationMatrix(entity.GetPosition(), entity.GetRotation(), entity.GetScale()));
 
+	// Load the selected value
+	m_shader.LoadSelected(entity.GetSelected());
+
 	// Draw the model
 	glDrawElements(GL_TRIANGLES, entity.GetTexturedObject().GetModelObject().GetIndiceCount(), GL_UNSIGNED_INT, 0);
 }

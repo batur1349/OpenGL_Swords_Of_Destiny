@@ -53,7 +53,8 @@ const std::vector<Tile>& ResourceManager::GenerateTilemap()
 		{
 			m_tiles.push_back(Tile(*m_tileTexturedObject,								// Textured object
 				glm::vec3((i * offset) + 1.0f, 0, (j * offset) + 1.0f),					// Start Position
-				glm::vec3(((i + 1) * offset) + 1.0f, 0, ((j + 1) * offset) + 1.0f))		// End Position
+				glm::vec3(((i + 1) * offset) + 1.0f, 0, ((j + 1) * offset) + 1.0f),		// End Position
+				m_objectBounds.at(m_tileTexturedObject->GetModelObject().GetVaoID()))	// Bounds
 			);
 		}
 	}

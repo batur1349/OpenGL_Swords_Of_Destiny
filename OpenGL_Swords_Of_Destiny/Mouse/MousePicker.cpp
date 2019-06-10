@@ -28,54 +28,64 @@ void MousePicker::Update(const float& dt)
 
 	float tmin, tmax, tymin, tymax, tzmin, tzmax;
 	glm::vec3 invdir = 1.0f / _currentRay;
-
-	int sign[3];
+	static int sign[3];
 	sign[0] = (invdir.x < 0);
 	sign[1] = (invdir.y < 0);
 	sign[2] = (invdir.z < 0);
 
-	glm::vec3 bounds[2];
-	bounds[0] = _boundingBoxPtr->at(1).first * _entitiesPointer->at(0).GetScale() + _entitiesPointer->at(0).GetPosition();
-	bounds[1] = _boundingBoxPtr->at(1).second * _entitiesPointer->at(0).GetScale() + _entitiesPointer->at(0).GetPosition();
+	std::printf("Ray : %f %f %f \n", _currentRay.x, _currentRay.y, _currentRay.z);
 
-	system("CLS");
+	int selected;
+	float globalxmin = 999999, globalzmin = 999999;
+	for (int i = 0; i < _entitiesPointer->size(); i++)
+	{
+		float xmin = _entitiesPointer->at(i).GetPosition().x * (_currentRay.x);
+		float zmin = _entitiesPointer->at(i).GetPosition().z * (_currentRay.z);
 
-	tmin = (bounds[sign[0]].x - _cameraPointer->GetPosition().x) * invdir.x;
-	tmax = (bounds[1 - sign[0]].x - _cameraPointer->GetPosition().x) * invdir.x;
-	tymin = (bounds[sign[1]].y - _cameraPointer->GetPosition().y) * invdir.y;
-	tymax = (bounds[1 - sign[1]].y - _cameraPointer->GetPosition().y) * invdir.y;
+		tmin = (_entitiesPointer->at(i).GetBounds(sign[0]).x -
+			_cameraPointer->GetPosition().x) * invdir.x;
+		tmax = (_entitiesPointer->at(i).GetBounds(1 - sign[0]).x -
+			_cameraPointer->GetPosition().x) * invdir.x;
+		tymin = (_entitiesPointer->at(i).GetBounds(sign[1]).y -
+			_cameraPointer->GetPosition().y) * invdir.y;
+		tymax = (_entitiesPointer->at(i).GetBounds(1 - sign[1]).y -
+			_cameraPointer->GetPosition().y) * invdir.y;
 
-	if ((tmin > tymax) || (tymin > tmax))
-		return;
+		if (!((tmin > tymax) || (tymin > tmax))) //return; // No Collision
+		{
+			if (tymin > tmin)
+				tmin = tymin;
+			if (tymax < tmax)
+				tmax = tymax;
 
-	if (tymin > tmin)
-		tmin = tymin;
-	if (tymax < tmax)
-		tmax = tymax;
+			tzmin = (_entitiesPointer->at(i).GetBounds(sign[2]).z -
+				_cameraPointer->GetPosition().z) * invdir.z;
+			tzmax = (_entitiesPointer->at(i).GetBounds(1 - sign[2]).z -
+				_cameraPointer->GetPosition().z) * invdir.z;
 
-	tzmin = (bounds[sign[2]].z - _cameraPointer->GetPosition().z) * invdir.z;
-	tzmax = (bounds[1 - sign[2]].z - _cameraPointer->GetPosition().z) * invdir.z;
+			if (!((tmin > tzmax) || (tzmin > tmax))) //return; // No Collision
+			{
+				if (tzmin > tmin)
+					tmin = tzmin;
+				if (tzmax < tmax)
+					tmax = tzmax;
 
-	if ((tmin > tzmax) || (tzmin > tmax))
-		return;
+				if (xmin < globalxmin && zmin < globalzmin)
+				{
+					globalxmin = xmin;
+					globalzmin = zmin;
 
-	if (tzmin > tmin)
-		tmin = tzmin;
-	if (tzmax < tmax)
-		tmax = tzmax;
+					selected = i;
+				}
+				//break;
+			}
+		}
+	}
+	//std::printf("Hit Entity :%d\n", selected);
 
-	//t = tmin;
-
-	//if (t < 0)
-	//{
-	//	t = tmax;
-	//	if (t < 0) return false;
-	//}
-
-	std::printf("Hit \n");
 	/*TEST*/
 
-	if (IntersectionInRange(0, RAY_RANGE, _currentRay))
+	/*if (IntersectionInRange(0, RAY_RANGE, _currentRay))
 	{
 		_currentTerrainPoint = BinarySearch(0, 0, RAY_RANGE, _currentRay);
 
@@ -87,7 +97,7 @@ void MousePicker::Update(const float& dt)
 	else
 	{
 		_currentTerrainPoint = glm::vec3(0, 0, 0);
-	}
+	}*/
 
 	if (_clicked)
 		_clickTime += dt;

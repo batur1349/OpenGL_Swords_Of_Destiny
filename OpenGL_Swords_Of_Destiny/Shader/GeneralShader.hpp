@@ -15,6 +15,7 @@ public:
 	void LoadTransformationMatrix(const glm::mat4& matrix);
 	void LoadProjectionMatrix(const glm::mat4& matrix);
 	void LoadViewMatrix(ThirdPersonCamera& camera);
+	void LoadSelected(const bool& value);
 	void LoadLight(Light& light);
 protected:
 	// Functions

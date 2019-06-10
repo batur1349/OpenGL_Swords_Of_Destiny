@@ -24,6 +24,10 @@ void GeneralShader::LoadViewMatrix(ThirdPersonCamera& camera)
 	LoadMatrix4F(m_viewMatrix_Location, camera.GetViewMatrix());
 }
 
+void GeneralShader::LoadSelected(const bool& value)
+{
+}
+
 void GeneralShader::LoadLight(Light& light)
 {
 	LoadVector3F(m_lightPosition_Location, light.GetPosition());

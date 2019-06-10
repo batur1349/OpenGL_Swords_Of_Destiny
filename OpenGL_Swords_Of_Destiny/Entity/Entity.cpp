@@ -2,10 +2,11 @@
 #include "Entity.hpp"
 
 
-Entity::Entity(TexturedObject texModel, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale)
+Entity::Entity(TexturedObject texModel, glm::vec3 position, glm::vec3 rotation, glm::vec3 scale, std::pair<glm::vec3, glm::vec3> minmax)
 	: m_texturedObject(texModel), m_position(position), m_rotation(rotation), m_scale(scale)
 {
-
+	bounds[0] = minmax.first * GetScale() + GetPosition();
+	bounds[1] = minmax.second * GetScale() + GetPosition();
 }
 
 void Entity::Move(const glm::vec3& moveVector)

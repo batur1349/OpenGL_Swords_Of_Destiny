@@ -85,9 +85,9 @@ const std::vector<Entity>& ResourceManager::GenerateEntities()
 
 		type = 0;
 		if (type == 0)
-			m_entities.emplace_back(*m_lowPolyTreeTexturedObject, glm::vec3(x, y, z), glm::vec3(0), glm::vec3(scx, scy, scz));
+			m_entities.emplace_back(*m_lowPolyTreeTexturedObject, glm::vec3(x, y, z), glm::vec3(0), glm::vec3(scx, scy, scz), m_objectBounds.at(m_lowPolyTreeTexturedObject->GetModelObject().GetVaoID()));
 		else if (type == 1)
-			m_entities.emplace_back(*m_stallTexturedObject, glm::vec3(x, y, z), glm::vec3(0), glm::vec3(0.25));
+			m_entities.emplace_back(*m_stallTexturedObject, glm::vec3(x, y, z), glm::vec3(0), glm::vec3(0.25), m_objectBounds.at(m_stallTexturedObject->GetModelObject().GetVaoID()));
 	}
 
 	return m_entities;

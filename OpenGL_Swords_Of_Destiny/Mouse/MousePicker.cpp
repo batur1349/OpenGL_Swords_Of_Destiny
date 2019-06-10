@@ -24,149 +24,9 @@ void MousePicker::Update(const float& dt)
 
 	_currentRay = CalculateMouseRay();
 
-	/*TEST COLLISIONS*/
-	/* ENTITIES */
-	float tmin, tmax, tymin, tymax, tzmin, tzmax;
-	glm::vec3 invdir = 1.0f / _currentRay;
-	static int sign[3];
-	sign[0] = (invdir.x < 0);
-	sign[1] = (invdir.y < 0);
-	sign[2] = (invdir.z < 0);
+	UpdateSelections();
 
-	int selectedEntity = 999999;
-	float globalxmin = 999999, globalzmin = 999999;
-	for (int i = 0; i < _entitiesPointer->size(); i++)
-	{
-		float xmin = _entitiesPointer->at(i).GetPosition().x * (_currentRay.x);
-		float zmin = _entitiesPointer->at(i).GetPosition().z * (_currentRay.z);
-
-		tmin = (_entitiesPointer->at(i).GetBounds(sign[0]).x -
-			_cameraPointer->GetPosition().x) * invdir.x;
-		tmax = (_entitiesPointer->at(i).GetBounds(1 - sign[0]).x -
-			_cameraPointer->GetPosition().x) * invdir.x;
-		tymin = (_entitiesPointer->at(i).GetBounds(sign[1]).y -
-			_cameraPointer->GetPosition().y) * invdir.y;
-		tymax = (_entitiesPointer->at(i).GetBounds(1 - sign[1]).y -
-			_cameraPointer->GetPosition().y) * invdir.y;
-
-		if (!((tmin > tymax) || (tymin > tmax))) //return; // No Collision
-		{
-			if (tymin > tmin)
-				tmin = tymin;
-			if (tymax < tmax)
-				tmax = tymax;
-
-			tzmin = (_entitiesPointer->at(i).GetBounds(sign[2]).z -
-				_cameraPointer->GetPosition().z) * invdir.z;
-			tzmax = (_entitiesPointer->at(i).GetBounds(1 - sign[2]).z -
-				_cameraPointer->GetPosition().z) * invdir.z;
-
-			if (!((tmin > tzmax) || (tzmin > tmax))) //return; // No Collision
-			{
-				if (tzmin > tmin)
-					tmin = tzmin;
-				if (tzmax < tmax)
-					tmax = tzmax;
-
-				if (xmin < globalxmin && zmin < globalzmin)
-				{
-					globalxmin = xmin;
-					globalzmin = zmin;
-
-					selectedEntity = i;
-				}
-				//break;
-			}
-		}
-	}
-	//std::printf("Hit Entity :%d\n", selectedEntity);
-	if (selectedEntity != 999999)
-	{
-		if (m_oldSelectedEntity != 999999)
-			_entitiesPointer->at(m_oldSelectedEntity).SetSelected(false);
-		m_oldSelectedEntity = selectedEntity;
-		_entitiesPointer->at(selectedEntity).SetSelected(true);
-	}
-	else
-	{
-		if (m_oldSelectedEntity != 999999)
-			_entitiesPointer->at(m_oldSelectedEntity).SetSelected(false);
-	}
-	/* ENTITIES */
-	/* TILES */
-	int selectedTile = 999999;
-	//float globalxmin = 999999, globalzmin = 999999;
-	for (int i = 0; i < _terrainPointer->size(); i++)
-	{
-		tmin = (_terrainPointer->at(i).GetBounds(sign[0]).x -
-			_cameraPointer->GetPosition().x) * invdir.x;
-		tmax = (_terrainPointer->at(i).GetBounds(1 - sign[0]).x -
-			_cameraPointer->GetPosition().x) * invdir.x;
-		tymin = (_terrainPointer->at(i).GetBounds(sign[1]).y -
-			_cameraPointer->GetPosition().y) * invdir.y;
-		tymax = (_terrainPointer->at(i).GetBounds(1 - sign[1]).y -
-			_cameraPointer->GetPosition().y) * invdir.y;
-
-		if (!((tmin > tymax) || (tymin > tmax))) //return; // No Collision
-		{
-			if (tymin > tmin)
-				tmin = tymin;
-			if (tymax < tmax)
-				tmax = tymax;
-
-			tzmin = (_terrainPointer->at(i).GetBounds(sign[2]).z -
-				_cameraPointer->GetPosition().z) * invdir.z;
-			tzmax = (_terrainPointer->at(i).GetBounds(1 - sign[2]).z -
-				_cameraPointer->GetPosition().z) * invdir.z;
-
-			if (!((tmin > tzmax) || (tzmin > tmax))) //return; // No Collision
-			{
-				if (tzmin > tmin)
-					tmin = tzmin;
-				if (tzmax < tmax)
-					tmax = tzmax;
-
-				selectedTile = i;
-			}
-		}
-	}
-	if (selectedTile != 999999)
-	{
-		if (m_oldSelectedTile != 999999)
-			_terrainPointer->at(m_oldSelectedTile).SetSelected(false);
-		m_oldSelectedTile = selectedTile;
-		_terrainPointer->at(selectedTile).SetSelected(true);
-	}
-	else
-	{
-		if (m_oldSelectedTile != 999999)
-			_terrainPointer->at(m_oldSelectedTile).SetSelected(false);
-	}
-	/* TILES */
-	/*TEST COLLISIONS*/
-
-	/*if (IntersectionInRange(0, RAY_RANGE, _currentRay))
-	{
-		_currentTerrainPoint = BinarySearch(0, 0, RAY_RANGE, _currentRay);
-
-		if (!_clicked)
-		{
-			SetTerrain(_currentTerrainPoint.x, _currentTerrainPoint.z);
-		}
-	}
-	else
-	{
-		_currentTerrainPoint = glm::vec3(0, 0, 0);
-	}*/
-
-	if (_clicked)
-		_clickTime += dt;
-
-	if (_clickTime >= _clickTimeMax)
-	{
-		_clicked = false;
-		_clickTime = 0.0f;
-	}
+	UpdateClickTimer(dt);
 }
 
 glm::vec3 MousePicker::CalculateMouseRay()
@@ -209,6 +69,183 @@ glm::vec3 MousePicker::ToWorldCoords(const glm::vec4& eyeCoords)
 	mouseRay = glm::normalize(mouseRay);
 
 	return mouseRay;
+}
+
+bool MousePicker::TestEntities()
+{
+	float tmin, tmax, tymin, tymax, tzmin, tzmax;
+	glm::vec3 invdir = 1.0f / _currentRay;
+	static int sign[3];
+	sign[0] = (invdir.x < 0);
+	sign[1] = (invdir.y < 0);
+	sign[2] = (invdir.z < 0);
+
+	int selectedEntity = 999999;
+	float globalxmin = 999999, globalzmin = 999999;
+	for (int i = 0; i < _entitiesPointer->size(); i++)
+	{
+		float xmin = _entitiesPointer->at(i).GetPosition().x * (_currentRay.x);
+		float zmin = _entitiesPointer->at(i).GetPosition().z * (_currentRay.z);
+
+		tmin = (_entitiesPointer->at(i).GetBounds(sign[0]).x -
+			_cameraPointer->GetPosition().x) * invdir.x;
+		tmax = (_entitiesPointer->at(i).GetBounds(1 - sign[0]).x -
+			_cameraPointer->GetPosition().x) * invdir.x;
+		tymin = (_entitiesPointer->at(i).GetBounds(sign[1]).y -
+			_cameraPointer->GetPosition().y) * invdir.y;
+		tymax = (_entitiesPointer->at(i).GetBounds(1 - sign[1]).y -
+			_cameraPointer->GetPosition().y) * invdir.y;
+
+		if (!((tmin > tymax) || (tymin > tmax))) // No Collision
+		{
+			if (tymin > tmin)
+				tmin = tymin;
+			if (tymax < tmax)
+				tmax = tymax;
+
+			tzmin = (_entitiesPointer->at(i).GetBounds(sign[2]).z -
+				_cameraPointer->GetPosition().z) * invdir.z;
+			tzmax = (_entitiesPointer->at(i).GetBounds(1 - sign[2]).z -
+				_cameraPointer->GetPosition().z) * invdir.z;
+
+			if (!((tmin > tzmax) || (tzmin > tmax))) // No Collision
+			{
+				if (tzmin > tmin)
+					tmin = tzmin;
+				if (tzmax < tmax)
+					tmax = tzmax;
+
+				if (xmin < globalxmin && zmin < globalzmin)
+				{
+					globalxmin = xmin;
+					globalzmin = zmin;
+
+					selectedEntity = i;
+				}
+			}
+		}
+	}
+	if (selectedEntity != 999999)
+	{
+		if (m_oldSelectedEntity != 999999)
+			_entitiesPointer->at(m_oldSelectedEntity).SetSelected(false);
+
+		if (m_oldSelectedTile != 999999)
+			_terrainPointer->at(m_oldSelectedTile).SetSelected(false);
+
+		m_oldSelectedEntity = selectedEntity;
+		_entitiesPointer->at(selectedEntity).SetSelected(true);
+
+		_clicked = true;
+		return true;
+	}
+	else
+	{
+		if (m_oldSelectedEntity != 999999)
+			_entitiesPointer->at(m_oldSelectedEntity).SetSelected(false);
+
+		_clicked = true;
+		return false;
+	}
+}
+
+void MousePicker::TestTiles()
+{
+	float tmin, tmax, tymin, tymax, tzmin, tzmax;
+	glm::vec3 invdir = 1.0f / _currentRay;
+	static int sign[3];
+	sign[0] = (invdir.x < 0);
+	sign[1] = (invdir.y < 0);
+	sign[2] = (invdir.z < 0);
+
+	int selectedTile = 999999;
+	for (int i = 0; i < _terrainPointer->size(); i++)
+	{
+		tmin = (_terrainPointer->at(i).GetBounds(sign[0]).x -
+			_cameraPointer->GetPosition().x) * invdir.x;
+		tmax = (_terrainPointer->at(i).GetBounds(1 - sign[0]).x -
+			_cameraPointer->GetPosition().x) * invdir.x;
+		tymin = (_terrainPointer->at(i).GetBounds(sign[1]).y -
+			_cameraPointer->GetPosition().y) * invdir.y;
+		tymax = (_terrainPointer->at(i).GetBounds(1 - sign[1]).y -
+			_cameraPointer->GetPosition().y) * invdir.y;
+
+		if (!((tmin > tymax) || (tymin > tmax))) //return; // No Collision
+		{
+			if (tymin > tmin)
+				tmin = tymin;
+			if (tymax < tmax)
+				tmax = tymax;
+
+			tzmin = (_terrainPointer->at(i).GetBounds(sign[2]).z -
+				_cameraPointer->GetPosition().z) * invdir.z;
+			tzmax = (_terrainPointer->at(i).GetBounds(1 - sign[2]).z -
+				_cameraPointer->GetPosition().z) * invdir.z;
+
+			if (!((tmin > tzmax) || (tzmin > tmax))) //return; // No Collision
+			{
+				if (tzmin > tmin)
+					tmin = tzmin;
+				if (tzmax < tmax)
+					tmax = tzmax;
+
+				selectedTile = i;
+			}
+		}
+	}
+	if (selectedTile != 999999)
+	{
+		if (!_terrainPointer->at(selectedTile).GetSelected())
+		{
+			if (m_oldSelectedTile != 999999)
+				_terrainPointer->at(m_oldSelectedTile).SetSelected(false);
+
+			_terrainPointer->at(selectedTile).SetSelected(true);
+			m_oldSelectedTile = selectedTile;
+		}
+		else
+			_terrainPointer->at(selectedTile).SetSelected(false);
+
+		_clicked = true;
+	}
+	else
+	{
+		if (m_oldSelectedTile != 999999)
+			_terrainPointer->at(m_oldSelectedTile).SetSelected(false);
+
+		_clicked = true;
+	}
+}
+
+void MousePicker::UpdateSelections()
+{
+	if (glfwGetMouseButton(glfwGetCurrentContext(), GLFW_MOUSE_BUTTON_LEFT) && !_clicked)
+	{
+		if (!TestEntities())
+		{
+			TestTiles();
+		}
+	}
+	else if (glfwGetMouseButton(glfwGetCurrentContext(), GLFW_MOUSE_BUTTON_RIGHT) && !_clicked)
+	{
+		if (m_oldSelectedEntity != 999999)
+			_entitiesPointer->at(m_oldSelectedEntity).SetSelected(false);
+
+		if (m_oldSelectedTile != 999999)
+			_terrainPointer->at(m_oldSelectedTile).SetSelected(false);
+	}
+}
+
+void MousePicker::UpdateClickTimer(const float& dt)
+{
+	if (_clicked)
+		_clickTime += dt;
+
+	if (_clickTime >= _clickTimeMax)
+	{
+		_clicked = false;
+		_clickTime = 0.0f;
+	}
 }
 
 glm::vec3 MousePicker::GetPointOnRay(glm::vec3 ray, float distance)

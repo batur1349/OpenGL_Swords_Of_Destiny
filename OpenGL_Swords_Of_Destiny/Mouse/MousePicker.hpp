@@ -13,13 +13,12 @@ public:
 
 	// Getters
 	inline glm::vec3& GetCurrentRay() { return _currentRay; }
-	inline glm::vec3& GetCurrentTerrainPoint() { return _currentTerrainPoint; }
 
 	// Functions
 	void Update(const float& dt);
 private:
 	// Variables
-	glm::vec3 _currentRay, _currentTerrainPoint;
+	glm::vec3 _currentRay;
 	glm::mat4 _projectionMatrix, _currentViewMatrix;
 	ThirdPersonCamera* _cameraPointer;
 	const int RECURSION_COUNT = 75; //200
@@ -35,6 +34,10 @@ private:
 	glm::vec2 GetNormalizedDeviceCoordinates(float mouseX, float mouseY);
 	glm::vec4 ToEyeCoords(const glm::vec4& clipCoords);
 	glm::vec3 ToWorldCoords(const glm::vec4& eyeCoords);
+	bool TestEntities();
+	void TestTiles();
+	void UpdateSelections();
+	void UpdateClickTimer(const float& dt);
 
 	glm::vec3 GetPointOnRay(glm::vec3 ray, float distance);
 	glm::vec3 BinarySearch(int count, float start, float finish, glm::vec3 ray);

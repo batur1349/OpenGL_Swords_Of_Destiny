@@ -84,7 +84,6 @@ void Engine::Run()
 		renderer.Prepare();
 		renderer.Render(entities, tiles, guis, sun, camera, tileTextures);
 
-
 		// Update the window
 		_window->Update();
 

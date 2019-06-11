@@ -67,7 +67,9 @@ void Engine::Run()
 
 	MousePicker mousePicker(&camera, &tiles, &entities, &objectBounds);
 
-	Light sun(glm::vec3(0.0f), glm::vec3(1.0f));
+	Light sun(glm::vec3(2000.0f, 2000.0f, 2000.0f), glm::vec3(1.0f));
+	std::vector<Light> lights;
+	lights.push_back(sun);
 
 	while (_window->IsOpen())
 	{
@@ -81,7 +83,7 @@ void Engine::Run()
 		mousePicker.Update(_deltaTime);
 
 		// Render
-		renderer.Render(entities, tiles, guis, sun, camera, tileTextures);
+		renderer.Render(entities, tiles, guis, lights, camera, tileTextures);
 
 		// Update the window
 		_window->Update();

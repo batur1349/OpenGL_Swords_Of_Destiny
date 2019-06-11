@@ -7,6 +7,8 @@ ResourceManager::ResourceManager()
 	// LOWPOLYTREE
 	Object lowPolyTreeObject = m_loader.LoadAssimpObjFile("lowPolyTree");
 	Texture lowPolyTreeTexture = m_loader.LoadTexture2D("lowPolyTree");
+	lowPolyTreeTexture.SetShinedamper(1.0f);
+	lowPolyTreeTexture.SetReflectivity(0.2f);
 	m_lowPolyTreeTexturedObject = new TexturedObject(lowPolyTreeObject, lowPolyTreeTexture);
 
 	GetObjectVertices("lowPolyTree", lowPolyTreeObject.GetVaoID());
@@ -65,7 +67,6 @@ const std::vector<Tile>& ResourceManager::GenerateTilemap()
 const std::vector<Entity>& ResourceManager::GenerateEntities()
 {
 	int x, y, z, type, adet;
-	float scx, scy, scz;
 
 #ifdef _DEBUG
 	adet = 1;
@@ -80,15 +81,15 @@ const std::vector<Entity>& ResourceManager::GenerateEntities()
 		y = 0;
 		z = rand() % 80;
 
-		scx = 15.0f / (float)100;
-		scy = (float)(rand() % 19 + 10) / (float)100;
-		scz = scx;
-
 		type = 0;
 		if (type == 0)
-			m_entities.emplace_back(*m_lowPolyTreeTexturedObject, glm::vec3(x, y, z), glm::vec3(0), glm::vec3(scx, scy, scz), m_objectBounds.at(m_lowPolyTreeTexturedObject->GetModelObject().GetVaoID()));
+		{
+			m_entities.emplace_back(*m_lowPolyTreeTexturedObject, glm::vec3(x, y, z), glm::vec3(0), glm::vec3(0.2), m_objectBounds.at(m_lowPolyTreeTexturedObject->GetModelObject().GetVaoID()));
+		}
 		else if (type == 1)
+		{
 			m_entities.emplace_back(*m_stallTexturedObject, glm::vec3(x, y, z), glm::vec3(0), glm::vec3(0.25), m_objectBounds.at(m_stallTexturedObject->GetModelObject().GetVaoID()));
+		}
 	}
 
 	return m_entities;

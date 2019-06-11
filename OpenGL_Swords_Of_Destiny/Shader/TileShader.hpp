@@ -15,6 +15,7 @@ public:
 	void LoadProjectionMatrix(const glm::mat4& matrix);
 	void LoadViewMatrix(ThirdPersonCamera& camera);
 	void LoadSelected(const bool& selected);
+	void LoadUseFog(const bool& usefog);
 	void ConnectTextureUnits();
 protected:
 	// Functions
@@ -24,6 +25,7 @@ private:
 	// Variables
 	GLuint m_transformationMatrix_Location, m_projectionMatrix_Location, m_viewMatrix_Location;
 	GLuint m_selected_Location, m_texture_Location, m_selectedTile_Location, m_bloodTile_Location;
+	GLuint m_useFog_Location;
 };
 
 #endif // !TILESHADER_HPP

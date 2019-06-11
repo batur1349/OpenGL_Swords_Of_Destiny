@@ -46,16 +46,29 @@ void EntityRenderer::BindTexturedObject(TexturedObject texturedObject)
 {
 	// Get the BaseModel from the TexturedModel
 	Object model = texturedObject.GetModelObject();
+
 	// Bind the models vertex array object id so we can render it
 	glBindVertexArray(model.GetVaoID());
+
 	// Enable the attrib arrays 0 - Position, 1 - TextureCoords, 2 - Normals
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
+
 	// Load shineDamper and reflectivity from the texture
 	Texture texture = texturedObject.GetModelTexture();
+	m_shader.LoadShineVariables(texture.GetShinedamper(), texture.GetReflectivity());
+
+	// If the texture has transparency then disable culling
+	if (texture.GetTransparency())
+		DisableCulling();
+
+	// Load the fake lightning variable for grass and etc.
+	m_shader.LoadFakeLightningVariable(texture.GetFakeLightning());
+
 	// Activate an OpenGL texture unit and tell it where the texture is
 	glActiveTexture(GL_TEXTURE0);
+
 	// Bind the texturedModel's texture
 	glBindTexture(GL_TEXTURE_2D, texturedObject.GetModelTexture().GetTextureID());
 }

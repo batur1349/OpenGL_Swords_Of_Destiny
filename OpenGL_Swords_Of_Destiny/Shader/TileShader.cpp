@@ -32,6 +32,14 @@ void TileShader::LoadSelected(const bool& selected)
 		LoadFloat(m_selected_Location, 0);
 }
 
+void TileShader::LoadUseFog(const bool& usefog)
+{
+	if (usefog)
+		LoadFloat(m_useFog_Location, 1);
+	else
+		LoadFloat(m_useFog_Location, 0);
+}
+
 void TileShader::ConnectTextureUnits()
 {
 	LoadInt(m_texture_Location, 0);
@@ -55,4 +63,5 @@ void TileShader::GetAllUniformLocations()
 	m_texture_Location = GetUniformLocation("textureSampler");
 	m_selectedTile_Location = GetUniformLocation("selectedSampler");
 	m_bloodTile_Location = GetUniformLocation("bloodSampler");
+	m_useFog_Location = GetUniformLocation("useFog");
 }

@@ -24,11 +24,12 @@ void MasterRenderer::Prepare()
 {
 	// Clear the screen with this color
 	glClearColor(RED, GREEN, BLUE, 1.0f);
+
 	// Clear the previous buffered colors
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void MasterRenderer::Render(std::vector<Entity>& entities, std::vector<Tile>& tiles, std::vector<GuiTexture>& guis, Light& light,
+void MasterRenderer::Render(std::vector<Entity>& entities, std::vector<Tile>& tiles, std::vector<GuiTexture>& guis, std::vector<Light>& lights,
 	ThirdPersonCamera& camera, std::map<std::string, Texture>& tileTextures)
 {
 	for (auto& entity : entities)
@@ -49,11 +50,14 @@ void MasterRenderer::Render(std::vector<Entity>& entities, std::vector<Tile>& ti
 	// Activate the shader
 	m_shader.Start();
 
+	// Load the fog option
+	m_shader.LoadUseFog(false);
+
 	// Load shader parameters
 	m_shader.LoadViewMatrix(camera);
 
 	// Load light parameters
-	m_shader.LoadLight(light);
+	m_shader.LoadLights(lights);
 
 	// Render all of the entities
 	m_entityRenderer.RenderEntities(m_entities, m_frustum);
@@ -64,11 +68,11 @@ void MasterRenderer::Render(std::vector<Entity>& entities, std::vector<Tile>& ti
 	// Start the terrain shader
 	m_tileShader.Start();
 
+	// Load the fog option
+	m_tileShader.LoadUseFog(false);
+
 	// Load terrain shader parameters
 	m_tileShader.LoadViewMatrix(camera);
-
-	// Load light parameters
-	m_tileShader.LoadLight(light);
 
 	// Render all of the terrains
 	m_tileRenderer.RenderTiles(m_tiles, m_frustum, tileTextures);

@@ -19,7 +19,6 @@ uniform vec3 lightPosition;
 
 void main()
 {
-
 	vec4 worldPosition = transformationMatrix * vec4(in_vertexPositions, 1.0f);
 
 	gl_Position = projectionMatrix * viewMatrix * worldPosition;

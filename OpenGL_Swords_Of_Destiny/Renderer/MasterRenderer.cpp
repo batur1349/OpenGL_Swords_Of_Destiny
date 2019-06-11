@@ -31,8 +31,6 @@ void MasterRenderer::Prepare()
 void MasterRenderer::Render(std::vector<Entity>& entities, std::vector<Tile>& tiles, std::vector<GuiTexture>& guis, Light& light,
 	ThirdPersonCamera& camera, std::map<std::string, Texture>& tileTextures)
 {
-	Prepare();
-
 	for (auto& entity : entities)
 		ConstructEntityBatch(entity);
 	for (auto& tile : tiles)
@@ -68,6 +66,9 @@ void MasterRenderer::Render(std::vector<Entity>& entities, std::vector<Tile>& ti
 
 	// Load terrain shader parameters
 	m_tileShader.LoadViewMatrix(camera);
+
+	// Load light parameters
+	m_tileShader.LoadLight(light);
 
 	// Render all of the terrains
 	m_tileRenderer.RenderTiles(m_tiles, m_frustum, tileTextures);

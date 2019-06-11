@@ -25,7 +25,7 @@ void main()
 	// Diffuse Color Calculation
 	vec3 unitNormal = normalize(surfaceNormal);
 	vec3 unitLightVector = normalize(toLightVector);
-	float brightness = max(dot(unitNormal, unitLightVector), 0.0f);
+	float brightness = max(dot(unitNormal, unitLightVector), 0.05f);
 	vec3 diffuse = brightness * lightColor;
 
 	if(selected > 0.5f)

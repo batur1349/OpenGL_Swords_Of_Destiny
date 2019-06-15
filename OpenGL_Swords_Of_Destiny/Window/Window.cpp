@@ -2,7 +2,7 @@
 #include "Window.hpp"
 
 
-Window::Window(const unsigned int & width, const unsigned int & height, const std::string & title)
+Window::Window(const unsigned int& width, const unsigned int& height, const std::string& title)
 	: _screenWidth(width), _screenHeight(height), _frameLimit(0), _deltaTime(0.0f)
 {
 	// Set the windows title
@@ -110,7 +110,7 @@ void Window::ShowFps()
 	previousFrame = currentFrame;
 }
 
-const bool & Window::IsOpen() const
+const bool& Window::IsOpen() const
 {
 	// If frame limit has set sleep the thread
 	if (_frameLimit != 0)
@@ -125,52 +125,52 @@ const bool & Window::IsOpen() const
 	return !glfwWindowShouldClose(_window);
 }
 
-const float & Window::GetAspectRatio() const
+const float& Window::GetAspectRatio() const
 {
 	return _aspectRatio;
 }
 
-const float & Window::GetDeltatime() const
+const float& Window::GetDeltatime() const
 {
 	return _deltaTime;
 }
 
-const unsigned int & Window::GetFramelimit() const
+const unsigned int& Window::GetFramelimit() const
 {
 	return _frameLimit;
 }
 
-const glm::vec2 & Window::GetMousepositionScreen() const
+const glm::vec2& Window::GetMousepositionScreen() const
 {
 	return _mousePositionScreen;
 }
 
-const glm::vec2 & Window::GetMousepositionWindow() const
+const glm::vec2& Window::GetMousepositionWindow() const
 {
 	return _mousePositionWindow;
 }
 
-const glm::vec2 & Window::GetMousepositionOpenGL() const
+const glm::vec2& Window::GetMousepositionOpenGL() const
 {
 	return _mousePositionOpenGL;
 }
 
-const unsigned int & Window::GetScreenWidth() const
+const unsigned int& Window::GetScreenWidth() const
 {
 	return _screenWidth;
 }
 
-const unsigned int & Window::GetScreenHeight() const
+const unsigned int& Window::GetScreenHeight() const
 {
 	return _screenHeight;
 }
 
-void Window::SetMsTitle(const std::string & msTitle)
+void Window::SetMsTitle(const std::string& msTitle)
 {
 	_msTitle = msTitle;
 }
 
-void Window::SetSize(const unsigned int & width, const unsigned int & height)
+void Window::SetSize(const unsigned int& width, const unsigned int& height)
 {
 	// Set the aspect ratio of window
 	_aspectRatio = static_cast<float>(width) / static_cast<float>(height);
@@ -182,12 +182,12 @@ void Window::SetSize(const unsigned int & width, const unsigned int & height)
 	_screenWidth = width; _screenHeight = height;
 }
 
-void Window::SetVsync(const unsigned int & value)
+void Window::SetVsync(const unsigned int& value)
 {
 	glfwSwapInterval(value);
 }
 
-void Window::SetFramelimit(const unsigned int & limit)
+void Window::SetFramelimit(const unsigned int& limit)
 {
 	_frameLimit = limit;
 }

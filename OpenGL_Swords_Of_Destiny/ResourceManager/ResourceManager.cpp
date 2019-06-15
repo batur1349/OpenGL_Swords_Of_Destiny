@@ -151,9 +151,12 @@ void ResourceManager::GetObjectVertices(const std::string& fileName, const GLuin
 void ResourceManager::CalculateObjectBounds()
 {
 	glm::vec3 min, max;
-	int size = m_objectVertices.size();
+	auto it = std::prev(m_objectVertices.end());
+	int size = it->first;
+	auto beg = m_objectVertices.begin();
+	int begin = beg->first;
 
-	for (int i = 1; i <= size; i++)
+	for (int i = begin; i <= size; i++)
 	{
 		min = m_objectVertices[i].at(0);
 		max = m_objectVertices[i].at(0);

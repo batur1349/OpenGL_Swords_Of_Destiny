@@ -31,6 +31,10 @@
 // Additional System Includes
 #include <Windows.h>
 
+// FreeType For Fonts
+#include <ft2build.h>
+#include FT_FREETYPE_H
+
 // GLM Mathematics Includes
 #define GLM_FORCE_CTOR_INIT
 #include <glm.hpp>

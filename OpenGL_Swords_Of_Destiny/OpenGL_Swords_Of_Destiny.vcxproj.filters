@@ -90,6 +90,15 @@
     <ClInclude Include="Texture\TileTexturePack.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Shader\FontShader.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Text\Font.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Text\TextShader.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -167,6 +176,15 @@
     <ClCompile Include="Texture\TileTexturePack.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Shader\FontShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Text\Font.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Text\TextShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\GeneralShader.frag" />
@@ -175,5 +193,7 @@
     <None Include="Shader\TileShader.vert" />
     <None Include="Gui\guiShader.frag" />
     <None Include="Gui\guiShader.vert" />
+    <None Include="Shader\textShader.frag" />
+    <None Include="Shader\textShader.vert" />
   </ItemGroup>
 </Project>

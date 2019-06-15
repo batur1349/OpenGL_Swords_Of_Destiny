@@ -1,5 +1,7 @@
 #include "../pch.h"
 #include "Engine.hpp"
+#include "../Text/Font.hpp"
+
 
 Engine::Engine()
 {
@@ -71,6 +73,8 @@ void Engine::Run()
 	std::vector<Light> lights;
 	lights.push_back(sun);
 
+	Font font("../Fonts/vivaldi.ttf", 48);
+
 	while (_window->IsOpen())
 	{
 		// Update the deltaTime 
@@ -84,6 +88,9 @@ void Engine::Run()
 
 		// Render
 		renderer.Render(entities, tiles, guis, lights, camera, tileTextures);
+		font.RenderText("Version 0.1", 0.0f, 5.0f, 1.0f, glm::vec3(0.8, 0.3, 0.2));
+		font.RenderText("Barbaros Baturay", 300.0f, 552.0f, 1.0f, glm::vec3(1.0f, 0.0f, 0.4f));
+		font.RenderText("Swords Of Destiny!", 280.0f, 510.0f, 1.0f, glm::vec3(0.2f, 0.3f, 0.4f));
 
 		// Update the window
 		_window->Update();

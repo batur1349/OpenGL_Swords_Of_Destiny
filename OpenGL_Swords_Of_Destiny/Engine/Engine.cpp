@@ -73,7 +73,7 @@ void Engine::Run()
 	std::vector<Light> lights;
 	lights.push_back(sun);
 
-	Font font("../Fonts/vivaldi.ttf", 48);
+	Font font("../Fonts/vivaldi.fnt", 48);
 
 	while (_window->IsOpen())
 	{

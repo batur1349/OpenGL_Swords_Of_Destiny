@@ -99,6 +99,9 @@
     <ClInclude Include="Text\TextShader.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="FontMesh\Character.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -183,6 +186,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Text\TextShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FontMesh\Character.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

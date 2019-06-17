@@ -34,6 +34,24 @@ Object Loader::LoadToVAO(std::vector<glm::vec2>& vertices)
 	return Object(vaoID, vertices.size());
 }
 
+GLuint Loader::LoadToVAOV2V2(std::vector<glm::vec2>& vertices, std::vector<glm::vec2>& textures)
+{
+	// Create the vertex array object's id
+	GLuint vaoID = CreateVaoID();
+
+	// Load positions data to the attribute list 0
+	LoadDataToAttributeList(0, 2, vertices.data(), sizeof(glm::vec2) * vertices.size());
+
+	// Load the texture coordinates data to the attribute list 1
+	LoadDataToAttributeList(1, 2, textures.data(), sizeof(glm::vec2) * textures.size());
+
+	// Unbind the vertex array object
+	UnbindVAO();
+
+	// Return the raw model
+	return vaoID;
+}
+
 Object Loader::LoadToVAO(std::vector<glm::vec3> vertices, std::vector<glm::vec2> textures, std::vector<glm::vec3> normals, std::vector<int> indices)
 {
 	// Create the vertex array object's id

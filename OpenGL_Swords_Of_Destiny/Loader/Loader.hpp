@@ -12,6 +12,7 @@ public:
 	~Loader();
 	// Functions
 	Object LoadToVAO(std::vector<glm::vec2>& vertices);
+	GLuint LoadToVAOV2V2(std::vector<glm::vec2>& vertices, std::vector<glm::vec2>& textures);
 	Object LoadToVAO(std::vector<glm::vec3> vertices, std::vector<glm::vec2> textures, std::vector<glm::vec3> normals, std::vector<int> indices);
 	Object LoadAssimpObjFile(const std::string& fileName);
 	GLuint LoadTexture2D(const std::string& fileName);
